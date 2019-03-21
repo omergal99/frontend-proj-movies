@@ -1,0 +1,122 @@
+[
+    {
+        "_id": "0m00001",
+        "rank": 9.6,
+        "details": {
+            "name": "The Godfather",
+            "year": "1972",
+            "description": "The Godfather is a 1972 American crime film directed by Francis Ford Coppola and produced by Albert S. Ruddy, based on Mario Puzo's best-selling novel of the same name. It stars Marlon Brando and Al Pacino as the leaders of a fictional New York crime family. The story, spanning 1945 to 1955, chronicles the family under the patriarch Vito Corleone (Brando), focusing on the transformation of Michael Corleone (Pacino) from reluctant family outsider to ruthless mafia boss.",
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg",
+            "actors": ["Marlon Brando", "Al Pacino", "James Caan"],
+            "director": ["Francis Ford Coppola"]
+        }    
+    },
+    {
+        "_id": "0m00002",
+        "rank": 9.5,
+        "details": {
+            "name": "The Shawshank Redemption",
+            "year": "1994",
+            "description": "The Shawshank Redemption is a 1994 American drama film written and directed by Frank Darabont, based on the 1982 Stephen King novella Rita Hayworth and Shawshank Redemption. It tells the story of banker Andy Dufresne (Tim Robbins), who is sentenced to life in Shawshank State Penitentiary for the murder of his wife and her lover, despite his claims of innocence. Over the following two decades, he befriends a fellow prisoner, contraband smuggler Ellis 'Red' Redding (Morgan Freeman), and becomes instrumental in a money laundering operation led by the prison warden Samuel Norton (Bob Gunton). William Sadler, Clancy Brown, Gil Bellows, and James Whitmore appear in supporting roles.",
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
+            "actors": ["Tim Robbins", "Morgan Freeman", "Bob Gunton"],
+            "director": ["Frank Darabont"]
+        }
+    },
+    {
+        "_id": "0m00003",
+        "rank": 9.2,
+        "details": {
+            "name": "Pulp Fiction",
+            "year": "1994",
+            "description": "Pulp Fiction is a 1994 American crime thriller drama film written and directed by Quentin Tarantino; it is based on a story by Tarantino and Roger Avary.[4] Starring John Travolta, Samuel L. Jackson, Bruce Willis, Tim Roth, Ving Rhames, and Uma Thurman, it tells several stories of criminal Los Angeles. The film's title refers to the pulp magazines and hardboiled crime novels popular during the mid-20th century, known for their graphic violence and punchy dialogue.",    
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/3/3b/Pulp_Fiction_%281994%29_poster.jpg",       
+            "actors": ["John Travolta", "Samuel L. Jackson", "Uma Thurman", "Harvey Keitel"],
+            "director": ["Quentin Tarantino"]
+        }
+    },
+    {
+        "_id": "0m00004",
+        "rank": 8.7,
+        "details":{
+            "name": "Star Wars",
+            "year": "1977",
+            "description": "Star Wars (later retitled Star Wars: Episode IV – A New Hope) is a 1977 American epic space opera film written and directed by George Lucas. It is the first film in the original Star Wars trilogy and the beginning of the Star Wars franchise. Starring Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing, Alec Guinness, David Prowse, James Earl Jones, Anthony Daniels, Kenny Baker, and Peter Mayhew, the film focuses on the Rebel Alliance, led by Princess Leia (Fisher), and its attempt to destroy the Galactic Empire's space station, the Death Star.",           
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/8/87/StarWarsMoviePoster1977.jpg",    
+            "actors": ["Mark Hamill", "Harrison Ford", "Carrie Fisher"],
+            "director": ["George Lucas"]
+        }
+    },
+    {
+        "_id": "0m00005",
+        "rank": 8.8,
+        "details":{
+            "name": "Fight Club",
+            "year": "1996",
+            "description": "Fight Club is a 1999 film based on the 1996 novel by Chuck Palahniuk. It was directed by David Fincher and stars Brad Pitt, Edward Norton, and Helena Bonham Carter. Norton plays the unnamed narrator, who is discontent with his white-collar job. He forms a 'fight club' with soap salesman Tyler Durden (Pitt), and becomes embroiled in a relationship with him and a destitute woman, Marla Singer (Bonham Carter).",           
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/f/fc/Fight_Club_poster.jpg",    
+            "actors": ["Brad Pitt", "Edward Norton", "Helena Bonham Carter"],
+            "director": ["David Fincher"]
+        }
+    },
+    {
+        "_id": "0m00006",
+        "rank": 8.9,
+        "details":{
+            "name": "The Matrix",
+            "year": "1999",
+            "description": "The Matrix is a 1999 science fiction action film written and directed by The Wachowskis and starring Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss, Hugo Weaving, and Joe Pantoliano. It depicts a dystopian future in which humanity is unknowingly trapped inside a simulated reality called the Matrix, created by thought-capable machines (artificial beings) to control humans while using their bodies as an energy source. Hacker and computer programmer Neo learns this truth and 'is drawn into a rebellion against the machines', which involves other people who have been freed from the Matrix.",       
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg",       
+            "actors": ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"],
+            "director": ["Lana Wachowski and Lilly Wachowski"]
+        }
+    },
+    {
+        "_id": "0m00007",
+        "rank": 9.0,
+        "details":{
+            "name": "Schindler's List",
+            "year": "1993",
+            "description": "Schindler's List is a 1993 American epic historical period drama film directed and co-produced by Steven Spielberg and written by Steven Zaillian. It is based on the novel Schindler's Ark by Australian novelist Thomas Keneally. The film follows Oskar Schindler, a Sudeten German businessman, who saved the lives of more than a thousand mostly Polish-Jewish refugees from the Holocaust by employing them in his factories during World War II. It stars Liam Neeson as Schindler, Ralph Fiennes as SS officer Amon Göth, and Ben Kingsley as Schindler's Jewish accountant Itzhak Stern.",          
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/3/38/Schindler%27s_List_movie.jpg",    
+            "actors": ["Liam Neeson", "Ben Kingsley", "Ralph Fiennes"],
+            "director": ["Steven Spielberg"]
+        }
+    },
+    {
+        "_id": "0m00008",
+        "rank": 8.4,
+        "details":{
+            "name": "Die Hard",
+            "year": "1988",
+            "description": "Die Hard is a 1988 American action thriller film directed by John McTiernan and written by Steven E. de Souza and Jeb Stuart, based on Roderick Thorp's 1979 novel Nothing Lasts Forever. It was produced by the Gordon Company and Silver Pictures, and distributed by 20th Century Fox. The film follows off-duty New York City Police Department officer John McClane (Bruce Willis) who is caught in a Los Angeles skyscraper during a heist led by Hans Gruber (Alan Rickman).",           
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/7/7e/Die_hard.jpg",    
+            "actors": ["Bruce Willis", "Alan Rickman"],
+            "director": ["John McTiernan"]
+        }
+    },
+    {
+        "_id": "0m00009",
+        "rank": 8.7,
+        "details":{
+            "name": "Titanic",
+            "year": "1997",
+            "description": "Titanic is a 1997 American epic romance and disaster film directed, written, co-produced and co-edited by James Cameron. A fictionalized account of the sinking of the RMS Titanic, it stars Leonardo DiCaprio and Kate Winslet as members of different social classes who fall in love aboard the ship during its ill-fated maiden voyage.",            
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/1/19/Titanic_%28Official_Film_Poster%29.png",    
+            "actors": ["Leonardo DiCaprio", "Kate Winslet"],
+            "director": ["James Cameron"]
+        }
+    },
+    {
+        "_id": "0m00010",
+        "rank": 9.3,
+        "details":{
+            "name": "Back to the Future",
+            "year": "1985",
+            "description": "Back to the Future is a 1985 American science fiction film directed by Robert Zemeckis and written by Zemeckis and Bob Gale. It stars Michael J. Fox as teenager Marty McFly, who accidentally travels back in time to 1955, where he meets his future parents and becomes his mother's romantic interest. Christopher Lloyd portrays the eccentric scientist Dr. Emmett 'Doc' Brown, inventor of the time-traveling DeLorean, who helps Marty repair history and return to 1985.",         
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/d/d2/Back_to_the_Future.jpg",
+            "actors": ["Michael J. Fox", "Christopher Lloyd", "Lea Thompson", "Crispin Glover"],
+            "director": ["Robert Zemeckis"]
+        }
+    }
+]

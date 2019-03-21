@@ -1,0 +1,142 @@
+[
+    {
+        "name": "Omer",
+        "email": "omer@gmail.com",
+        "userId": "0u0001",
+        "userImg": "https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png",
+        "password": "1234",
+        "isAdmin": true,
+        "dateCreated": "",
+        "rating": 0,
+        "follow": {
+            "folowedBy": [],
+            "folowAfter": []
+        }
+    },
+    {
+        "name": "Natalia",
+        "email": "natalia@gmail.com",
+        "userId": "0u0002",
+        "userImg": "https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png",
+        "password": "1234",
+        "isAdmin": true,
+        "dateCreated": "",
+        "rating": 0,
+        "follow": {
+            "folowedBy": [],
+            "folowAfter": []
+        }
+    },
+    {
+        "name": "Olga",
+        "email": "olga@gmail.com",
+        "userId": "0u0003",
+        "userImg": "https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png",
+        "password": "1234",
+        "isAdmin": true,
+        "dateCreated": "",
+        "rating": 0,
+        "follow": {
+            "folowedBy": [],
+            "folowAfter": []
+        }
+    },
+    {
+        "name": "Puki",
+        "email": "puki@gmail.com",
+        "userId": "0u0004",
+        "userImg": "https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png",
+        "password": "1234",
+        "isAdmin": false,
+        "dateCreated": "",
+        "rating": 0,
+        "follow": {
+            "folowedBy": [],
+            "folowAfter": []
+        }
+    },
+    {
+        "name": "Daniel",
+        "email": "daniel@gmail.com",
+        "userId": "0u0005",
+        "userImg": "https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png",
+        "password": "1234",
+        "isAdmin": false,
+        "dateCreated": "",
+        "rating": 0,
+        "follow": {
+            "folowedBy": [],
+            "folowAfter": []
+        }
+    },
+    {
+        "name": "Angela",
+        "email": "angela@gmail.com",
+        "userId": "0u0006",
+        "userImg": "https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png",
+        "password": "1234",
+        "isAdmin": false,
+        "dateCreated": "",
+        "rating": 0,
+        "follow": {
+            "folowedBy": [],
+            "folowAfter": []
+        }
+    },
+    {
+        "name": "Jennifer",
+        "email": "jennifer@gmail.com",
+        "userId": "0u0007",
+        "userImg": "https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png",
+        "password": "1234",
+        "isAdmin": false,
+        "dateCreated": "",
+        "rating": 0,
+        "follow": {
+            "folowedBy": [],
+            "folowAfter": []
+        }
+    },
+    {
+        "name": "David",
+        "email": "david@gmail.com",
+        "userId": "0u0008",
+        "userImg": "https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png",
+        "password": "1234",
+        "isAdmin": false,
+        "dateCreated": "",
+        "rating": 0,
+        "follow": {
+            "folowedBy": [],
+            "folowAfter": []
+        }
+    },
+    {
+        "name": "Alex",
+        "email": "alex@gmail.com",
+        "userId": "0u0009",
+        "userImg": "https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png",
+        "password": "1234",
+        "isAdmin": false,
+        "dateCreated": "",
+        "rating": 0,
+        "follow": {
+            "folowedBy": [],
+            "folowAfter": []
+        }
+    },
+    {
+        "name": "Michael",
+        "email": "michael@gmail.com",
+        "userId": "0u0010",
+        "userImg": "https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png",
+        "password": "1234",
+        "isAdmin": false,
+        "dateCreated": "",
+        "rating": 0,
+        "follow": {
+            "folowedBy": [],
+            "folowAfter": []
+        }
+    }
+]

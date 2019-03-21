@@ -1,0 +1,111 @@
+
+
+@font-face {
+    font-family: merienda-font;
+    src: url('../fonts/Merienda/Merienda-Regular.ttf');
+}
+
+@font-face {
+    font-family: quando;
+    src: url('../fonts/Quando/Quando-Regular.ttf');
+}
+
+
+/***************** Base *****************/
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: quando, Arial, serif;
+    color: black;
+}
+
+body {
+    // max-width: 600px;
+    margin: auto;
+    font-size: 16px;
+    // min-height: 98vh;
+    background-color: lightcyan;
+    // background: linear-gradient(217deg, rgba(128, 219, 148, 0.8),rgba(255, 72, 0, 0) 70.71%),linear-gradient(127deg, rgba(252, 184, 81, 0.8),rgba(0, 255, 0, 0) 70.71%), linear-gradient(336deg, rgba(255, 120, 86, 0.8), rgba(0, 0, 255, 0) 70.71%);
+
+}
+
+/************************** Tablet and Desktop **************************/
+
+@media (min-width: 500px) { // Tablet
+   
+}
+
+@media (min-width: 1030px) { // Desktop
+
+}
+
+/**************** Helpers ****************/
+
+/********** Flex **********/
+
+.flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.space-even {
+    justify-content: space-evenly;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.space-center {
+    justify-content: center;
+}
+
+.space-center {
+    justify-content: start;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.flex.wrap {
+    flex-wrap: wrap;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-reverse {
+    flex-direction: row-reverse;
+}
+
+.flex-child {
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-basis: 100%;
+}
+
+/********** Lists **********/
+
+.clean-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.text-wrap {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
