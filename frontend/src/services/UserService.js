@@ -8,7 +8,8 @@ export default {
     isNameAndPassOk,
     isNameExist,
     getUserById,
-    remove
+    remove,
+    getGuestUser
 }
 
 function getUsers(userId) {
@@ -27,9 +28,24 @@ function getUsers(userId) {
 }
 
 function getUserById(id) {
-    var user = users.find(user => user._id === id);
+    var user = users.find(user => user.userId === id);
     if (user) return Promise.resolve(user);
-    else return Promise.reject('Unknown User');
+    else return Promise.resolve('Unknown User');
+}
+
+function getGuestUser() {
+    return {
+        name: 'Guest',
+        email: '',
+        userId: '',
+        userImg: 'https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png',
+        dateCreated: 0,
+        rating: 0,
+        follow: {
+            folowedBy: [],
+            folowAfter: []
+        }
+    }
 }
 
 function remove(userId) {
@@ -48,17 +64,17 @@ function add(user) {
 
 function isNameAndPassOk(name, pass) {
     var user = users.find(user => {
-        return (user.name.toLowerCase() === name.toLowerCase() && user.pass === pass)
+        return (user.name.toLowerCase() === name.toLowerCase() && user.password === pass)
     });
     if (user) {
         var userToReturn = {
             ...user
         };
-        delete userToReturn.pass;
+        delete userToReturn.password;
         delete userToReturn.isAdmin;
         return Promise.resolve(userToReturn);
     } else {
-        return Promise.reject('Unknown User');
+        return Promise.resolve('Unknown User');
     }
 }
 
@@ -76,7 +92,7 @@ function isNameExist(name) {
 function _saveUsersToFile() {
     return new Promise((resolve, reject) => {
         var strUsers = JSON.stringify(users)
-        fs.writeFile("data/users_db.json", strUsers, (err) => {
+        fs.writeFile('data/users_db.json', strUsers, (err) => {
             if (err) {
                 console.error('Had problem writing to Users file', err);
                 reject(err);

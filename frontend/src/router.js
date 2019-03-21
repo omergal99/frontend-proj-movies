@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+
 import MovieApp from './views/MovieApp.vue' // all
 import MovieEdit from './views/MovieEdit.vue' // only for Admin
 import MovieDetails from './views/MovieDetails.vue' //all
+
+import UserEnter from './views/User.vue'
+
 
 Vue.use(Router)
 
@@ -36,6 +40,11 @@ export default new Router({
       path: '/movies/details/:movieId',
       name: 'movieDetails',
       component: MovieDetails
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: UserEnter
     }
   ]
 })

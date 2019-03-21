@@ -1,5 +1,6 @@
 <template>
   <section class="details-section">
+
     <div v-if="!currMovie">
       <img src="../assets/img/banana3.gif">
       <img src="../assets/img/banana1.gif">
@@ -93,10 +94,10 @@ h3 {
 }
 
 .movie-table {
-  max-width: 75vw;
+  min-width: 75vw;
 }
 .movie-table table {
-  max-width: 75vw;
+  /* max-width: 75vw; */
   margin: 0 auto;
 }
 .details-table td {

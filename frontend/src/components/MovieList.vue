@@ -56,8 +56,22 @@ h3 {
 .div-btn {
   margin: 6px 0 0 0;
 }
+
 .div-btn button {
   margin: 0 6px 0 0;
+  cursor: pointer;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  outline: none;
+  font-family: cursive, arial, serif, sans-serif;
+  background-color: rgb(52, 129, 180);
+  font-size: 0.8em;
+  padding: 8px 4px;
+  transition: background-color 0.3s;
+}
+.div-btn button:hover {
+  background-color: rgb(55, 140, 190);
 }
 
 .list-section ul {

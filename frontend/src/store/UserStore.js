@@ -7,12 +7,17 @@ const usersModule = {
         currUser: null,
     },
     mutations: {
+        setCurrUser(state, payload) {
+            state.currUser = payload.user;
+        },
     },
     getters: {
        
     },
     actions: {
-      
+        loadUser(context, {user}) {
+            context.commit({ type: 'setCurrUser', user })
+        },
     }
 }
 
