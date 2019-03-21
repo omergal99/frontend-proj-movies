@@ -9,7 +9,6 @@ export default {
     isNameExist,
     remove,
     getGuestUser,
-    remove,
     getById
 }
 

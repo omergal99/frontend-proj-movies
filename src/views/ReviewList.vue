@@ -87,7 +87,9 @@ export default {
     }
   },
   mounted() { },
-  components: {}
+  components: {
+    UserDetails
+  }
 }
 </script>
 

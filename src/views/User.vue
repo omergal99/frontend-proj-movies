@@ -81,7 +81,9 @@ export default {
   computed: {
     msgFailLogin() {
       if (this.isMsgFailLog) {
-        setTimeout(() => this.isMsgFailLog = false, 3000)
+        setTimeout(() => {
+          this.isMsgFailLog = false
+        }, 3000)
         return 'Wrong name or password - You stay in Guest mode';
       } else {
         return '';
@@ -92,6 +94,7 @@ export default {
     },
   },
   components: {
+    UserService
   }
 };
 </script>

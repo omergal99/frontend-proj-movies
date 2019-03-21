@@ -64,6 +64,8 @@ export default {
           id: this.currMovie._id
         };
         return directAndId;
+      }else{
+        return {err: 'problem in MovieDetails page'}
       }
     }
   },
