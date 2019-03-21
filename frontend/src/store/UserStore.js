@@ -18,6 +18,12 @@ const usersModule = {
         loadUser(context, {user}) {
             context.commit({ type: 'setCurrUser', user })
         },
+        getUserById(context, {userId}){
+            UserService.getById(userId)
+                .then( user => {
+                    context.commit({ type: 'setCurrUser', user })  // Commit and send to componenta
+                })
+        }
     }
 }
 

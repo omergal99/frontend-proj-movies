@@ -7,13 +7,14 @@ export default {
     add,
     isNameAndPassOk,
     isNameExist,
-    getUserById,
     remove,
-    getGuestUser
+    getGuestUser,
+    remove,
+    getById
 }
 
 function getUsers(userId) {
-    var prm = getUserById(userId)
+    var prm = getById(userId)
         .then((findedUser) => {
             if (findedUser.isAdmin) {
                 return Promise.resolve(users);
@@ -27,7 +28,7 @@ function getUsers(userId) {
     return prm;
 }
 
-function getUserById(id) {
+function getById(id) {
     var user = users.find(user => user.userId === id);
     if (user) return Promise.resolve(user);
     else return Promise.resolve('Unknown User');

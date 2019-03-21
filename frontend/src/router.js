@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 import MovieApp from './views/MovieApp.vue' // all
 import MovieEdit from './views/MovieEdit.vue' // only for Admin
 import MovieDetails from './views/MovieDetails.vue' //all
+import UserDetails from './views/UserDetails.vue' //all
 
 import UserEnter from './views/User.vue'
 
@@ -12,8 +13,7 @@ import UserEnter from './views/User.vue'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'home',
       component: Home
@@ -24,7 +24,7 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: () => import( /* webpackChunkName: "about" */ './views/About.vue')
     },
     {
       path: '/movies',
@@ -45,6 +45,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: UserEnter
+    },
+    {
+      path: '/user/details/:userId',
+      name: 'UserDetails',
+      component: UserDetails
     }
   ]
 })
