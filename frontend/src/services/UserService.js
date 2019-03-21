@@ -7,8 +7,9 @@ export default {
     add,
     isNameAndPassOk,
     isNameExist,
-    getUserById,
-    remove
+    // getUserById,
+    remove,
+    getById
 }
 
 function getUsers(userId) {
@@ -26,8 +27,8 @@ function getUsers(userId) {
     return prm;
 }
 
-function getUserById(id) {
-    var user = users.find(user => user._id === id);
+function getById(id) {
+    var user = users.find(user => user.userId === id);
     if (user) return Promise.resolve(user);
     else return Promise.reject('Unknown User');
 }
