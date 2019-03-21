@@ -16,10 +16,8 @@ const reviewsModule = {
     },
     actions: {
         loadReviews(context, {directAndId}) {
-            console.log('innnnnnnnnnnnnnnnnnnnnnnnnnnn  ')
             return ReviewService.query(directAndId)
                 .then(serverReviews => {
-                    console.log('serverReviewsssss  ',serverReviews)
                 context.commit({ type: 'setReviews', serverReviews })
                 })
                 // .catch(storageReviews => {

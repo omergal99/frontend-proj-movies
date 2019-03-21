@@ -1,28 +1,23 @@
 <template>
   <section class="list-section">
     <h3>Reviews</h3>
-    <ul class="clean-list" v-if="reviews">
-      <li v-for="currreview in reviews" :key="currreview._id">
-
-        <div class="div-reviews">
-          {{currreview.content.txt}}
-        </div>
+    <ul class="clean-list" v-if="reviewsToShow">
+      <li v-for="currReview in reviewsToShow" :key="currReview._id">
+        <div class="div-reviews">{{currReview.content.txt}}</div>
 
         <div class="div-btn">
-          <router-link :to="'/movies/edit/' + currreview._id">
+          <router-link :to="'/movies/edit/' + currReview._id">
             <button>Edit (Admin)</button>
           </router-link>
 
-          <router-link :to="'/movies/details/' + currreview._id">
+          <router-link :to="'/movies/details/' + currReview._id">
             <button>See Person</button>
           </router-link>
         </div>
       </li>
     </ul>
 
-    <div v-if="directAndId">
-    {{directAndId}}
-    </div>
+    <div v-if="directAndId">{{directAndId}}</div>
   </section>
 </template>
 
@@ -36,27 +31,27 @@ export default {
     return {};
   },
   created() {
-    if (this.directAndId) {
-      console.log('THere is a directAndId')
-      if (this.directAndId.direct === "movie") {
-        const movieId = this.directAndId.id;
-        this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId: this.directAndId });
-      }
-    }
+    
   },
   destroyed() {
     this.$store.commit({ type: "reviewsModule/setReviews", serverReviews: null });
   },
   methods: {},
   computed: {
-    reviews() {
-      console.log('reviews',this.$store.state.reviewsModule.currReviews)
+    reviewsToShow() {
       return this.$store.state.reviewsModule.currReviews;
     },
   },
-  mounted() {},
+  watch: {
+    directAndId: function (directAndId) {
+      if (directAndId) {
+      this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId });
+    }
+    }
+  },
+  mounted() { },
   components: {}
-};
+}
 </script>
 
 <style scoped>

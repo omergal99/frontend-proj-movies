@@ -8,7 +8,7 @@
 
     <div v-if="currMovie" class="movie-details">
       <div class="movie-table">
-        <table v-if="currMovie" class="details-table">
+        <table class="details-table">
           <tr>
             <td>Name</td>
             <td>{{currMovie.details.name}}</td>
@@ -17,10 +17,10 @@
             <td>Year</td>
             <td>{{currMovie.details.year}}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>Description</td>
             <td>{{currMovie.details.description}}</td>
-          </tr>
+          </tr> -->
           <tr>
             <td>Actors</td>
             <td>{{currMovie.details.actors}}</td>
@@ -58,7 +58,6 @@ export default {
     },
     detailsForShowReviews() {
       if (this.currMovie) {
-        console.log('send **direct And Id**')
         var directAndId = {
           direct: "movie",
           id: this.currMovie._id
@@ -82,7 +81,8 @@ h3 {
   width: 25vw;
 }
 .div-img img {
-  max-width: 25vw;
+  /* max-width: 25vw; */
+  max-height: 150px;
   text-align: center;
 }
 
