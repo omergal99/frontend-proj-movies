@@ -2,15 +2,15 @@
   <section class="list-section">
     <h3>Movie List</h3>
     <ul class="clean-list">
-      <li v-for="currMovie in movies" :key="currMovie._id">
+      <li v-for="currMovie in movies" :key="currMovie.movieId">
         <movie-preview :movie="currMovie"></movie-preview>
 
         <div class="div-btn">
-          <router-link :to="'/movies/edit/' + currMovie._id">
+          <router-link :to="'/movies/edit/' + currMovie.movieId">
             <button>Edit (Admin)</button>
           </router-link>
 
-          <router-link :to="'/movies/details/' + currMovie._id">
+          <router-link :to="'/movies/details/' + currMovie.movieId">
             <button>See More</button>
           </router-link>
         </div>

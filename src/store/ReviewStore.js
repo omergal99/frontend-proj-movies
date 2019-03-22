@@ -10,6 +10,9 @@ const reviewsModule = {
         setReviews(state, payload) {
             state.currReviews = payload.serverReviews;
         },
+        addReview(state, { addedReview }) {
+            state.currReviews.unshift(addedReview)
+        },
     },
     getters: {
         
@@ -25,6 +28,14 @@ const reviewsModule = {
                 // })
                 .finally(()=>{
                     console.log('FINISH ****loadReviews****');
+                })
+        },
+        addReview(context, { newReview }) {
+            console.log('newReview',newReview)
+            return ReviewService.add(newReview)
+            .then((addedReview) => {
+                console.log('addedReview',addedReview)
+                    context.commit({ type: 'addReview', addedReview })
                 })
         },
     }

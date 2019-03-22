@@ -5,13 +5,14 @@
     <div class="new-review">
       <button class="margin-bottom6" @click="toggleOpenNewReview">Add Review</button>
       <div v-if="isAddOpen">
-        <form class="form-login flex flex-col" @submit.prevent="onAddReview">
-          <textarea class="margin-bottom6" v-model="newReview.txt" rows="6" cols="50"></textarea>
+        <form class="flex flex-col" @submit.prevent="onAddReview">
+          <textarea class="margin-bottom6" v-model="newReview.content.txt" rows="6" cols="50"></textarea>
           <button class="margin-bottom6" type="submit">Send Review</button>
         </form>
       </div>
     </div>
 
+    <!-- Louder -->
     <div v-if="!reviewsToShow">
       <img src="../assets/img/banana3.gif">
       <img src="../assets/img/banana1.gif">
@@ -19,13 +20,15 @@
     </div>
 
     <ul class="clean-list" v-if="reviewsToShow">
-      <li v-for="currReview in reviewsToShow" :key="currReview._id">
-        <div class="div-reviews">{{currReview.content.txt}}</div>
+      <li v-for="currReview in reviewsToShow" :key="currReview.reviewId">
+
+        <review-preview :review="currReview"></review-preview>
 
         <div class="div-btn">
-          <router-link :to="'/movies/edit/' + currReview._id">
-            <button>Edit (Admin)</button>
-          </router-link>
+          <!-- <router-link :to="'/movies/edit/' + currReview.reviewId"> -->
+            <button @click="toggleEditReview(currReview)">Edit (Admin)</button>
+          <!-- </router-link> -->
+
           <!-- currUser.userId -> maybe change to currUser._id		 -->
           <router-link :to="'/user/details/' + id">
             <button>See Person</button>
@@ -39,7 +42,8 @@
 </template>
 
 <script>
-	import UserDetails from "./UserDetails.vue";
+import UserDetails from "./UserDetails.vue";
+import ReviewPreview from "@/components/ReviewPreview.vue";
 
 export default {
   name: "reviewList",
@@ -51,46 +55,58 @@ export default {
       isAddOpen: false,
       isSendReview: false,
       newReview: {
-        txt: '',
+        content: {
+          txt: ""
+        }
       },
-      id: '0u0001'
+      id: "0u0001"
     };
   },
-  created() {
-
-  },
+  created() {},
   destroyed() {
-    this.$store.commit({ type: "reviewsModule/setReviews", serverReviews: null });
+    this.$store.commit({type: "reviewsModule/setReviews",serverReviews: null});
   },
   methods: {
     toggleOpenNewReview() {
-      this.isAddOpen = !this.isAddOpen
+      this.isAddOpen = !this.isAddOpen;
+    },
+     toggleEditReview(currReview) {
+       console.log('currReview',currReview.content.isEdit)
+        currReview.content.isEdit = !currReview.content.isEdit;
     },
     onAddReview() {
-      // TODO: add to review-list and to JSON
+      this.newReview.user = {userId: this.currUser.userId}
+      this.newReview.movie = {movieId: this.currMovie.movieId}
+      this.$store.dispatch({ type: "reviewsModule/addReview", newReview: this.newReview });
       this.isAddOpen = false;
-      this.newReview = { txt: '',
-      }
+      this.isSendReview = true;
+      this.newReview = {content: {txt: ""}}
     }
   },
   computed: {
     reviewsToShow() {
       return this.$store.state.reviewsModule.currReviews;
     },
-
+    currMovie() {
+      return this.$store.state.moviesModule.currMovie;
+    },
+    currUser() {
+      return this.$store.state.usersModule.currUser;
+    }
   },
   watch: {
-    directAndId: function (directAndId) {
+    directAndId: function(directAndId) {
       if (directAndId) {
-        this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId });
+        this.$store.dispatch({type: "reviewsModule/loadReviews",directAndId});
       }
     }
   },
-  mounted() { },
+  mounted() {},
   components: {
-    UserDetails
+    UserDetails,
+    ReviewPreview
   }
-}
+};
 </script>
 
 <style scoped>
@@ -117,15 +133,13 @@ export default {
   margin: 0 auto 6px auto;
   max-width: 80vw;
 }
-.div-reviews {
-  	max-width: 75vw;
-}
+
 
 h3 {
-  	margin: 0 0 6px 0;
+  margin: 0 0 6px 0;
 }
 .div-btn {
-  	margin: 6px 0 0 0;
+  margin: 6px 0 0 0;
 }
 .div-btn button {
   margin: 0 6px 0 0;
@@ -145,24 +159,24 @@ h3 {
 }
 
 .list-section ul {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .list-section li {
-	height: 100px;
-	width: 75vw;
-	list-style: none;
-	border: 1px solid rgb(119, 105, 27);
-	margin: 0 8px 6px 0;
-	padding: 4px;
-	border-radius: 4px;
+  height: 100px;
+  width: 75vw;
+  list-style: none;
+  border: 1px solid rgb(119, 105, 27);
+  margin: 0 8px 6px 0;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .clean-list {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 </style>

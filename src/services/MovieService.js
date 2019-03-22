@@ -18,26 +18,26 @@ function query(filterBy) {
 }
 
 function add(movie) {
-    movie._id = _makeId()
+    movie.movieId = _makeId()
     movies.unshift(movie)
     return _saveMoviesToFile().then(() => movie)
 }
 
 function update(updatMovie) {
-    var movieIdx = movies.findIndex(movie => movie._id === updatMovie._id);
+    var movieIdx = movies.findIndex(movie => movie.movieId === updatMovie.movieId);
     movies.splice(movieIdx, 1, updatMovie)
     return _saveMoviesToFile().then(() => updatMovie)
     // return Promise.resolve(movie)
 }
 
 function getById(id) {
-    var movie = movies.find(movie => movie._id === id);
+    var movie = movies.find(movie => movie.movieId === id);
     if (movie) return Promise.resolve(movie);
     else return Promise.reject('Unknown movie');
 }
 
 function remove(movieId) {
-    var movieIdx = movies.findIndex(movie => movie._id === movieId);
+    var movieIdx = movies.findIndex(movie => movie.movieId === movieId);
     if (movieIdx === -1) return Promise.reject('Not Found');
     movies.splice(movieIdx, 1)
     return _saveMoviesToFile();
@@ -78,7 +78,7 @@ function _createMovie(movie) {
     var putId = UtilService.makeId();
     return {
         movie: {
-            _id: putId,
+            movieId: putId,
             name: movie,
             price: UtilService.getRandomInt(30, 80),
             type: 'okkk for now',
@@ -91,7 +91,7 @@ function _createMovie(movie) {
 function getEmpty() {
     return {
         movie: {
-            _id: null,
+            movieId: null,
             name: 'New Movie',
             price: 0,
             type: '',

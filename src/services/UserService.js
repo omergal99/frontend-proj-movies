@@ -49,14 +49,14 @@ function getGuestUser() {
 }
 
 function remove(userId) {
-    var userIdx = users.findIndex(user => user._id === userId);
+    var userIdx = users.findIndex(user => user.userId === userId);
     if (userIdx === -1) return Promise.reject('Not Found');
     users.splice(userIdx, 1)
     return _saveUsersToFile();
 }
 
 function add(user) {
-    user._id = _makeId();
+    user.userId = _makeId();
     user.isAdmin = false;
     users.push(user);
     return _saveUsersToFile().then(() => user);

@@ -38,6 +38,7 @@
     </div>
 
     <review-list :directAndId="detailsForShowReviews"></review-list>
+
   </section>
 </template>
 
@@ -61,7 +62,7 @@ export default {
       if (this.currMovie) {
         var directAndId = {
           direct: "movie",
-          id: this.currMovie._id
+          id: this.currMovie.movieId,
         };
         return directAndId;
       }else{
