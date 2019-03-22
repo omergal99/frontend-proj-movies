@@ -9,12 +9,55 @@ export default {
     add,
     update
 }
+// ---------------  FOR WORKING WITH SERVER --------------
+// const BASE_URL = 'http://localhost:3003/movie';
+
+// const BASE_URL = (process.env.NODE_ENV !== 'development') ?
+//     '/movie' :
+//     '//localhost:3003/movie';
+
+// const resolveData = res => res.data
+// --------------------------------------------------------
 
 var movies = require('../../data/movies_db.json');
 const MOVIES_KEY = 'movieeee';
 
 function query(filterBy) {
-    return Promise.resolve(movies);
+
+    if (filterBy) {
+        var moviesToSend = movies.filter(movie => {
+            if (filterBy.name) {
+                var movieName = movie.details.name.toLowerCase();
+                var filterName = filterBy.name.toLowerCase();
+                var isNameOk = movieName.includes(filterName);
+                if (!isNameOk) {
+                    return false;
+                }
+            }
+            // if (filterBy.category) {
+            //     var movieCategorye = movie.details.category.toLowerCase();
+            //     var filterCategory = filterBy.category.toLowerCase();
+            //     var isCategoryOk = movieCategorye.includes(filterCategory);
+            //     if (!isCategoryOk) {
+            //         return false;
+            //     }
+            // }
+            return true;
+        })
+        return Promise.resolve(moviesToSend);
+    } else {
+        return Promise.resolve(movies);
+    }
+
+    // ---------------  FOR WORKING WITH SERVER --------------
+    // var queryStr = '';
+    // if (filterBy) {
+    //     queryStr = `?name=${filterBy.name}&category=${filterBy.category}&sort=${filterBy.sort}&isNew=${filterBy.isNew}`
+    // }
+    // return axios.get(`${BASE_URL}${queryStr}`)
+    //     .then(resolveData)
+    //     .catch(() => _createMovies())
+    // --------------------------------------------------------
 }
 
 function add(movie) {

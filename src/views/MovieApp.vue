@@ -2,12 +2,15 @@
   <section>
     <h2>We Now at MOVIES GALERY</h2>
 
+    <movie-filter @filterd="doFilter"></movie-filter>
+
     <movie-list :movies="moviesToShow"></movie-list>
   </section>
 </template>
 
 <script>
 import MovieList from '@/components/MovieList.vue';
+import MovieFilter from '@/components/MovieFilter.vue';
 
 export default {
   name: 'movies',
@@ -27,10 +30,13 @@ export default {
     }
   },
   methods: {
-
+    doFilter(filter) {
+      this.$store.dispatch({ type: 'moviesModule/loadMovies', filter });
+    }
   },
   components: {
-    MovieList
+    MovieList,
+    MovieFilter
   }
 };
 </script>

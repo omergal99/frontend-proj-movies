@@ -7,7 +7,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0001",
@@ -32,7 +32,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0010",
@@ -57,7 +57,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0010",
@@ -82,7 +82,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0001",
@@ -107,7 +107,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0002",
@@ -132,7 +132,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0009",
@@ -157,7 +157,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0009",
@@ -182,7 +182,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0008",
@@ -207,7 +207,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0008",
@@ -232,7 +232,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0007",
@@ -257,7 +257,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0002",
@@ -282,7 +282,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0003",
@@ -307,7 +307,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0005",
@@ -332,7 +332,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0007",
@@ -357,7 +357,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0003",
@@ -382,7 +382,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0004",
@@ -407,7 +407,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0006",
@@ -432,7 +432,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0004",
@@ -457,7 +457,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0005",
@@ -482,7 +482,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0006",
@@ -507,7 +507,7 @@
             "comments": [],
             "img": "",
             "link": "",
-            "isEdit": "false"
+            "isEdit": false
         },
         "user": {
             "userId": "0u0005",

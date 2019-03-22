@@ -1,5 +1,6 @@
 <template>
-  <div v-if="review.content.isEdit">
+    
+  <div v-if="!review.content.isEdit">
     <div class="div-reviews">{{review.content.txt}}</div>
   </div>
 
@@ -7,6 +8,7 @@
     <input type="text" class="div-reviews" 
         v-model="review.content.txt"
     >
+    <button @click="emitRemoveReview">Delete</button>
   </div>
 </template>
 
@@ -15,6 +17,11 @@ export default {
   name: "reviewPreview",
   props: {
     review: Object
+  },
+  methods: {
+      emitRemoveReview(){
+        this.$emit('onRemoveReview', this.review)
+      }
   }
 };
 </script>

@@ -2,6 +2,8 @@
   <section class="list-section">
     <h3>Reviews</h3>
 
+    
+
     <div class="new-review">
       <button class="margin-bottom6" @click="toggleOpenNewReview">Add Review</button>
       <div v-if="isAddOpen">
@@ -22,11 +24,16 @@
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview.reviewId">
 
-        <review-preview :review="currReview"></review-preview>
+        <review-preview 
+        :review="currReview"
+        @onRemoveReview="removeReview"
+        ></review-preview>
 
         <div class="div-btn">
           <!-- <router-link :to="'/movies/edit/' + currReview.reviewId"> -->
-            <button @click="toggleEditReview(currReview)">Edit (Admin)</button>
+            <button 
+            @click="toggleEditReview(currReview)"
+            >Edit (Admin)</button>
           <!-- </router-link> -->
 
           <!-- currUser.userId -> maybe change to currUser._id		 -->
@@ -37,7 +44,6 @@
       </li>
     </ul>
 
-    <div v-if="directAndId">{{directAndId}}</div>
   </section>
 </template>
 
@@ -56,7 +62,7 @@ export default {
       isSendReview: false,
       newReview: {
         content: {
-          txt: ""
+          txt: "",
         }
       },
       id: "0u0001"
@@ -71,18 +77,24 @@ export default {
       this.isAddOpen = !this.isAddOpen;
     },
      toggleEditReview(currReview) {
-       console.log('currReview',currReview.content.isEdit)
-        currReview.content.isEdit = !currReview.content.isEdit;
+      currReview.content.isEdit = !currReview.content.isEdit;
+      this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
     },
     onAddReview() {
-      this.newReview.user = {userId: this.currUser.userId}
-      this.newReview.movie = {movieId: this.currMovie.movieId}
+      this.newReview.user = {userId: this.currUser.userId};
+      this.newReview.movie = {movieId: this.currMovie.movieId};
+      this.newReview.content.isEdit = false;
       this.$store.dispatch({ type: "reviewsModule/addReview", newReview: this.newReview });
       this.isAddOpen = false;
       this.isSendReview = true;
-      this.newReview = {content: {txt: ""}}
+      this.newReview = {content: {txt: ""}};
+    },
+    removeReview(reviewToRemove){
+      var reviewId = reviewToRemove.reviewId;
+      this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId });      
     }
   },
+  
   computed: {
     reviewsToShow() {
       return this.$store.state.reviewsModule.currReviews;

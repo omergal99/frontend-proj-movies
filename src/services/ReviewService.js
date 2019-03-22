@@ -39,11 +39,12 @@ function add(newReview) {
     // return _saveReviewsToFile().then(() => newReview);
 }
 
-function update(updatReview) {
-    var reviewIdx = reviews.findIndex(review => review.reviewId === updatReview.reviewId);
-    reviews.splice(reviewIdx, 1, updatReview)
-    return _saveReviewsToFile().then(() => updatReview)
-    // return Promise.resolve(review)
+function update(updatedReview) {
+    var reviewIdx = reviews.findIndex(review => review.reviewId === updatedReview.reviewId);
+    reviews.splice(reviewIdx, 1, updatedReview)
+    return Promise.resolve(updatedReview)
+
+    // return _saveReviewsToFile().then(() => updatedReview)
 }
 
 function getById(id) {
@@ -56,7 +57,8 @@ function remove(reviewId) {
     var reviewIdx = reviews.findIndex(review => review.reviewId === reviewId);
     if (reviewIdx === -1) return Promise.reject('Not Found');
     reviews.splice(reviewIdx, 1)
-    return _saveReviewsToFile();
+    return Promise.resolve('The Review Removed')
+    // return _saveReviewsToFile();
 }
 
 function _makeId(length = 3) {
