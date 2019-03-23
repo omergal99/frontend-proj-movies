@@ -2,8 +2,6 @@
   <section class="list-section">
     <h3>Reviews</h3>
 
-    
-
     <div class="new-review">
       <button class="margin-bottom6" @click="toggleOpenNewReview">Add Review</button>
       <div v-if="isAddOpen">
@@ -24,9 +22,9 @@
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview.reviewId">
 
-        <review-preview 
-        :review="currReview"
-        @onRemoveReview="removeReview"
+        <review-preview
+          :review="currReview"
+          @onRemoveReview="removeReview"
         ></review-preview>
 
         <div class="div-btn">

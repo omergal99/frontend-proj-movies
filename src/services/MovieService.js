@@ -34,14 +34,6 @@ function query(filterBy) {
                     return false;
                 }
             }
-            // if (filterBy.category) {
-            //     var movieCategorye = movie.details.category.toLowerCase();
-            //     var filterCategory = filterBy.category.toLowerCase();
-            //     var isCategoryOk = movieCategorye.includes(filterCategory);
-            //     if (!isCategoryOk) {
-            //         return false;
-            //     }
-            // }
             return true;
         })
         return Promise.resolve(moviesToSend);

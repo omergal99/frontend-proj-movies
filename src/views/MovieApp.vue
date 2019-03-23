@@ -5,6 +5,7 @@
     <movie-filter @filterd="doFilter"></movie-filter>
 
     <movie-list :movies="moviesToShow"></movie-list>
+    
   </section>
 </template>
 
@@ -43,7 +44,7 @@ export default {
 
 <style scoped>
 h2 {
-  color: steelblue;
+  color: rgb(9, 39, 63);
   margin: 6px 0 6px 0;
 }
 </style>

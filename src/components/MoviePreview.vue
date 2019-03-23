@@ -1,10 +1,7 @@
 <template>
   <section>
-    <h3>{{movie.details.name}}</h3>
-    <div>{{movie.details.year}}</div>
-    <div>
-      <img :src="movie.details.movieImg">
-    </div>
+    <img :src="movie.details.movieImg">
+    <div class="movie-name">{{movie.details.name}}</div>
   </section>
 </template>
 
@@ -21,7 +18,14 @@ export default {
 h3 {
   margin: 0 0 6px 0;
 }
-
+.movie-name{
+  margin: 0 auto;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  height: 40px;
+  overflow: hidden;
+  color: aliceblue;
+}
 img{
   max-height: 200px;
 }
