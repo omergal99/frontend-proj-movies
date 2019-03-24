@@ -18,6 +18,10 @@
 					</tr>
 				</table>
 			</div>
+
+			<div>
+				<button>Lets Chat!</button>
+			</div>
 		</div>
 
 		<!-- <div class="user-reviews-container" v-if="viewUser">

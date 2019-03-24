@@ -12,7 +12,7 @@
 .main-div{
   height: 100%;
   padding-top: 6px;
-  line-height: 20vh;
+  line-height: 15vh;
 }
 
 h2 {
