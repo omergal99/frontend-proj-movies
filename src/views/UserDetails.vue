@@ -64,7 +64,7 @@ export default {
       if (this.viewUser) {
         var directAndId = {
           direct: 'user',
-          id: this.viewUser.userId,
+          id: this.viewUser._id,
         };
         return directAndId;
       }else{

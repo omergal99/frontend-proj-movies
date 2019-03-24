@@ -21,11 +21,14 @@
 
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
+
         <div v-if="directAndId.direct === 'movie'" class="user-details">
+
           <router-link :to="'/user/details/' + currReview.user.userId">
             <img height="50px" :src="currReview.user.userImg">
             {{currReview.user.userName}}
           </router-link>
+
           <button @click="clickedLike(currReview._id )">Like</button>
           <!-- <span >{{likes}}</span> -->
           <button @click="clickedDislike(currReview._id)">Dislike</button>
@@ -92,6 +95,7 @@ export default {
     onAddReview() {
       this.newReview.user = {
         userId: this.currUser.userId,
+        // userId: '5c94d22ba784a131347cb499',
         userImg: this.currUser.userImg,
         userName: this.currUser.name
       };

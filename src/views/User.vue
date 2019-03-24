@@ -13,8 +13,10 @@
       <div class="div-login">
         <p class="margin-bottom6">Enter to your account</p>
         <form class="form-login flex flex-col" @submit.prevent="onLogin">
-          <input autofocus class="margin-bottom6" type="text" placeholder="User name" v-model="user.name">
-          <input class="margin-bottom6" type="text" placeholder="Password" v-model="user.pass">
+          <input required autofocus class="margin-bottom6" type="text" placeholder="User name" 
+            v-model="user.name">
+          <input required class="margin-bottom6" type="text" placeholder="Password" 
+            v-model="user.pass">
           <button class="margin-bottom6" type="submit">Login</button>
         </form>
         <p class="msg-login-fail">{{msgFailLogin}}</p>
@@ -53,13 +55,11 @@ export default {
   },
   methods: {
     onLogin() {
-      UserService.isNameAndPassOk(this.user.name, this.user.pass).then(user => {
+      this.$store.dispatch({ type: 'usersModule/doLogin', user: this.user })
+        .then(user => {
         if (user && user.userId) {
           console.log('LOGGED IN!', user);
-          this.$store.dispatch({ type: 'usersModule/loadUser', user })
-            .then(() => {
               // this.$router.push('/movies');
-            });
         } else {
           console.log('WRONG TO LOGGED IN');
           this.textFailLog = 'Wrong name or password - You stay in Guest mode';
