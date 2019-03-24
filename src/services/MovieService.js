@@ -3,7 +3,6 @@ const BASE_URL = process.env.NODE_ENV !== 'development'
     ? '/movie'
     : '//localhost:3003/movie'
 
-const fs = require('fs');
 
 const UserService = require('./UserService');
 
@@ -22,10 +21,10 @@ export default {
 //     '/movie' :
 //     '//localhost:3003/movie';
 
-// const resolveData = res => res.data
+ const resolveData = res => res.data
 // --------------------------------------------------------
 
-var movies = require('../../data/movies_db.json');
+
 const MOVIES_KEY = 'movieeee';
 
 // function query() {
