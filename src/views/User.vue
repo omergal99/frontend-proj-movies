@@ -2,7 +2,7 @@
   <section>
     <h2>User Page</h2>
 
-    <div class="flex flex-col" v-if="loggedInUser && loggedInUser.userId">
+    <div class="flex flex-col" v-if="loggedInUser && loggedInUser._id">
       <label class="margin-bottom6">Hi {{loggedInUser.name}}! You need to logout first</label>
       <router-link to="/login">
         <button class="logout-btn" @click="logoutUser">Logout</button>
@@ -57,7 +57,7 @@ export default {
     onLogin() {
       this.$store.dispatch({ type: 'usersModule/doLogin', user: this.user })
         .then(user => {
-        if (user && user.userId) {
+        if (user && user._id) {
           console.log('LOGGED IN!', user);
               // this.$router.push('/movies');
         } else {
