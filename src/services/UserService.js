@@ -10,7 +10,7 @@ const resolveData = res => res.data;
 export default {
     getUsers,
     add,
-    isNameAndPassOk,
+    // isNameAndPassOk,
     isNameNotInUse,
     remove,
     getGuestUser,
@@ -66,7 +66,7 @@ function add(newUser) {
     var fullNewUser = getGuestUser();
     fullNewUser.name = newUser.name;
     fullNewUser.password = newUser.pass;
-    fullNewUser.userId = _makeId();
+    // fullNewUser.userId = _makeId();
     fullNewUser.isAdmin = false;
     users.push(fullNewUser);
     return Promise.resolve(fullNewUser);
@@ -91,23 +91,23 @@ function login(userNamePass) {
     return prmAns;
 }
 
-function isNameAndPassOk(user) {
-    var name = user.name;
-    var pass = user.pass;
-    var user = users.find(user => {
-        return (user.name.toLowerCase() === name.toLowerCase() && user.password === pass)
-    });
-    if (user) {
-        var userToReturn = {
-            ...user
-        };
-        delete userToReturn.password;
-        delete userToReturn.isAdmin;
-        return Promise.resolve(userToReturn);
-    } else {
-        return Promise.resolve('Unknown User');
-    }
-}
+// function isNameAndPassOk(user) {
+//     var name = user.name;
+//     var pass = user.pass;
+//     var user = users.find(user => {
+//         return (user.name.toLowerCase() === name.toLowerCase() && user.password === pass)
+//     });
+//     if (user) {
+//         var userToReturn = {
+//             ...user
+//         };
+//         delete userToReturn.password;
+//         delete userToReturn.isAdmin;
+//         return Promise.resolve(userToReturn);
+//     } else {
+//         return Promise.resolve('Unknown User');
+//     }
+// }
 
 function isNameNotInUse(name) {
     var user = users.find(user => {
@@ -120,17 +120,17 @@ function isNameNotInUse(name) {
     }
 }
 
-function _saveUsersToFile() {
-    return new Promise((resolve, reject) => {
-        var strUsers = JSON.stringify(users)
-        fs.writeFile('data/users_db.json', strUsers, (err) => {
-            if (err) {
-                console.error('Had problem writing to Users file', err);
-                reject(err);
-            } else resolve();
-        });
-    })
-}
+// function _saveUsersToFile() {
+//     return new Promise((resolve, reject) => {
+//         var strUsers = JSON.stringify(users)
+//         fs.writeFile('data/users_db.json', strUsers, (err) => {
+//             if (err) {
+//                 console.error('Had problem writing to Users file', err);
+//                 reject(err);
+//             } else resolve();
+//         });
+//     })
+// }
 
 function _makeId(length = 6) {
     var txt = '';

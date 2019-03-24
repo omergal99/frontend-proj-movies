@@ -5,11 +5,11 @@
       <p class="user-name">Hello {{loggedInUser.name}}!</p>
       <div>
         <router-link to="/login">
-          <button class="login-btn" v-if="!loggedInUser.userId">Login</button>
+          <button class="login-btn" v-if="!loggedInUser._id">Login</button>
         </router-link>
 
         <router-link to="/">
-          <button class="logout-btn" v-if="loggedInUser.userId" @click="logoutUser">Logout</button>
+          <button class="logout-btn" v-if="loggedInUser._id" @click="logoutUser">Logout</button>
         </router-link>
       </div>
     </div>
