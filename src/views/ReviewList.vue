@@ -24,8 +24,8 @@
 
         <review-preview
           :review="currReview"
-          @onRemoveReview="removeReview"
-        ></review-preview>
+          @onRemoveReview="removeReview">
+        </review-preview>
 
         <div class="div-btn">
           <!-- <router-link :to="'/movies/edit/' + currReview.reviewId"> -->
@@ -144,7 +144,6 @@ export default {
   max-width: 80vw;
 }
 
-
 h3 {
   margin: 0 0 6px 0;
 }
@@ -155,7 +154,8 @@ h3 {
   margin: 0 6px 0 0;
   cursor: pointer;
   border: none;
-  color: white;
+  color: rgb(39, 39, 39);
+  font-weight: bold;
   border-radius: 4px;
   outline: none;
   font-family: cursive, arial, serif, sans-serif;
@@ -178,7 +178,9 @@ h3 {
   height: 100px;
   width: 75vw;
   list-style: none;
-  border: 1px solid rgb(119, 105, 27);
+  font-size:1.1em;
+  background-color: #80ced6;
+  color: rgb(39, 39, 39);
   margin: 0 8px 6px 0;
   padding: 4px;
   border-radius: 4px;

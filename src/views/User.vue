@@ -2,19 +2,18 @@
   <section>
     <h2>User Page</h2>
 
-    <div class="flex flex-col"
-      v-if="loggedInUser && loggedInUser.userId">
-      <label class="margin-bottom6">Hi {{loggedInUser.name}}! You need to logout first </label>
+    <div class="flex flex-col" v-if="loggedInUser && loggedInUser.userId">
+      <label class="margin-bottom6">Hi {{loggedInUser.name}}! You need to logout first</label>
       <router-link to="/login">
-          <button class="logout-btn" @click="logoutUser">Logout</button>
+        <button class="logout-btn" @click="logoutUser">Logout</button>
       </router-link>
     </div>
 
     <div v-else>
       <div class="div-login">
-        <label>Enter to your account</label>
+        <p class="margin-bottom6">Enter to your account</p>
         <form class="form-login flex flex-col" @submit.prevent="onLogin">
-          <input class="margin-bottom6" type="text" placeholder="User name" v-model="user.name">
+          <input autofocus class="margin-bottom6" type="text" placeholder="User name" v-model="user.name">
           <input class="margin-bottom6" type="text" placeholder="Password" v-model="user.pass">
           <button class="margin-bottom6" type="submit">Login</button>
         </form>
@@ -22,17 +21,14 @@
       </div>
 
       <div class="div-register">
-        <label>New here? Let's register</label>
+        <p class="margin-bottom6">New here? Let's register</p>
         <form class="form-register flex flex-col" @submit.prevent="onRegister">
-          <input class="margin-bottom6" type="text" required placeholder="New user name" 
-            v-model="newUser.name">
-          <input class="margin-bottom6" type="text" required placeholder="Password" 
-            v-model="newUser.pass">
+          <input class="margin-bottom6" type="text" required placeholder="New user name" v-model="newUser.name">
+          <input class="margin-bottom6" type="text" required placeholder="Password" v-model="newUser.pass">
           <button class="margin-bottom6" type="submit">Register</button>
         </form>
       </div>
     </div>
-
   </section>
 </template>
 
@@ -120,6 +116,15 @@ export default {
 </script>
 
 <style scoped>
+.form-login input,
+.form-register input {
+  border-radius: 4px;
+  padding: 2px 10px 2px 10px;
+  background-color: rgb(241, 209, 190);
+  border: none;
+  font-size: 1.2em;
+  font-family: cursive, arial, serif, sans-serif;
+}
 
 .logout-btn {
   border: none;
@@ -134,8 +139,8 @@ export default {
   transition: background-color 0.3s;
   background-color: rgb(180, 99, 52);
   margin-bottom: 6px;
-
 }
+
 .logout-btn:hover {
   background-color: rgb(148, 82, 44);
 }
@@ -143,14 +148,15 @@ export default {
 .margin-bottom6 {
   margin-bottom: 6px;
 }
-.div-login, .div-register {
+.div-login,
+.div-register {
   width: 80vw;
   margin: 0 auto;
 }
 
 .div-login button,
 .div-register button {
-  width: 40vw;
+  width: 80vw;
   margin: 0 auto;
   cursor: pointer;
   border: none;
@@ -170,5 +176,27 @@ export default {
 
 h2 {
   margin: 0 0 6px 0;
+}
+
+@media (min-width: 500px) {
+  .div-login,
+  .div-register {
+    width: 60vw;
+  }
+  .div-login button,
+.div-register button {
+  width: 60vw;
+}
+}
+
+@media (min-width: 1030px) {
+  .div-login,
+  .div-register {
+    width: 40vw;
+  }
+   .div-login button,
+.div-register button {
+  width: 40vw;
+}
 }
 </style>

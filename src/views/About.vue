@@ -13,15 +13,20 @@
         <img src="../assets/img/about/team.jpg">
       </div>
 
-      <router-link exact to="/">Back Home</router-link>
+      <!-- <router-link exact to="/">Back Home</router-link> -->
     </main>
   </section>
 </template>
 
 <style scoped>
 .about-page header h1 {
-  font-size: 36px;
-  margin: 0 0 10px 0;
+  font-size: 2.5em;
+  margin: 6px 0 10px 0;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
+    -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000,
+    1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000,
+    -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000,
+    2px 0px 0 #000;
 }
 
 .about-img-div {
@@ -31,8 +36,8 @@
 
 .about-page main img {
   width: auto;
-  max-width: 80vw;
-  max-height: 45vh;
+  max-width: 90vw;
+  max-height: 30vh;
   border-radius: 6px;
 }
 
@@ -41,8 +46,13 @@
   width: 80%;
   border-radius: 4px;
   background-color: #d8d8d800;
-  color: rgb(31, 31, 31);
+  color: rgb(255, 255, 255);
   font-size: 1.2em;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
+    -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000,
+    1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000,
+    -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000,
+    2px 0px 0 #000;
 }
 
 .about-page main a {

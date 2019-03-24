@@ -6,7 +6,6 @@
       <img src="../assets/img/banana1.gif">
       <img src="../assets/img/banana2.gif">
     </div>
-
     <div v-if="currMovie" class="movie-details">
       <div class="movie-table">
         <table class="details-table">
