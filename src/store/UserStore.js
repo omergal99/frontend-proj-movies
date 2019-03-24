@@ -5,6 +5,7 @@ const usersModule = {
     namespaced: true,
     state: {
         currUser: null,
+        viewUser: null
     },
     mutations: {
         setCurrUser(state, payload) {
@@ -13,6 +14,12 @@ const usersModule = {
         cleanCurrUser(state, payload) {
             state.currUser = payload.guest;
         },
+        setViewUser(state, payload) {
+            state.viewUser = payload.user;
+        },
+        cleanViewUser(state) {
+            state.viewUser = null;
+        },
     },
     getters: {
        
@@ -20,12 +27,6 @@ const usersModule = {
     actions: {
         loadUser(context, {user}) {
             return context.commit({ type: 'setCurrUser', user })
-        },
-        getUserById(context, {userId}){
-            UserService.getById(userId)
-                .then( user => {
-                    context.commit({ type: 'setCurrUser', user })  // Commit and send to componenta
-                })
         },
         addUser(context, {newUser}) {
             return UserService.add(newUser)
@@ -37,7 +38,13 @@ const usersModule = {
         logoutUser(context){
             var guest = UserService.getGuestUser();
             return context.commit({ type: 'cleanCurrUser', guest })
-        }
+        },
+        loadViewUser(context, {userId}) {
+            return UserService.getById(userId)
+                .then( user => {
+                    return context.commit({ type: 'setViewUser', user })
+                })
+        },
     }
 }
 

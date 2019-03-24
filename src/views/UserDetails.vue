@@ -1,64 +1,77 @@
 <template>
 	<section>
-		<div class="user-details" v-if="currUser">
+		<div class="user-details" v-if="viewUser">
 			<div class="div-img">
-				<img :src="currUser.userImg">
+				<img :src="viewUser.userImg">
 				<!-- <img src="../assets/img/userImg.jpg"> -->
 			</div>
+
 			<div class="user-table">
 				<table class="details-table">
-				<tr>
-					<td>Name</td>
-					<td>{{currUser.name}}</td>
-				</tr>
-				<tr>
-					<td>Rating</td>
-					<td>{{currUser.rating}}</td>
-				</tr>
+					<tr>
+						<td>Name</td>
+						<td>{{viewUser.name}}</td>
+					</tr>
+					<tr>
+						<td>Rating</td>
+						<td>{{viewUser.rating}}</td>
+					</tr>
 				</table>
 			</div>
 		</div>
-		<div class="user-reviews-container" v-if="currUser">
+
+		<!-- <div class="user-reviews-container" v-if="viewUser">
 			<div>
-				<h2>{{currUser.name}}'s Reviews</h2>
+				<h2>{{viewUser.name}}'s Reviews</h2>
 			</div>
 			<div class="user-reviews" v-for="review in reviews" :key="review._id">
 				<table>
-					<user-reviews :review="review" :user="currUser"></user-reviews>
+					<user-reviews :review="review" :user="viewUser"></user-reviews>
 				</table>	
-				
-				
 			</div>
-		</div>
+		</div> -->
+		<review-list :directAndId="detailsForShowReviews"></review-list>
+
 	</section>
 </template>
 
 <script>
-import axios from "axios";
-import UserReviews from "../components/UserReviews.vue";
+// import axios from "axios";
+// import UserReviews from "../components/UserReviews.vue";
+import ReviewList from './ReviewList.vue';
+
 export default {
-	name: "UserDetails",
+	name: 'UserDetails',
 	data() {
 		return {};
 	},
 	created() {
 		const userId = this.$route.params.userId;
-		this.$store.dispatch({ type: "usersModule/getUserById", userId });
+    this.$store.dispatch({ type: 'usersModule/loadViewUser', userId });
 
-		var directAndId = { direct: "user", id: userId };
-		this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId });
+		// var directAndId = { direct: "user", id: userId };
+		// this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId });
 	},
 	computed: {
-		currUser() {
-			return this.$store.state.usersModule.currUser;
+		viewUser() {
+			return this.$store.state.usersModule.viewUser;
 		},
-		reviews() {
-			return this.$store.state.reviewsModule.currReviews;
-		}
+		detailsForShowReviews() {
+      if (this.viewUser) {
+        var directAndId = {
+          direct: 'user',
+          id: this.viewUser.userId,
+        };
+        return directAndId;
+      }else{
+        return {err: 'problem in UserDetails page'}
+      }
+    }
 	},
 	components: {
-		UserReviews
+		ReviewList,
 	}
+	
 };
 </script>
 
@@ -71,19 +84,18 @@ h3 {
   width: 25vw;
 }
 .div-img img {
-  /* max-width: 25vw; */
   max-height: 150px;
   text-align: center;
 }
 
 .user-details {
   display: flex;
-  /* flex-wrap: wrap; */
   padding: 8px;
 }
 
 .user-table {
   max-width: 75vw;
+  color: rgb(31, 31, 31);
 }
 .user-table table {
   max-width: 75vw;
@@ -95,6 +107,9 @@ h3 {
 }
 .details-table td:first-child {
   background-color: #dac292;
+}
+.details-table td:first-child {
+  font-weight: bold;
 }
 .details-table td:not(:first-child) {
   background-color: #e6e2d3;
