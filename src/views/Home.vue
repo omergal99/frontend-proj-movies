@@ -88,7 +88,7 @@ export default {
   position: relative;
 }
 .main-first .bnr-strp {
-  right: 20vh;
+  right:-40vw;
   transform: rotate(80deg);
   background-color: rgb(87, 44, 57);
 }
@@ -112,6 +112,7 @@ export default {
   position: relative;
 }
 .main-thrid .bnr-strp {
+  right: 20vh;
   transform: rotate(280deg);
   background-color: rgb(65, 9, 62);
   border-radius: 50%;
@@ -148,16 +149,20 @@ export default {
   }
 }
 
-@media (min-width: 1030px) {
+@media (min-width: 800px) {
   .bnr-strp {
     height: 200vw;
   }
-  
 }
 
+@media (min-width: 1030px) {
+  .bnr-strp {
+    height: 170vw;
+  }
+}
 @media (min-width: 1580px) {
   .bnr-strp {
-    height: 150vw;
+    height: 140vw;
   }
 }
 </style>
