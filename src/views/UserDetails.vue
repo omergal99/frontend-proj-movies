@@ -30,6 +30,7 @@
 				</table>	
 			</div>
 		</div> -->
+		
 		<review-list :directAndId="detailsForShowReviews"></review-list>
 
 	</section>
