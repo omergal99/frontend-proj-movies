@@ -33,6 +33,7 @@ function getById(id) {
     else return Promise.resolve('Unknown User');
 }
 
+
 function getGuestUser() {
     return {
         name: 'Guest',

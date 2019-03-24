@@ -21,13 +21,17 @@
 
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
-
         <div v-if="directAndId.direct === 'movie'" class="user-details">
           <router-link :to="'/user/details/' + currReview.user.userId">
             <img height="50px" :src="currReview.user.userImg">
             {{currReview.user.userName}}
           </router-link>
+          <button @click="clickedLike(currReview._id )">Like</button>
+          <!-- <span >{{likes}}</span> -->
+          <button @click="clickedDislike(currReview._id)">Dislike</button>
+          <!-- <span >{{disLikes}}</span> -->
         </div>
+
         <div v-if="directAndId.direct === 'user'" class="movie-details">
           <router-link :to="'/movies/details/' + currReview.movie.movieId">
             <img height="50px" :src="currReview.movie.movieImg">
@@ -61,31 +65,58 @@ export default {
       isSendReview: false,
       newReview: {
         content: {
-          txt: "",
+          txt: ""
         }
       }
-    }
+    };
   },
-  created() { },
+  created() {},
   destroyed() {
-    this.$store.commit({ type: "reviewsModule/setReviews", serverReviews: null });
+    this.$store.commit({
+      type: "reviewsModule/setReviews",
+      serverReviews: null
+    });
   },
+
   methods: {
     toggleOpenNewReview() {
       this.isAddOpen = !this.isAddOpen;
     },
     toggleEditReview(currReview) {
       currReview.content.isEdit = !currReview.content.isEdit;
-      this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
+      this.$store.dispatch({
+        type: "reviewsModule/updateReview",
+        updatedReview: currReview
+      });
     },
     onAddReview() {
-      this.newReview.user = { userId: this.currUser.userId };
-      this.newReview.movie = { movieId: this.currMovie.movieId };
+      this.newReview.user = {
+        userId: this.currUser.userId,
+        userImg: this.currUser.userImg,
+        userName: this.currUser.name
+      };
+      this.newReview.movie = {
+        movieId: this.currMovie.movieId,
+        movieImg: this.currMovie.details.movieImg,
+        movieName: this.currMovie.details.name
+      };
       this.newReview.content.isEdit = false;
-      this.$store.dispatch({ type: "reviewsModule/addReview", newReview: this.newReview });
+      this.$store.dispatch({
+        type: "reviewsModule/addReview",
+        newReview: this.newReview
+      });
       this.isAddOpen = false;
       this.isSendReview = true;
       this.newReview = { content: { txt: "" } };
+    },
+    clickedLike(reviewId) {
+      // var userId = this.$store.state.usersModule.currUser.userId;
+      //var userId='user'
+      this.$store.dispatch({ type: "reviewsModule/addLike", reviewId });
+    },
+    clickedDislike(reviewId) {
+      //var userId='user'
+      this.$store.dispatch({ type: "reviewsModule/addDislike", reviewId });
     },
     removeReview(reviewToRemove) {
       var reviewId = reviewToRemove.reviewId;
@@ -103,14 +134,18 @@ export default {
       return this.$store.state.usersModule.currUser;
     }
   },
+
   watch: {
-    directAndId: function (directAndId) {
+    directAndId: function(directAndId) {
       if (directAndId) {
-        this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId });
+        this.$store.dispatch({
+          type: "reviewsModule/loadReviews",
+          directAndId
+        });
       }
     }
   },
-  mounted() { },
+  mounted() {},
   components: {
     ReviewPreview
   }
@@ -173,7 +208,7 @@ h3 {
 }
 
 .list-section li {
-  height: 100px;
+  /* height: 100px; */
   width: 75vw;
   list-style: none;
   font-size: 1.1em;

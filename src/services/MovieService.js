@@ -1,6 +1,12 @@
+import axios from 'axios'
+const BASE_URL = process.env.NODE_ENV !== 'development'
+    ? '/movie'
+    : '//localhost:3003/movie'
+
 const fs = require('fs');
 
 const UserService = require('./UserService');
+
 
 export default {
     query,
@@ -21,6 +27,11 @@ export default {
 
 var movies = require('../../data/movies_db.json');
 const MOVIES_KEY = 'movieeee';
+
+// function query() {
+//     return axios.get(BASE_URL)
+//         .then(res => res.data)
+// }
 
 function query(filterBy) {
 

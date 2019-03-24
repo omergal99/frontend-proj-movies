@@ -7,7 +7,9 @@ export default {
     getById,
     remove,
     add,
-    update
+    update,
+    addLike,
+    addDislike
 }
 
 function query(directAndId) {
@@ -33,6 +35,8 @@ function add(newReview) {
         countDislike: []
     };
     reviews.unshift(newReview);
+    var ff = JSON.parse(JSON.stringify(newReview))
+    console.log('newReview',ff)
     return Promise.resolve(newReview)
 
     // ---------------- save to server- backend ----------------------
@@ -59,6 +63,18 @@ function remove(reviewId) {
     reviews.splice(reviewIdx, 1)
     return Promise.resolve('The Review Removed')
     // return _saveReviewsToFile();
+}
+function addLike(reviewId){
+    console.log('check',reviewId)
+    var review = reviews.find(review => review._id === reviewId);
+    review.rate.countLike.push('userID')
+    return _saveReviewsToFile().then(() => reviewId)
+}
+function addDislike(reviewId){
+    var review = reviews.find(review => review._id === reviewId);
+    review.rate.countDislike.push('userId')
+    return _saveReviewsToFile().then(() => reviewId)
+    return Promise.resolve(review)
 }
 
 function _makeId(length = 3) {
