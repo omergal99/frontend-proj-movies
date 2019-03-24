@@ -24,13 +24,13 @@
 
         <div v-if="directAndId.direct === 'movie'" class="user-details">
           <router-link :to="'/user/details/' + currReview.user.userId">
-            <!-- <img src="{currReview.user.userImg}"> -->
+            <img height="50px" :src="currReview.user.userImg">
             {{currReview.user.userName}}
           </router-link>
         </div>
         <div v-if="directAndId.direct === 'user'" class="movie-details">
           <router-link :to="'/movies/details/' + currReview.movie.movieId">
-            <!-- <img src="{currReview.movie.movieImg}"> -->
+            <img height="50px" :src="currReview.movie.movieImg">
             {{currReview.movie.movieName}}
           </router-link>
         </div>

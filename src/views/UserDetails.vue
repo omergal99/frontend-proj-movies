@@ -3,7 +3,7 @@
 		<div class="user-details" v-if="viewUser">
 			<div class="div-img">
 				<img :src="viewUser.userImg">
-				<!-- <img src="../assets/img/userImg.jpg"> -->
+				
 			</div>
 
 			<div class="user-table">
@@ -52,6 +52,9 @@ export default {
 
 		// var directAndId = { direct: "user", id: userId };
 		// this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId });
+	},
+	destroyed(){
+    this.$store.commit({ type: "usersModule/cleanViewUser"});
 	},
 	computed: {
 		viewUser() {
