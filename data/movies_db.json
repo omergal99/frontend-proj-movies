@@ -2,6 +2,8 @@
     {
         "_id": "0m00001",
         "rank": 9.6,
+        "categories": [],
+        "numberOfWatches": 681,
         "details": {
             "name": "The Godfather",
             "year": "1972",
@@ -14,6 +16,8 @@
     {
         "_id": "0m00002",
         "rank": 9.5,
+        "categories": [],
+        "numberOfWatches": 508,
         "details": {
             "name": "The Shawshank Redemption",
             "year": "1994",
@@ -26,6 +30,8 @@
     {
         "_id": "0m00003",
         "rank": 9.2,
+        "categories": [],
+        "numberOfWatches": 278,
         "details": {
             "name": "Pulp Fiction",
             "year": "1994",
@@ -38,6 +44,8 @@
     {
         "_id": "0m00004",
         "rank": 8.7,
+        "categories": [],
+        "numberOfWatches": 125,
         "details":{
             "name": "Star Wars",
             "year": "1977",
@@ -50,6 +58,8 @@
     {
         "_id": "0m00005",
         "rank": 8.8,
+        "categories": [],
+        "numberOfWatches": 642,
         "details":{
             "name": "Fight Club",
             "year": "1996",
@@ -62,6 +72,8 @@
     {
         "_id": "0m00006",
         "rank": 8.9,
+        "categories": [],
+        "numberOfWatches": 742,
         "details":{
             "name": "The Matrix",
             "year": "1999",
@@ -74,6 +86,8 @@
     {
         "_id": "0m00007",
         "rank": 9.0,
+        "categories": [],
+        "numberOfWatches": 473,
         "details":{
             "name": "Schindler's List",
             "year": "1993",
@@ -86,6 +100,8 @@
     {
         "_id": "0m00008",
         "rank": 8.4,
+        "categories": [],
+        "numberOfWatches": 174,
         "details":{
             "name": "Die Hard",
             "year": "1988",
@@ -98,6 +114,8 @@
     {
         "_id": "0m00009",
         "rank": 8.7,
+        "categories": [],
+        "numberOfWatches": 296,
         "details":{
             "name": "Titanic",
             "year": "1997",
@@ -110,6 +128,8 @@
     {
         "_id": "0m00010",
         "rank": 9.3,
+        "categories": [],
+        "numberOfWatches": 451,
         "details":{
             "name": "Back to the Future",
             "year": "1985",

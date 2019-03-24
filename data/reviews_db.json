@@ -434,8 +434,8 @@
     {
         "reviewId": "0r00019",
         "content": {
-            "txt": "",
-            "publishedAt": "The best movie I've seen",
+            "txt": "The best movie I've seen",
+            "publishedAt": "",
             "comments": [],
             "img": "",
             "link": ""

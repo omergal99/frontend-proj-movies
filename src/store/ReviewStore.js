@@ -9,6 +9,7 @@ const reviewsModule = {
     mutations: {
         setReviews(state, payload) {
             state.currReviews = payload.serverReviews;
+            // console.log('state.currReviews', state.currReviews)
         },
     },
     getters: {
@@ -18,7 +19,7 @@ const reviewsModule = {
         loadReviews(context, {directAndId}) {
             return ReviewService.query(directAndId)
                 .then(serverReviews => {
-                context.commit({ type: 'setReviews', serverReviews })
+                    context.commit({ type: 'setReviews', serverReviews })
                 })
                 // .catch(storageReviews => {
                 //     context.commit({ type: 'setMovies', serverReviews: storageReviews })
@@ -27,6 +28,7 @@ const reviewsModule = {
                     console.log('FINISH ****loadReviews****');
                 })
         },
+
     }
 }
 

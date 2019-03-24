@@ -28,3 +28,11 @@ const usersModule = {
 }
 
 export default usersModule;
+
+
+// axios.get('https://randomuser.me/api/')
+// 				.then((res) => {
+// 					var user = this.$store.state.usersModule.currUser 
+// 					user.userImg = res.data.results[0].picture.large
+// 				})
+// 				.catch(console.log('error'))
