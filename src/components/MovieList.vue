@@ -1,19 +1,12 @@
 <template>
   <section class="list-section">
     <h3>Movie List</h3>
-    <ul class="clean-list">
-      <li v-for="currMovie in movies" :key="currMovie._id">
-        <movie-preview :movie="currMovie"></movie-preview>
 
-        <div class="div-btn">
-          <router-link :to="'/movies/edit/' + currMovie._id">
-            <button>Edit (Admin)</button>
-          </router-link>
-
-          <router-link :to="'/movies/details/' + currMovie._id">
-            <button>See More</button>
-          </router-link>
-        </div>
+    <ul class="ul-movies-list">
+      <li v-for="currMovie in movies" :key="currMovie.movieId">
+        <router-link :to="'/movies/details/' + currMovie.movieId">
+          <movie-preview :movie="currMovie"></movie-preview>
+        </router-link>
       </li>
     </ul>
   </section>
@@ -32,7 +25,7 @@ export default {
 
     };
   },
-  created() { 
+  created() {
 
   },
   methods: {
@@ -49,29 +42,14 @@ export default {
 </script>
 
 <style scoped>
+.ul-movies-list {
+  margin: 0 0 0 8px;
+  list-style-type: none;
+  padding: 0;
+}
 
 h3 {
   margin: 0 0 6px 0;
-}
-.div-btn {
-  margin: 6px 0 0 0;
-}
-
-.div-btn button {
-  margin: 0 6px 0 0;
-  cursor: pointer;
-  border: none;
-  color: white;
-  border-radius: 4px;
-  outline: none;
-  font-family: cursive, arial, serif, sans-serif;
-  background-color: rgb(52, 129, 180);
-  font-size: 0.8em;
-  padding: 8px 4px;
-  transition: background-color 0.3s;
-}
-.div-btn button:hover {
-  background-color: rgb(55, 140, 190);
 }
 
 .list-section ul {
@@ -81,13 +59,16 @@ h3 {
 }
 
 .list-section li {
-  height: 300px;
-  width: 300px;
+  width: 180px;
   list-style: none;
-  border: 1px solid rgb(119, 105, 27);
   margin: 0 8px 6px 0;
   padding: 4px;
   border-radius: 4px;
+  text-decoration:none; 
+  transition: background-color .3s
+}
+.list-section li:hover{
+  background-color: rgba(25, 73, 112, 0.4);
 }
 
 .clean-list {

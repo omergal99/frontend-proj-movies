@@ -11,6 +11,17 @@ const reviewsModule = {
             state.currReviews = payload.serverReviews;
             // console.log('state.currReviews', state.currReviews)
         },
+        addReview(state, { addedReview }) {
+            state.currReviews.unshift(addedReview)
+        },
+        updateReview(state, { savedReview }) {
+            const idx = state.currReviews.findIndex(currReview => currReview.reviewId === savedReview.reviewId);
+            state.currReviews.splice(idx, 1, savedReview)
+        },
+        removeReview(state, {reviewId}) {
+            const idx = state.currReviews.findIndex(review => review.reviewId === reviewId);
+            state.currReviews.splice(idx, 1);
+        },
     },
     getters: {
         
@@ -28,7 +39,24 @@ const reviewsModule = {
                     console.log('FINISH ****loadReviews****');
                 })
         },
-
+        addReview(context, { newReview }) {
+            return ReviewService.add(newReview)
+            .then((addedReview) => {
+                    context.commit({ type: 'addReview', addedReview })
+                })
+        },
+        updateReview(context, { updatedReview }) {
+            return ReviewService.update(updatedReview)
+            .then((savedReview) => {
+                    context.commit({ type: 'updateReview', savedReview })
+                })
+        },
+        removeReview(context, { reviewId }) {
+            return ReviewService.remove(reviewId)
+                .then(() => {
+                    context.commit({ type: 'removeReview', reviewId })
+                })
+        },
     }
 }
 

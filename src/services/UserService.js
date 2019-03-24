@@ -6,7 +6,7 @@ export default {
     getUsers,
     add,
     isNameAndPassOk,
-    isNameExist,
+    isNameNotInUse,
     remove,
     getGuestUser,
     getById
@@ -49,17 +49,22 @@ function getGuestUser() {
 }
 
 function remove(userId) {
-    var userIdx = users.findIndex(user => user._id === userId);
+    var userIdx = users.findIndex(user => user.userId === userId);
     if (userIdx === -1) return Promise.reject('Not Found');
     users.splice(userIdx, 1)
     return _saveUsersToFile();
 }
 
-function add(user) {
-    user._id = _makeId();
-    user.isAdmin = false;
-    users.push(user);
-    return _saveUsersToFile().then(() => user);
+function add(newUser) {
+    var fullNewUser = getGuestUser();
+    fullNewUser.name = newUser.name;
+    fullNewUser.password = newUser.pass;
+    fullNewUser.userId = _makeId();
+    fullNewUser.isAdmin = false;
+    users.push(fullNewUser);
+    return Promise.resolve(fullNewUser);
+
+    // return _saveUsersToFile().then(() => user);
 }
 
 function isNameAndPassOk(name, pass) {
@@ -78,14 +83,14 @@ function isNameAndPassOk(name, pass) {
     }
 }
 
-function isNameExist(name) {
+function isNameNotInUse(name) {
     var user = users.find(user => {
         return (user.name.toLowerCase() === name.toLowerCase())
     });
-    if (user) {
-        return Promise.resolve('There is user with this name!');
+    if (!user) {
+        return Promise.resolve('No user with this name');
     } else {
-        return Promise.reject('No user with this name');
+        return Promise.reject('There is user with this name!');
     }
 }
 
@@ -101,7 +106,7 @@ function _saveUsersToFile() {
     })
 }
 
-function _makeId(length = 4) {
+function _makeId(length = 6) {
     var txt = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (var i = 0; i < length; i++) {

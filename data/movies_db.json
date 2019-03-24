@@ -1,6 +1,6 @@
 [
     {
-        "_id": "0m00001",
+        "movieId": "0m00001",
         "rank": 9.6,
         "categories": [],
         "numberOfWatches": 681,
@@ -14,7 +14,7 @@
         }    
     },
     {
-        "_id": "0m00002",
+        "movieId": "0m00002",
         "rank": 9.5,
         "categories": [],
         "numberOfWatches": 508,
@@ -28,7 +28,7 @@
         }
     },
     {
-        "_id": "0m00003",
+        "movieId": "0m00003",
         "rank": 9.2,
         "categories": [],
         "numberOfWatches": 278,
@@ -42,7 +42,7 @@
         }
     },
     {
-        "_id": "0m00004",
+        "movieId": "0m00004",
         "rank": 8.7,
         "categories": [],
         "numberOfWatches": 125,
@@ -56,7 +56,7 @@
         }
     },
     {
-        "_id": "0m00005",
+        "movieId": "0m00005",
         "rank": 8.8,
         "categories": [],
         "numberOfWatches": 642,
@@ -70,7 +70,7 @@
         }
     },
     {
-        "_id": "0m00006",
+        "movieId": "0m00006",
         "rank": 8.9,
         "categories": [],
         "numberOfWatches": 742,
@@ -84,7 +84,7 @@
         }
     },
     {
-        "_id": "0m00007",
+        "movieId": "0m00007",
         "rank": 9.0,
         "categories": [],
         "numberOfWatches": 473,
@@ -98,7 +98,7 @@
         }
     },
     {
-        "_id": "0m00008",
+        "movieId": "0m00008",
         "rank": 8.4,
         "categories": [],
         "numberOfWatches": 174,
@@ -112,7 +112,7 @@
         }
     },
     {
-        "_id": "0m00009",
+        "movieId": "0m00009",
         "rank": 8.7,
         "categories": [],
         "numberOfWatches": 296,
@@ -126,7 +126,7 @@
         }
     },
     {
-        "_id": "0m00010",
+        "movieId": "0m00010",
         "rank": 9.3,
         "categories": [],
         "numberOfWatches": 451,
