@@ -30,6 +30,10 @@
           <router-link :to="'/user/details/' + id">
             <button>See Person</button>
           </router-link>
+          <button @click="clickedLike(currReview._id )">Like</button>
+          <!-- <span >{{likes}}</span> -->
+          <button @click="clickedDislike(currReview._id)">Dislike</button>
+          <!-- <span >{{disLikes}}</span> -->
         </div>
       </li>
     </ul>
@@ -62,6 +66,7 @@ export default {
   destroyed() {
     this.$store.commit({ type: "reviewsModule/setReviews", serverReviews: null });
   },
+
   methods: {
     toggleOpenNewReview() {
       this.isAddOpen = !this.isAddOpen
@@ -71,14 +76,24 @@ export default {
       this.isAddOpen = false;
       this.newReview = { txt: '',
       }
-    }
+    },
+       clickedLike(reviewId) {
+      // var userId = this.$store.state.usersModule.currUser.userId;
+      //var userId='user'
+      this.$store.dispatch({ type: "reviewsModule/addLike", reviewId});
   },
+  clickedDislike(reviewId) {
+    //var userId='user'
+      this.$store.dispatch({ type: "reviewsModule/addDislike", reviewId });
+  }
+  },
+
   computed: {
     reviewsToShow() {
       return this.$store.state.reviewsModule.currReviews;
     },
-
   },
+
   watch: {
     directAndId: function (directAndId) {
       if (directAndId) {

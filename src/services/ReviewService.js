@@ -5,7 +5,9 @@ export default {
     getById,
     remove,
     add,
-    update
+    update,
+    addLike,
+    addDislike
 }
 
 var reviews = require('../../data/reviews_db.json');
@@ -50,6 +52,18 @@ function remove(reviewId) {
     if (reviewIdx === -1) return Promise.reject('Not Found');
     reviews.splice(reviewIdx, 1)
     return _saveReviewsToFile();
+}
+function addLike(reviewId){
+    console.log('check',reviewId)
+    var review = reviews.find(review => review._id === reviewId);
+    review.rate.countLike.push('userID')
+    return _saveReviewsToFile().then(() => reviewId)
+}
+function addDislike(reviewId){
+    var review = reviews.find(review => review._id === reviewId);
+    review.rate.countDislike.push('userId')
+    return _saveReviewsToFile().then(() => reviewId)
+    return Promise.resolve(review)
 }
 
 function _makeId(length = 3) {
