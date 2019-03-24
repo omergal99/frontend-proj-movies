@@ -25,6 +25,13 @@ const usersModule = {
        
     },
     actions: {
+        doLogin(context, {user}) {
+            return UserService.login(user)
+                .then( serverUser => {
+                    context.commit({ type: 'setCurrUser', user: serverUser })
+                    return 'success login'
+                })
+        },
         loadUser(context, {user}) {
             return context.commit({ type: 'setCurrUser', user })
         },

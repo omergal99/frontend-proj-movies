@@ -67,6 +67,7 @@ const reviewsModule = {
         addReview(context, { newReview }) {
             return ReviewService.add(newReview)
                 .then((addedReview) => {
+                    console.log('addedReview',addedReview)
                     context.commit({ type: 'addReview', addedReview })
                 })
         },
