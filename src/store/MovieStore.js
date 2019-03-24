@@ -33,7 +33,7 @@ const moviesModule = {
                 })
         },
         loadMovie(context, { movieId }) {
-            MovieService.getById(movieId)
+            return MovieService.getById(movieId)
                 .then( serverMovie => {
                     context.commit({ type: 'setMovie', currMovie: serverMovie })
                 })

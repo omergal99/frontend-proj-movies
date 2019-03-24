@@ -5,13 +5,14 @@
     <div class="new-review">
       <button class="margin-bottom6" @click="toggleOpenNewReview">Add Review</button>
       <div v-if="isAddOpen">
-        <form class="form-login flex flex-col" @submit.prevent="onAddReview">
-          <textarea class="margin-bottom6" v-model="newReview.txt" rows="6" cols="50"></textarea>
+        <form class="flex flex-col" @submit.prevent="onAddReview">
+          <textarea class="margin-bottom6" v-model="newReview.content.txt" rows="6" cols="50"></textarea>
           <button class="margin-bottom6" type="submit">Send Review</button>
         </form>
       </div>
     </div>
 
+    <!-- Louder -->
     <div v-if="!reviewsToShow">
       <img src="../assets/img/banana3.gif">
       <img src="../assets/img/banana1.gif">
@@ -20,30 +21,38 @@
 
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
-        <div class="div-reviews">{{currReview.content.txt}}</div>
-
-        <div class="div-btn">
-          <router-link :to="'/movies/edit/' + currReview._id">
-            <button>Edit (Admin)</button>
-          </router-link>
-          <!-- currUser.userId -> maybe change to currUser._id		 -->
-          <router-link :to="'/user/details/' + id">
-            <button>See Person</button>
+        <div v-if="directAndId.direct === 'movie'" class="user-details">
+          <router-link :to="'/user/details/' + currReview.user.userId">
+            <img height="50px" :src="currReview.user.userImg">
+            {{currReview.user.userName}}
           </router-link>
           <button @click="clickedLike(currReview._id )">Like</button>
           <!-- <span >{{likes}}</span> -->
           <button @click="clickedDislike(currReview._id)">Dislike</button>
           <!-- <span >{{disLikes}}</span> -->
         </div>
+
+        <div v-if="directAndId.direct === 'user'" class="movie-details">
+          <router-link :to="'/movies/details/' + currReview.movie.movieId">
+            <img height="50px" :src="currReview.movie.movieImg">
+            {{currReview.movie.movieName}}
+          </router-link>
+        </div>
+
+        <review-preview :review="currReview" @onRemoveReview="removeReview"></review-preview>
+
+        <div class="review">
+          <div class="div-btn">
+            <button @click="toggleEditReview(currReview)">Edit (Admin)</button>
+          </div>
+        </div>
       </li>
     </ul>
-
-    <div v-if="directAndId">{{directAndId}}</div>
   </section>
 </template>
 
 <script>
-	import UserDetails from "./UserDetails.vue";
+import ReviewPreview from "@/components/ReviewPreview.vue";
 
 export default {
   name: "reviewList",
@@ -55,57 +64,92 @@ export default {
       isAddOpen: false,
       isSendReview: false,
       newReview: {
-        txt: '',
-      },
-      id: '0u0001'
+        content: {
+          txt: ""
+        }
+      }
     };
   },
-  created() {
-
-  },
+  created() {},
   destroyed() {
-    this.$store.commit({ type: "reviewsModule/setReviews", serverReviews: null });
+    this.$store.commit({
+      type: "reviewsModule/setReviews",
+      serverReviews: null
+    });
   },
 
   methods: {
     toggleOpenNewReview() {
-      this.isAddOpen = !this.isAddOpen
+      this.isAddOpen = !this.isAddOpen;
+    },
+    toggleEditReview(currReview) {
+      currReview.content.isEdit = !currReview.content.isEdit;
+      this.$store.dispatch({
+        type: "reviewsModule/updateReview",
+        updatedReview: currReview
+      });
     },
     onAddReview() {
-      // TODO: add to review-list and to JSON
+      this.newReview.user = {
+        userId: this.currUser.userId,
+        userImg: this.currUser.userImg,
+        userName: this.currUser.name
+      };
+      this.newReview.movie = {
+        movieId: this.currMovie.movieId,
+        movieImg: this.currMovie.details.movieImg,
+        movieName: this.currMovie.details.name
+      };
+      this.newReview.content.isEdit = false;
+      this.$store.dispatch({
+        type: "reviewsModule/addReview",
+        newReview: this.newReview
+      });
       this.isAddOpen = false;
-      this.newReview = { txt: '',
-      }
+      this.isSendReview = true;
+      this.newReview = { content: { txt: "" } };
     },
-       clickedLike(reviewId) {
+    clickedLike(reviewId) {
       // var userId = this.$store.state.usersModule.currUser.userId;
       //var userId='user'
-      this.$store.dispatch({ type: "reviewsModule/addLike", reviewId});
-  },
-  clickedDislike(reviewId) {
-    //var userId='user'
+      this.$store.dispatch({ type: "reviewsModule/addLike", reviewId });
+    },
+    clickedDislike(reviewId) {
+      //var userId='user'
       this.$store.dispatch({ type: "reviewsModule/addDislike", reviewId });
-  }
+    },
+    removeReview(reviewToRemove) {
+      var reviewId = reviewToRemove.reviewId;
+      this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId });
+    }
   },
-
   computed: {
     reviewsToShow() {
       return this.$store.state.reviewsModule.currReviews;
     },
+    currMovie() {
+      return this.$store.state.moviesModule.currMovie;
+    },
+    currUser() {
+      return this.$store.state.usersModule.currUser;
+    }
   },
 
   watch: {
-    directAndId: function (directAndId) {
+    directAndId: function(directAndId) {
       if (directAndId) {
-        this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId });
+        this.$store.dispatch({
+          type: "reviewsModule/loadReviews",
+          directAndId
+        });
       }
     }
   },
-  mounted() { },
+  mounted() {},
   components: {
-    UserDetails
+    ReviewPreview
   }
-}
+};
 </script>
 
 <style scoped>
@@ -132,21 +176,19 @@ export default {
   margin: 0 auto 6px auto;
   max-width: 80vw;
 }
-.div-reviews {
-  	max-width: 75vw;
-}
 
 h3 {
-  	margin: 0 0 6px 0;
+  margin: 0 0 6px 0;
 }
 .div-btn {
-  	margin: 6px 0 0 0;
+  margin: 6px 0 0 0;
 }
 .div-btn button {
   margin: 0 6px 0 0;
   cursor: pointer;
   border: none;
-  color: white;
+  color: rgb(39, 39, 39);
+  font-weight: bold;
   border-radius: 4px;
   outline: none;
   font-family: cursive, arial, serif, sans-serif;
@@ -160,24 +202,37 @@ h3 {
 }
 
 .list-section ul {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .list-section li {
-	height: 100px;
-	width: 75vw;
-	list-style: none;
-	border: 1px solid rgb(119, 105, 27);
-	margin: 0 8px 6px 0;
-	padding: 4px;
-	border-radius: 4px;
+  /* height: 100px; */
+  width: 75vw;
+  list-style: none;
+  font-size: 1.1em;
+  background-color: #80ced6;
+  color: rgb(39, 39, 39);
+  margin: 0 8px 6px 0;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .clean-list {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.user-details {
+  width: 15%;
+}
+.movie-details {
+  width: 150px;
+}
+
+.review {
+  width: 85%;
 }
 </style>

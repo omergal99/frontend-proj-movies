@@ -1,7 +1,5 @@
-
-
 @font-face {
-    font-family: merienda-font;
+    font-family: merienda;
     src: url('../fonts/Merienda/Merienda-Regular.ttf');
 }
 
@@ -15,31 +13,38 @@
 
 * {
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 html {
     font-family: quando, Arial, serif;
-    color: black;
 }
 
 body {
     // max-width: 600px;
     margin: auto;
     font-size: 16px;
+    height: 100%;
+    min-height: 100vh;
     // min-height: 98vh;
-    background-color: lightcyan;
-    // background: linear-gradient(217deg, rgba(128, 219, 148, 0.8),rgba(255, 72, 0, 0) 70.71%),linear-gradient(127deg, rgba(252, 184, 81, 0.8),rgba(0, 255, 0, 0) 70.71%), linear-gradient(336deg, rgba(255, 120, 86, 0.8), rgba(0, 0, 255, 0) 70.71%);
+    background-color:steelblue;
+    // background: linear-gradient(215deg, rgba(41, 124, 172, 0.8),rgba(255, 72, 0, 0) 70.71%),linear-gradient(80deg, rgba(255, 246, 120, 0.8),rgba(0, 255, 0, 0) 70.71%), linear-gradient(356deg, rgba(206, 56, 56, 0.8), rgba(0, 0, 255, 0) 70.71%);
+}
 
+#app {
+    text-align: center;
+    color: #e2eaf1;
 }
 
 /************************** Tablet and Desktop **************************/
 
-@media (min-width: 500px) { // Tablet
-   
+@media (min-width: 500px) {
+    // Tablet
+
 }
 
-@media (min-width: 1030px) { // Desktop
-
+@media (min-width: 1030px) {
+    // Desktop
 }
 
 /**************** Helpers ****************/

@@ -6,7 +6,6 @@
       <img src="../assets/img/banana1.gif">
       <img src="../assets/img/banana2.gif">
     </div>
-
     <div v-if="currMovie" class="movie-details">
       <div class="movie-table">
         <table class="details-table">
@@ -38,6 +37,7 @@
     </div>
 
     <review-list :directAndId="detailsForShowReviews"></review-list>
+
   </section>
 </template>
 
@@ -61,7 +61,7 @@ export default {
       if (this.currMovie) {
         var directAndId = {
           direct: "movie",
-          id: this.currMovie._id
+          id: this.currMovie.movieId,
         };
         return directAndId;
       }else{
@@ -84,27 +84,28 @@ h3 {
   width: 25vw;
 }
 .div-img img {
-  /* max-width: 25vw; */
   max-height: 150px;
   text-align: center;
 }
 
 .movie-details {
   display: flex;
-  /* flex-wrap: wrap; */
   padding: 8px;
 }
 
 .movie-table {
   min-width: 75vw;
+  color: rgb(31, 31, 31);
 }
 .movie-table table {
-  /* max-width: 75vw; */
   margin: 0 auto;
 }
 .details-table td {
   padding: 4px;
   border: 1px solid #c4b7a6;
+}
+.details-table td:first-child {
+  font-weight: bold;
 }
 .details-table td:first-child {
   background-color: #dac292;
