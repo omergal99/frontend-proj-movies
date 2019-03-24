@@ -20,6 +20,10 @@ const usersModule = {
         cleanViewUser(state) {
             state.viewUser = null;
         },
+        addRemoveFollower(state, {users}){
+            state.currUser.follow.folowAfter = users.followedUser
+            state.viewUser.follow.folowedBy = users.loggedInUser
+        }
     },
     getters: {
        
@@ -57,3 +61,4 @@ export default usersModule;
 // 					user.userImg = res.data.results[0].picture.large
 // 				})
 // 				.catch(console.log('error'))
+

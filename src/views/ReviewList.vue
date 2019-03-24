@@ -2,15 +2,32 @@
   <section class="list-section">
     <h3>Reviews</h3>
 
-    <div class="new-review">
-      <button class="margin-bottom6" @click="toggleOpenNewReview">Add Review</button>
-      <div v-if="isAddOpen">
-        <form class="flex flex-col" @submit.prevent="onAddReview">
-          <textarea class="margin-bottom6" v-model="newReview.content.txt" rows="6" cols="50"></textarea>
-          <button class="margin-bottom6" type="submit">Send Review</button>
-        </form>
-      </div>
-    </div>
+		<!-- add review button -->
+    <div class="new-review" v-if="isAddingReview">
+			<div class="new-review">
+				<button class="margin-bottom6" @click="toggleOpenNewReview">Add Review</button>
+				<div v-if="isAddOpen">
+					<form class="flex flex-col" @submit.prevent="onAddReview">
+						<textarea class="margin-bottom6" v-model="newReview.content.txt" rows="6" cols="50"></textarea>
+						<button class="margin-bottom6" type="submit">Send Review</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- follow button -->	
+		<div class="new-review">
+			<button class="margin-bottom6" @click="followUser" v-if="!isAddingReview">Follow user's reviews</button>
+			<div v-if="isAddFollower"> 
+				Adding user to follow...
+			</div>
+			<div v-if="isLoggedIn"> 
+				Please login to follow the user...
+			</div>
+		</div>
+
+    <div v-if="isFollowed">The user is followed by {{followedBy}}</div>
+    <!-- <div v-if="isFollowed">The user is followed by {{followedBy}}</div> -->
 
     <!-- Louder -->
     <div v-if="!reviewsToShow">
@@ -44,11 +61,14 @@
         </div>
       </li>
     </ul>
+
+
   </section>
 </template>
 
 <script>
 import ReviewPreview from "@/components/ReviewPreview.vue";
+import { setTimeout } from 'timers';
 
 export default {
   name: "reviewList",
@@ -57,35 +77,80 @@ export default {
   },
   data() {
     return {
-      isAddOpen: false,
+			isAddFollower: false,
+			isLoggedIn: false,
+			isAddOpen: false,
       isSendReview: false,
       newReview: {
         content: {
-          txt: "",
+          txt: ""
         }
-      }
+			},
+			// isFollowed: false
     }
   },
-  created() { },
+  created() {
+	},
   destroyed() {
     this.$store.commit({ type: "reviewsModule/setReviews", serverReviews: null });
   },
   methods: {
-    toggleOpenNewReview() {
+    followUser() {
+			//can't follow if not logged in
+			// 2 secs to show "Please login to follow the user..."
+			var loggedInUser = this.currUser.userId
+			if(!loggedInUser){
+				this.isLoggedIn = !this.isLoggedIn
+				setTimeout(() => {		
+					this.isLoggedIn = !this.isLoggedIn;
+				}, 2000)
+				return
+			}
+			
+			// 2 secs to show "Adding user to follow..."
+			this.isAddFollower = !this.isAddFollower;
+			setTimeout(() => {		
+				this.isAddFollower = !this.isAddFollower;
+			}, 2000)
+
+			var followedUser = this.$route.params.userId;
+
+			var users = {loggedInUser, followedUser}
+			this.$store.commit({ type: "usersModule/addRemoveFollower", users})
+		},
+		toggleOpenNewReview() {
       this.isAddOpen = !this.isAddOpen;
     },
     toggleEditReview(currReview) {
       currReview.content.isEdit = !currReview.content.isEdit;
-      this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
+      this.$store.dispatch({
+        type: "reviewsModule/updateReview",
+        updatedReview: currReview
+      });
     },
     onAddReview() {
-      this.newReview.user = { userId: this.currUser.userId };
-      this.newReview.movie = { movieId: this.currMovie.movieId };
+      this.newReview.user = {
+        userId: this.currUser.userId,
+        userImg: this.currUser.userImg,
+        userName: this.currUser.name
+			};
+      this.newReview.movie = {
+        movieId: this.currMovie.movieId,
+        movieImg: this.currMovie.details.movieImg,
+        movieName: this.currMovie.details.name
+      };
       this.newReview.content.isEdit = false;
-      this.$store.dispatch({ type: "reviewsModule/addReview", newReview: this.newReview });
+      this.$store.dispatch({
+        type: "reviewsModule/addReview",
+        newReview: this.newReview
+      });
       this.isAddOpen = false;
       this.isSendReview = true;
       this.newReview = { content: { txt: "" } };
+    },
+    toggleEditReview(currReview) {
+      currReview.content.isEdit = !currReview.content.isEdit;
+      this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
     },
     removeReview(reviewToRemove) {
       var reviewId = reviewToRemove.reviewId;
@@ -93,6 +158,17 @@ export default {
     }
   },
   computed: {
+		isAddingReview(){
+			const userId = this.$route.params.userId;
+			const movieId = this.$route.params.movieId;
+			
+			if(movieId){
+				return true
+			}
+			if(userId){
+				return false
+			}		
+		},
     reviewsToShow() {
       return this.$store.state.reviewsModule.currReviews;
     },
@@ -101,7 +177,25 @@ export default {
     },
     currUser() {
       return this.$store.state.usersModule.currUser;
-    }
+		},
+		followedBy(){
+			if(this.$store.state.usersModule.viewUser){
+				
+				console.log('follow', this.$store.state.usersModule.currUser.name)
+				return this.$store.state.usersModule.currUser.name
+			}
+		},
+		isFollowed(){
+			if(this.$store.state.usersModule.viewUser){
+				var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.folowedBy))
+			// if the user is not followed the variable isFollowed is empty array
+				if(isFollowed[0]){
+						return true
+					}
+			}
+
+
+		}
   },
   watch: {
     directAndId: function (directAndId) {

@@ -43,6 +43,7 @@
 
 <script>
 import ReviewList from "./ReviewList.vue";
+import axios from "axios";
 
 export default {
   name: "movieDetails",
@@ -114,3 +115,11 @@ h3 {
   background-color: #e6e2d3;
 }
 </style>
+
+
+
+// axios.get(`http://www.omdbapi.com/?apikey=b672deef&i=${imdbId}`)
+//           .then((res) => {
+//               console.log(res.data)
+//           })
+//           .catch(console.log('error api'))
