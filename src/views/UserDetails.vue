@@ -43,6 +43,7 @@ export default {
 	},
 	created() {
 		const userId = this.$route.params.userId;
+
 		this.$store.dispatch({ type: "usersModule/getUserById", userId });
 
 		var directAndId = { direct: "user", id: userId };
