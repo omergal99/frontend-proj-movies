@@ -20,9 +20,9 @@ const usersModule = {
         cleanViewUser(state) {
             state.viewUser = null;
         },
-        addRemoveFollower(state, {users}){
-            state.currUser.follow.folowAfter = users.followedUser
-            state.viewUser.follow.folowedBy = users.loggedInUser
+        setFollower(state, {users}){
+            state.currUser.follow.followAfter = users.followedUser
+            state.viewUser.follow.followedBy = users.loggedInUser
         }
     },
     getters: {
@@ -51,11 +51,19 @@ const usersModule = {
             return context.commit({ type: 'cleanCurrUser', guest })
         },
         loadViewUser(context, {userId}) {
+            // console.log('state.currUser', context.state.currUser)
+            // console.log('state.viewUser', context.state.viewUser)
             return UserService.getById(userId)
                 .then( user => {
                     return context.commit({ type: 'setViewUser', user })
                 })
         },
+        addFollower(context, {users}){
+            // console.log('users:', users)
+            UserService.addFollowUser(users);
+
+            return context.commit({ type: 'setFollower', users})
+        }
     }
 }
 

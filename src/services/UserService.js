@@ -15,7 +15,8 @@ export default {
     remove,
     getGuestUser,
     getById,
-    login
+    login,
+    addFollowUser
 }
 
 var users = require('../../data/users_db.json');
@@ -49,8 +50,8 @@ function getGuestUser() {
         dateCreated: 0,
         rating: 0,
         follow: {
-            folowedBy: [],
-            folowAfter: []
+            followedBy: [],
+            followAfter: []
         }
     }
 }
@@ -139,4 +140,13 @@ function _makeId(length = 6) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return txt;
+}
+
+
+function addFollowUser(users){
+    console.log('users:', users)
+    const userId = users.followedUser
+    console.log('userId:', userId)
+    return axios.put(`${USER_API}/details/${userId}`, users)
+
 }

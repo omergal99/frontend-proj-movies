@@ -9,7 +9,6 @@
         </router-link>
       </li>
     </ul>
-
   </section>
 </template>
 
@@ -22,27 +21,19 @@ export default {
     movies: Array
   },
   data() {
-    return {
-
-    };
+    return {};
   },
-  created() {
-
-  },
-  methods: {
-
-  },
-  computed: {
-
-  },
-  mounted() { },
+  created() {},
+  methods: {},
+  computed: {},
+  mounted() {},
   components: {
     MoviePreview
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss">
 .ul-movies-list {
   margin: 0 0 0 8px;
   list-style-type: none;
@@ -54,27 +45,44 @@ h3 {
 }
 
 .list-section ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  // display: flex;
+  // flex-wrap: wrap;
+  // justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .list-section li {
-  width: 180px;
+  // width: 180px;
+  margin: 0 auto;
+  // padding: 10px;
   list-style: none;
-  margin: 0 8px 6px 0;
-  padding: 4px;
   border-radius: 4px;
-  text-decoration:none; 
-  transition: background-color .3s
+  text-decoration: none;
+  transition: background-color 0.3s;
 }
-.list-section li:hover{
-  background-color: rgba(25, 73, 112, 0.4);
+.list-section li:hover img {
+  transform: scale(1.1);
 }
 
 .clean-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+@media (min-width: 1000px) {
+  .list-section ul {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+@media (min-width: 600px) and (max-width: 1000px) {
+  .list-section ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (min-width: 450px) and (max-width: 600px) {
+  .list-section ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 </style>

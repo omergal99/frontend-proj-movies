@@ -24,28 +24,19 @@
 			</div>
 		</div>
 
-		<!-- <div class="user-reviews-container" v-if="viewUser">
-			<div>
-				<h2>{{viewUser.name}}'s Reviews</h2>
-			</div>
-			<div class="user-reviews" v-for="review in reviews" :key="review._id">
-				<table>
-					<user-reviews :review="review" :user="viewUser"></user-reviews>
-				</table>	
-			</div>
-		</div> -->
-
-
 		<!-- follow button -->	
-		<div class="follow align-left">
+
+		<div class="follow" >
 			<button @click="followUser">Follow user</button>
-			<div v-if="isAddFollower"> 
-				Adding user to follow...
-			</div>
-			<div v-if="isLoggedIn"> 
+			<div v-if="!isLoggedIn"> 
+				isLoggedIn:{{isLoggedIn}}
+				
+				<br>
 				Please login to follow the user...
 			</div>
 		</div>
+
+		<!-- <div v-if="isFollowed">The user is followed by {{followedBy}}</div> -->
 
 
 
@@ -65,15 +56,14 @@ export default {
 	data() {
 		return {
 			isAddFollower: false,
-			isLoggedIn: false,
+	
 		};
 	},
 	created() {
 		const userId = this.$route.params.userId;
     this.$store.dispatch({ type: 'usersModule/loadViewUser', userId });
 
-		// var directAndId = { direct: "user", id: userId };
-		// this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId });
+		
 	},
 	destroyed(){
     this.$store.commit({ type: "usersModule/cleanViewUser"});
@@ -94,15 +84,17 @@ export default {
       }
 		},
 		followedBy(){
-			if(this.$store.state.usersModule.viewUser){
+
+			if(this.$store.state.usersModule.currUser){
 				
-				console.log('follow', this.$store.state.usersModule.currUser.name)
 				return this.$store.state.usersModule.currUser.name
 			}
 		},
 		isFollowed(){
+			// console.log('this.$store.state.usersModule.viewUser', this.$store.state.usersModule.viewUser)
+			// console.log('this.viewUser', this.viewUser)
 			if(this.$store.state.usersModule.viewUser){
-				var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.folowedBy))
+				var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.followedBy))
 			// if the user is not followed the variable isFollowed is empty array
 				if(isFollowed[0]){
 						return true
@@ -111,32 +103,65 @@ export default {
 		},
 		currUser() {
       return this.$store.state.usersModule.currUser;
+		},
+		isLoggedIn(){
+			var currUser = this.$store.state.usersModule.currUser
+
+			if(!currUser) {
+				console.log('!currUser')
+				return true
+			}	else{
+				console.log('currUser', currUser)
+				if(currUser.name === 'Guest'){
+					console.log('Guest')
+					return false
+				} else {
+					return true
+				}
+			}
+
+
+			// if(currUser.name){
+			// 	console.log('currUser', currUser)
+			// 	if(currUser.name === 'Guest'){
+			// 		console.log('Guest')
+			// 		return false
+			// 	} else {
+			// 		return true
+			// 	}
+			// }
+			
 		}
 		
 	},
 	methods: {
 			followUser() {
 			//can't follow if not logged in
-			// 2 secs to show "Please login to follow the user..."
-			var loggedInUser = this.currUser.userId
-			if(!loggedInUser){
-				this.isLoggedIn = !this.isLoggedIn
-				setTimeout(() => {		
-					this.isLoggedIn = !this.isLoggedIn;
-				}, 2000)
-				return
-			}
+
+			// var loggedInUser = this.currUser
+			// console.log('loggedInUser = this.currUser.name:', this.currUser.name)
 			
-			// 2 secs to show "Adding user to follow..."
-			this.isAddFollower = !this.isAddFollower;
-			setTimeout(() => {		
-				this.isAddFollower = !this.isAddFollower;
-			}, 2000)
+			// if(loggedInUser.name === 'Guest'){
+			// 	console.log('this.isLoggedIn', this.isLoggedIn)
+			// 	this.isLoggedIn = !this.isLoggedIn
+				// setTimeout(() => {		
+				// 	this.isLoggedIn = !this.isLoggedIn;
+				// }, 2000)   // 2 secs to show "Please login to follow the user..."
+				// console.log('loggedInUser = this.currUser:', this.currUser)
+			// 	return
+			// }
+			
+			// // 2 secs to show "Adding user to follow..."
+			// this.isAddFollower = !this.isAddFollower;
+			// setTimeout(() => {		
+			// 	this.isAddFollower = !this.isAddFollower;
+			// 	console.log('here')
+			// }, 2000)
 
-			var followedUser = this.$route.params.userId;
+			// var followedUser = this.$route.params.userId;
 
-			var users = {loggedInUser, followedUser}
-			this.$store.commit({ type: "usersModule/addRemoveFollower", users})
+			// var users = {loggedInUser, followedUser}
+			// this.$store.dispatch({ type: "usersModule/addFollower", users})
 		},
 		},
 	components: {

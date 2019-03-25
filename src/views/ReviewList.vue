@@ -207,7 +207,7 @@ export default {
 		// },
 		// isFollowed(){
 		// 	if(this.$store.state.usersModule.viewUser){
-		// 		var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.folowedBy))
+		// 		var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.followedBy))
 		// 	// if the user is not followed the variable isFollowed is empty array
 		// 		if(isFollowed[0]){
 		// 				return true

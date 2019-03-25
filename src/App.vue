@@ -57,7 +57,8 @@ export default {
 
 .div-hello{
   padding: 6px 8px 6px 8px;
-  background-color: #520000;
+  // background-color: #520000;
+  background-color: #2b2a44;
 }
 .user-name {
   margin: 0;
@@ -96,7 +97,7 @@ export default {
 }
 
 #nav {
-  background-color: #520000;
+  background-color: #2b2a44;
   font-size: 1.4em;
   padding: 0px 2px 10px 2px;
   a {

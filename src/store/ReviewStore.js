@@ -46,12 +46,12 @@ const reviewsModule = {
                 //     context.commit({ type: 'setMovies', serverReviews: storageReviews })
                 // })
                 .finally(() => {
-                    console.log('FINISH ****loadReviews****');
+                    // console.log('FINISH ****loadReviews****');
                 })
         },
 
         addLike(context, { reviewId }) {
-            console.log('store', reviewId)
+            // console.log('store', reviewId)
             return ReviewService.addLike(reviewId)
                 .then(serverLikes => {
                     context.commit({ type: 'setCurreReview', serverLikes })
@@ -67,7 +67,7 @@ const reviewsModule = {
         addReview(context, { newReview }) {
             return ReviewService.add(newReview)
                 .then((addedReview) => {
-                    console.log('addedReview',addedReview)
+                    // console.log('addedReview',addedReview)
                     context.commit({ type: 'addReview', addedReview })
                 })
         },

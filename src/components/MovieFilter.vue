@@ -82,7 +82,8 @@ export default {
   font-size: 1em;
   user-select: none;
   margin-left: 6px;
-  background-color: #563f46;
+  /* background-color: #563f46; */
+  background-color: #ffffff;
   padding: 4px 4px 4px 24px;
   border-radius: 2px;
   transition: background-color .3s;
@@ -97,13 +98,16 @@ export default {
 
 }
 .container:hover input ~ .checkmark {
-  background-color: #563f46;
+  /* background-color: #563f46; */
+  background-color: #ffffff;
 }
 .container:hover {
-  background-color: #685158;
+  /* background-color: #685158; */
+  background-color: #488bc9;
 }
 .container input:checked ~ .checkmark {
-  background-color: #563f46;
+  /* background-color: #563f46; */
+  background-color: #ffffff;
 }
 .checkmark {
   position: absolute;
@@ -111,7 +115,8 @@ export default {
   left: 2px;
   height: 20px;
   width: 20px;
-  background-color: #816b72;
+  /* background-color: #816b72; */
+  /* background-color: #2b2a44; */
   border-radius: 12px;
   transition: background-color .3s;
 }
@@ -119,6 +124,11 @@ export default {
   content: "";
   position: absolute;
   display: none;
+}
+.container{
+  color: #2b2a44;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .container input:checked ~ .checkmark:after {
   display: block;
@@ -134,7 +144,8 @@ export default {
 }
 .search-input {
   margin-left: 6px;
-  background-color: #563f46;
+  /* background-color: #563f46; */
+  background-color: #ffffff;
   font-size: 1em;
   padding: 4px;
   border: none;
@@ -175,14 +186,16 @@ export default {
 
 .select-catagory,
 .select-sort{
-  background-color: #563f46;
+  /* background-color: #563f46; */
+  background-color: #ffffff;
   height: 30px;
-  color: rgb(241, 236, 229);
+  /* color: rgb(241, 236, 229); */
+  color: #2b2a44;
   cursor: pointer;
   border: none;
   padding: 4px;
   margin-left: 6px;
-  font-family: quando, Arial, serif;
+  /* font-family: quando, Arial, serif; */
   border-radius: 2px;
   transition: background-color .2s;
 }
