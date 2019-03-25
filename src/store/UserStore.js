@@ -4,8 +4,8 @@ const usersModule = {
     strict: true,
     namespaced: true,
     state: {
-        currUser: null,
-        viewUser: null
+        currUser: null, // loged in user
+        viewUser: null //  user
     },
     mutations: {
         setCurrUser(state, payload) {
@@ -21,8 +21,10 @@ const usersModule = {
             state.viewUser = null;
         },
         setFollower(state, {users}){
-            state.currUser.follow.followAfter = users.followedUser
-            state.viewUser.follow.followedBy = users.loggedInUser
+            state.currUser.follow.followAfter.push(users.followedUser)
+            state.viewUser.follow.followedBy.push(users.loggedInUser)
+            // state.currUser.follow.followAfter = users.followedUser
+            // state.viewUser.follow.followedBy = users.loggedInUser
         }
     },
     getters: {

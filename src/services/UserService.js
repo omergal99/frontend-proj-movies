@@ -144,9 +144,7 @@ function _makeId(length = 6) {
 
 
 function addFollowUser(users){
-    console.log('users:', users)
     const userId = users.followedUser
-    console.log('userId:', userId)
     return axios.put(`${USER_API}/details/${userId}`, users)
 
 }

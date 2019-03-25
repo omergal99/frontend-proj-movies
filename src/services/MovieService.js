@@ -23,7 +23,7 @@ export default {
 const resolveData = res => res.data;
 // --------------------------------------------------------
 
-var movies = require('../../data/movies_db.json');
+
 const MOVIES_KEY = 'movieeee';
 
 function query(filterBy) {
