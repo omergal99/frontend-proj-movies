@@ -121,10 +121,15 @@ export default {
 .form-register input {
   border-radius: 4px;
   padding: 2px 10px 2px 10px;
-  background-color: rgb(241, 209, 190);
+  background-color: #750a2c;
   border: none;
   font-size: 1.2em;
+  color: rgb(250, 250, 250);
   font-family: cursive, arial, serif, sans-serif;
+}
+.form-login input::placeholder,
+.form-register input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .logout-btn {
@@ -157,7 +162,7 @@ export default {
 
 .div-login button,
 .div-register button {
-  width: 80vw;
+  width: 70vw;
   margin: 0 auto;
   cursor: pointer;
   border: none;
@@ -165,14 +170,14 @@ export default {
   border-radius: 4px;
   outline: none;
   font-family: cursive, arial, serif, sans-serif;
-  background-color: rgb(59, 196, 70);
-  font-size: 0.8em;
-  padding: 8px 4px;
+  background-color: #005780;
+  font-size: 1.1em;
+  padding: 4px 4px;
   transition: background-color 0.2s;
 }
 .div-login button:hover,
 .div-register button:hover {
-  background-color: rgb(47, 160, 85);
+  background-color: #005279;
 }
 
 h2 {
@@ -186,7 +191,7 @@ h2 {
   }
   .div-login button,
 .div-register button {
-  width: 60vw;
+  width: 50vw;
 }
 }
 
@@ -197,7 +202,7 @@ h2 {
   }
    .div-login button,
 .div-register button {
-  width: 40vw;
+  width: 30vw;
 }
 }
 </style>

@@ -7,7 +7,6 @@
     <main>
       <p class="about-txt">Hello&nbsp; there!</p>
       <p class="about-txt">We want to tell you that....</p>
-      <p class="about-txt">mmmmmmm ?</p>
 
       <div class="about-img-div">
         <img src="../assets/img/about/team.jpg">
@@ -69,5 +68,15 @@
 .about-page main a:hover {
   color: rgb(255, 255, 255);
   background-color: rgb(85, 167, 192);
+}
+
+@media (min-height: 500px) {
+  .about-page header h1 {
+    font-size: 1.75em;
+  margin: 4px 0 6px 0;
+  }
+  .about-txt {
+  margin: 0 auto 4px auto;
+}
 }
 </style>
