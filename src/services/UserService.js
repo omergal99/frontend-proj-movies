@@ -1,16 +1,24 @@
-const fs = require('fs');
+import axios from 'axios';
 
-var users = require('../../data/users_db.json');
+
+const USER_API = (process.env.NODE_ENV !== 'development') ?
+'/user' :
+'//localhost:3003/user';
+
+const resolveData = res => res.data;
 
 export default {
     getUsers,
     add,
-    isNameAndPassOk,
+    // isNameAndPassOk,
     isNameNotInUse,
     remove,
     getGuestUser,
-    getById
+    getById,
+    login
 }
+
+var users = require('../../data/users_db.json');
 
 function getUsers(userId) {
     var prm = getById(userId)
@@ -27,10 +35,9 @@ function getUsers(userId) {
     return prm;
 }
 
-function getById(id) {
-    var user = users.find(user => user.userId === id);
-    if (user) return Promise.resolve(user);
-    else return Promise.resolve('Unknown User');
+function getById(userId) {
+    return axios.get(`${USER_API}/${userId}`)
+        .then(resolveData)
 }
 
 function getGuestUser() {
@@ -42,8 +49,8 @@ function getGuestUser() {
         dateCreated: 0,
         rating: 0,
         follow: {
-            folowedBy: [],
-            folowAfter: []
+            followedBy: [],
+            followAfter: []
         }
     }
 }
@@ -59,29 +66,48 @@ function add(newUser) {
     var fullNewUser = getGuestUser();
     fullNewUser.name = newUser.name;
     fullNewUser.password = newUser.pass;
-    fullNewUser.userId = _makeId();
+    // fullNewUser.userId = _makeId();
     fullNewUser.isAdmin = false;
     users.push(fullNewUser);
     return Promise.resolve(fullNewUser);
 
     // return _saveUsersToFile().then(() => user);
 }
+function login(userNamePass) {
+    var prmAnsRes = axios.put(`${USER_API}/login`, userNamePass)
+    prmAnsRes.catch(err => {
+        console.log('Service Cought an Error - ', err);
+    })
+    prmAnsRes.finally(() => {
+        console.log('Done handling res');
+    })
 
-function isNameAndPassOk(name, pass) {
-    var user = users.find(user => {
-        return (user.name.toLowerCase() === name.toLowerCase() && user.password === pass)
-    });
-    if (user) {
-        var userToReturn = {
-            ...user
-        };
-        delete userToReturn.password;
-        delete userToReturn.isAdmin;
-        return Promise.resolve(userToReturn);
-    } else {
-        return Promise.resolve('Unknown User');
-    }
+    var prmAns = prmAnsRes.then(res => {
+        console.log('Result- Data:', res.data);
+        return res.data;
+    })
+
+    console.log('Done Sending the AJAX Request');
+    return prmAns;
 }
+
+// function isNameAndPassOk(user) {
+//     var name = user.name;
+//     var pass = user.pass;
+//     var user = users.find(user => {
+//         return (user.name.toLowerCase() === name.toLowerCase() && user.password === pass)
+//     });
+//     if (user) {
+//         var userToReturn = {
+//             ...user
+//         };
+//         delete userToReturn.password;
+//         delete userToReturn.isAdmin;
+//         return Promise.resolve(userToReturn);
+//     } else {
+//         return Promise.resolve('Unknown User');
+//     }
+// }
 
 function isNameNotInUse(name) {
     var user = users.find(user => {
@@ -94,17 +120,17 @@ function isNameNotInUse(name) {
     }
 }
 
-function _saveUsersToFile() {
-    return new Promise((resolve, reject) => {
-        var strUsers = JSON.stringify(users)
-        fs.writeFile('data/users_db.json', strUsers, (err) => {
-            if (err) {
-                console.error('Had problem writing to Users file', err);
-                reject(err);
-            } else resolve();
-        });
-    })
-}
+// function _saveUsersToFile() {
+//     return new Promise((resolve, reject) => {
+//         var strUsers = JSON.stringify(users)
+//         fs.writeFile('data/users_db.json', strUsers, (err) => {
+//             if (err) {
+//                 console.error('Had problem writing to Users file', err);
+//                 reject(err);
+//             } else resolve();
+//         });
+//     })
+// }
 
 function _makeId(length = 6) {
     var txt = '';

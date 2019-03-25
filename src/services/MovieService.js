@@ -1,6 +1,10 @@
-const fs = require('fs');
+import axios from 'axios'
+const BASE_URL = process.env.NODE_ENV !== 'development'
+    ? '/movie'
+    : '//localhost:3003/movie'
 
 const UserService = require('./UserService');
+
 
 export default {
     query,
@@ -16,13 +20,28 @@ export default {
 //     '/movie' :
 //     '//localhost:3003/movie';
 
-// const resolveData = res => res.data
+const resolveData = res => res.data;
 // --------------------------------------------------------
 
-var movies = require('../../data/movies_db.json');
+
 const MOVIES_KEY = 'movieeee';
 
 function query(filterBy) {
+    var queryStr = '';
+    if (filterBy) {
+        queryStr = `?name=${filterBy.name}&category=${filterBy.category}&sort=${filterBy.sort}&isNew=${filterBy.isNew}`
+    }
+    return axios.get(`${BASE_URL}${queryStr}`)
+        .then(resolveData)
+        .catch(() => _createMovies())
+}
+
+function getById(movieId) {
+    return axios.get(`${BASE_URL}/${movieId}`)
+        .then(resolveData)
+}
+
+function query2(filterBy) {
 
     if (filterBy) {
         var moviesToSend = movies.filter(movie => {
@@ -65,12 +84,6 @@ function update(updatMovie) {
     // return Promise.resolve(movie)
 }
 
-function getById(id) {
-    var movie = movies.find(movie => movie.movieId === id);
-    if (movie) return Promise.resolve(movie);
-    else return Promise.reject('Unknown movie');
-}
-
 function remove(movieId) {
     var movieIdx = movies.findIndex(movie => movie.movieId === movieId);
     if (movieIdx === -1) return Promise.reject('Not Found');
@@ -85,18 +98,6 @@ function _makeId(length = 3) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return txt;
-}
-
-function _saveMoviesToFile() {
-    return new Promise((resolve, reject) => {
-        var strMovies = JSON.stringify(movies)
-        fs.writeFile("data/movies_db.json", strMovies, (err) => {
-            if (err) {
-                console.error('Had problem writing to movies file', err);
-                reject(err);
-            } else resolve();
-        });
-    })
 }
 
 function _createMovies() {

@@ -2,7 +2,7 @@
   <section>
     <h2>User Page</h2>
 
-    <div class="flex flex-col" v-if="loggedInUser && loggedInUser.userId">
+    <div class="flex flex-col" v-if="loggedInUser && loggedInUser._id">
       <label class="margin-bottom6">Hi {{loggedInUser.name}}! You need to logout first</label>
       <router-link to="/login">
         <button class="logout-btn" @click="logoutUser">Logout</button>
@@ -13,8 +13,10 @@
       <div class="div-login">
         <p class="margin-bottom6">Enter to your account</p>
         <form class="form-login flex flex-col" @submit.prevent="onLogin">
-          <input autofocus class="margin-bottom6" type="text" placeholder="User name" v-model="user.name">
-          <input class="margin-bottom6" type="text" placeholder="Password" v-model="user.pass">
+          <input required autofocus class="margin-bottom6" type="text" placeholder="User name" 
+            v-model="user.name">
+          <input required class="margin-bottom6" type="text" placeholder="Password" 
+            v-model="user.pass">
           <button class="margin-bottom6" type="submit">Login</button>
         </form>
         <p class="msg-login-fail">{{msgFailLogin}}</p>
@@ -53,13 +55,12 @@ export default {
   },
   methods: {
     onLogin() {
-      UserService.isNameAndPassOk(this.user.name, this.user.pass).then(user => {
-        if (user && user.userId) {
+      this.$store.dispatch({ type: 'usersModule/doLogin', user: this.user })
+        .then(user => {
+        if (user && user._id) {
           console.log('LOGGED IN!', user);
-          this.$store.dispatch({ type: 'usersModule/loadUser', user })
-            .then(() => {
               // this.$router.push('/movies');
-            });
+              this.$router.go(-1);
         } else {
           console.log('WRONG TO LOGGED IN');
           this.textFailLog = 'Wrong name or password - You stay in Guest mode';
@@ -75,7 +76,8 @@ export default {
               .then(res => {
                 if (res) {
                   console.log('register NEW SUCCESS!');
-                  this.$router.push('/movies');
+                  // this.$router.push('/movies');
+                  this.$router.go(-1);
                 } else {
                   console.log('register FAIL');
                 }
@@ -120,10 +122,15 @@ export default {
 .form-register input {
   border-radius: 4px;
   padding: 2px 10px 2px 10px;
-  background-color: rgb(241, 209, 190);
+  background-color: #d4c2c8;
   border: none;
   font-size: 1.2em;
+  color: rgb(15, 15, 15);
   font-family: cursive, arial, serif, sans-serif;
+}
+.form-login input::placeholder,
+.form-register input::placeholder {
+  color: rgba(29, 29, 29, 0.7);
 }
 
 .logout-btn {
@@ -156,7 +163,7 @@ export default {
 
 .div-login button,
 .div-register button {
-  width: 80vw;
+  width: 70vw;
   margin: 0 auto;
   cursor: pointer;
   border: none;
@@ -164,14 +171,14 @@ export default {
   border-radius: 4px;
   outline: none;
   font-family: cursive, arial, serif, sans-serif;
-  background-color: rgb(59, 196, 70);
-  font-size: 0.8em;
-  padding: 8px 4px;
+  background-color: #005780;
+  font-size: 1.1em;
+  padding: 4px 4px;
   transition: background-color 0.2s;
 }
 .div-login button:hover,
 .div-register button:hover {
-  background-color: rgb(47, 160, 85);
+  background-color: #005279;
 }
 
 h2 {
@@ -185,7 +192,7 @@ h2 {
   }
   .div-login button,
 .div-register button {
-  width: 60vw;
+  width: 50vw;
 }
 }
 
@@ -196,7 +203,7 @@ h2 {
   }
    .div-login button,
 .div-register button {
-  width: 40vw;
+  width: 30vw;
 }
 }
 </style>

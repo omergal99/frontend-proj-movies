@@ -4,7 +4,8 @@ const usersModule = {
     strict: true,
     namespaced: true,
     state: {
-        currUser: null,
+        currUser: null, // loged in user
+        viewUser: null //  user
     },
     mutations: {
         setCurrUser(state, payload) {
@@ -13,19 +14,30 @@ const usersModule = {
         cleanCurrUser(state, payload) {
             state.currUser = payload.guest;
         },
+        setViewUser(state, payload) {
+            state.viewUser = payload.user;
+        },
+        cleanViewUser(state) {
+            state.viewUser = null;
+        },
+        addRemoveFollower(state, {users}){
+            state.currUser.follow.folowAfter = users.followedUser
+            state.viewUser.follow.folowedBy = users.loggedInUser
+        }
     },
     getters: {
        
     },
     actions: {
+        doLogin(context, {user}) {
+            return UserService.login(user)
+                .then( serverUser => {
+                    context.commit({ type: 'setCurrUser', user: serverUser })
+                    return serverUser;
+                })
+        },
         loadUser(context, {user}) {
             return context.commit({ type: 'setCurrUser', user })
-        },
-        getUserById(context, {userId}){
-            UserService.getById(userId)
-                .then( user => {
-                    context.commit({ type: 'setCurrUser', user })  // Commit and send to componenta
-                })
         },
         addUser(context, {newUser}) {
             return UserService.add(newUser)
@@ -37,8 +49,23 @@ const usersModule = {
         logoutUser(context){
             var guest = UserService.getGuestUser();
             return context.commit({ type: 'cleanCurrUser', guest })
-        }
+        },
+        loadViewUser(context, {userId}) {
+            return UserService.getById(userId)
+                .then( user => {
+                    return context.commit({ type: 'setViewUser', user })
+                })
+        },
     }
 }
 
 export default usersModule;
+
+
+// axios.get('https://randomuser.me/api/')
+// 				.then((res) => {
+// 					var user = this.$store.state.usersModule.currUser 
+// 					user.userImg = res.data.results[0].picture.large
+// 				})
+// 				.catch(console.log('error'))
+

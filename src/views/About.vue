@@ -7,7 +7,6 @@
     <main>
       <p class="about-txt">Hello&nbsp; there!</p>
       <p class="about-txt">We want to tell you that....</p>
-      <p class="about-txt">mmmmmmm ?</p>
 
       <div class="about-img-div">
         <img src="../assets/img/about/team.jpg">
@@ -19,14 +18,12 @@
 </template>
 
 <style scoped>
+.about-page {
+  color: rgb(207, 214, 228);
+}
 .about-page header h1 {
   font-size: 2.5em;
-  margin: 6px 0 10px 0;
-  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
-    -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000,
-    1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000,
-    -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000,
-    2px 0px 0 #000;
+  margin: 20px 0 10px 0;
 }
 
 .about-img-div {
@@ -46,13 +43,7 @@
   width: 80%;
   border-radius: 4px;
   background-color: #d8d8d800;
-  color: rgb(255, 255, 255);
   font-size: 1.2em;
-  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
-    -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000,
-    1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000,
-    -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000,
-    2px 0px 0 #000;
 }
 
 .about-page main a {
@@ -69,5 +60,15 @@
 .about-page main a:hover {
   color: rgb(255, 255, 255);
   background-color: rgb(85, 167, 192);
+}
+
+@media (min-height: 500px) {
+  .about-page header h1 {
+    font-size: 1.75em;
+    margin: 20px 0 6px 0;
+  }
+  .about-txt {
+    margin: 0 auto 4px auto;
+  }
 }
 </style>
