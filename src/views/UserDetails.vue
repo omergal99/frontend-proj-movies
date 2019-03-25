@@ -22,6 +22,18 @@
 			<div>
 				<button>Lets Chat!</button>
 			</div>
+
+			<!-- follow button -->	
+			<div class="">
+				<button @click="followUser">Follow user</button>
+				<div v-if="isAddFollower"> 
+					Adding user to follow...
+				</div>
+				<div v-if="isLoggedIn"> 
+					Please login to follow the user...
+				</div>
+			</div>
+
 		</div>
 
 		<!-- <div class="user-reviews-container" v-if="viewUser">
@@ -35,21 +47,8 @@
 			</div>
 		</div> -->
 
-
-		<!-- follow button -->	
-		<div class="follow align-left">
-			<button @click="followUser">Follow user</button>
-			<div v-if="isAddFollower"> 
-				Adding user to follow...
-			</div>
-			<div v-if="isLoggedIn"> 
-				Please login to follow the user...
-			</div>
-		</div>
-
-
-
 		
+
 		<review-list :directAndId="detailsForShowReviews"></review-list>
 
 	</section>

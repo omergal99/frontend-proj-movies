@@ -75,7 +75,8 @@ export default {
               .then(res => {
                 if (res) {
                   console.log('register NEW SUCCESS!');
-                  this.$router.push('/movies');
+                  // this.$router.push('/movies');
+                  this.$router.go(-1);
                 } else {
                   console.log('register FAIL');
                 }
@@ -120,15 +121,15 @@ export default {
 .form-register input {
   border-radius: 4px;
   padding: 2px 10px 2px 10px;
-  background-color: #750a2c;
+  background-color: #d4c2c8;
   border: none;
   font-size: 1.2em;
-  color: rgb(250, 250, 250);
+  color: rgb(15, 15, 15);
   font-family: cursive, arial, serif, sans-serif;
 }
 .form-login input::placeholder,
 .form-register input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(29, 29, 29, 0.7);
 }
 
 .logout-btn {

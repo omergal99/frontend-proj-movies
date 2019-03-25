@@ -3,9 +3,12 @@
     <h3>Reviews</h3>
 
 		<!-- add review button -->
-    <div class="new-review" >
+    <div class="new-review" v-if="directAndId.direct === 'movie'">
 			<div class="new-review">
-				<button class="margin-bottom6" @click="toggleOpenNewReview">Add Review</button>
+				<button class="margin-bottom6" 
+          @click="toggleOpenNewReview">
+          Add Review
+        </button>
 				<div v-if="isAddOpen">
 					<form class="flex flex-col" @submit.prevent="onAddReview">
 						<textarea class="margin-bottom6" v-model="newReview.content.txt" rows="6" cols="50"></textarea>
