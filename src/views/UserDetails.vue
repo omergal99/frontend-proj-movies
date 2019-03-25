@@ -30,6 +30,22 @@
 				</table>	
 			</div>
 		</div> -->
+
+
+		<!-- follow button -->	
+		<div class="follow align-left">
+			<button @click="followUser">Follow user</button>
+			<div v-if="isAddFollower"> 
+				Adding user to follow...
+			</div>
+			<div v-if="isLoggedIn"> 
+				Please login to follow the user...
+			</div>
+		</div>
+
+
+
+		
 		<review-list :directAndId="detailsForShowReviews"></review-list>
 
 	</section>
@@ -43,7 +59,10 @@ import ReviewList from './ReviewList.vue';
 export default {
 	name: 'UserDetails',
 	data() {
-		return {};
+		return {
+			isAddFollower: false,
+			isLoggedIn: false,
+		};
 	},
 	created() {
 		const userId = this.$route.params.userId;
@@ -63,14 +82,59 @@ export default {
       if (this.viewUser) {
         var directAndId = {
           direct: 'user',
-          id: this.viewUser.userId,
+          id: this.viewUser._id,
         };
         return directAndId;
       }else{
         return {err: 'problem in UserDetails page'}
       }
-    }
+		},
+		followedBy(){
+			if(this.$store.state.usersModule.viewUser){
+				
+				console.log('follow', this.$store.state.usersModule.currUser.name)
+				return this.$store.state.usersModule.currUser.name
+			}
+		},
+		isFollowed(){
+			if(this.$store.state.usersModule.viewUser){
+				var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.folowedBy))
+			// if the user is not followed the variable isFollowed is empty array
+				if(isFollowed[0]){
+						return true
+					}
+			}
+		},
+		currUser() {
+      return this.$store.state.usersModule.currUser;
+		}
+		
 	},
+	methods: {
+			followUser() {
+			//can't follow if not logged in
+			// 2 secs to show "Please login to follow the user..."
+			var loggedInUser = this.currUser.userId
+			if(!loggedInUser){
+				this.isLoggedIn = !this.isLoggedIn
+				setTimeout(() => {		
+					this.isLoggedIn = !this.isLoggedIn;
+				}, 2000)
+				return
+			}
+			
+			// 2 secs to show "Adding user to follow..."
+			this.isAddFollower = !this.isAddFollower;
+			setTimeout(() => {		
+				this.isAddFollower = !this.isAddFollower;
+			}, 2000)
+
+			var followedUser = this.$route.params.userId;
+
+			var users = {loggedInUser, followedUser}
+			this.$store.commit({ type: "usersModule/addRemoveFollower", users})
+		},
+		},
 	components: {
 		ReviewList,
 	}
@@ -120,4 +184,5 @@ h3 {
 table{
 	margin: 0 auto;
 }
+
 </style>

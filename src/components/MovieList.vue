@@ -4,11 +4,12 @@
 
     <ul class="ul-movies-list">
       <li v-for="currMovie in movies" :key="currMovie.movieId">
-        <router-link :to="'/movies/details/' + currMovie.movieId">
+        <router-link :to="'/movies/details/' + currMovie._id">
           <movie-preview :movie="currMovie"></movie-preview>
         </router-link>
       </li>
     </ul>
+
   </section>
 </template>
 

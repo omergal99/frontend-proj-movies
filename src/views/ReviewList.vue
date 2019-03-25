@@ -3,7 +3,7 @@
     <h3>Reviews</h3>
 
 		<!-- add review button -->
-    <div class="new-review" v-if="isAddingReview">
+    <div class="new-review" >
 			<div class="new-review">
 				<button class="margin-bottom6" @click="toggleOpenNewReview">Add Review</button>
 				<div v-if="isAddOpen">
@@ -15,7 +15,7 @@
 			</div>
 		</div>
 
-		<!-- follow button -->	
+		<!-- follow button	
 		<div class="new-review">
 			<button class="margin-bottom6" @click="followUser" v-if="!isAddingReview">Follow user's reviews</button>
 			<div v-if="isAddFollower"> 
@@ -24,9 +24,9 @@
 			<div v-if="isLoggedIn"> 
 				Please login to follow the user...
 			</div>
-		</div>
+		</div> -->
 
-    <div v-if="isFollowed">The user is followed by {{followedBy}}</div>
+    <!-- <div v-if="isFollowed">The user is followed by {{followedBy}}</div> -->
     <!-- <div v-if="isFollowed">The user is followed by {{followedBy}}</div> -->
 
     <!-- Louder -->
@@ -40,15 +40,22 @@
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
 
         <div v-if="directAndId.direct === 'movie'" class="user-details">
+
           <router-link :to="'/user/details/' + currReview.user.userId">
             <img height="50px" :src="currReview.user.userImg">
             {{currReview.user.userName}}
           </router-link>
+
+          <button @click="clickedLike(currReview._id )">Like</button>
+          <!-- <span >{{likes}}</span> -->
+          <button @click="clickedDislike(currReview._id)">Dislike</button>
+          <!-- <span >{{disLikes}}</span> -->
         </div>
+
         <div v-if="directAndId.direct === 'user'" class="movie-details">
           <router-link :to="'/movies/details/' + currReview.movie.movieId">
             <img height="50px" :src="currReview.movie.movieImg">
-            {{currReview.movie.movieName}}
+            <div>{{currReview.movie.movieName}}</div>
           </router-link>
         </div>
 
@@ -77,47 +84,49 @@ export default {
   },
   data() {
     return {
-			isAddFollower: false,
-			isLoggedIn: false,
+			// isAddFollower: false,
+			// isLoggedIn: false,
 			isAddOpen: false,
       isSendReview: false,
       newReview: {
         content: {
           txt: ""
         }
-			},
-			// isFollowed: false
-    }
+      }
+    };
   },
-  created() {
-	},
+  created() {},
   destroyed() {
-    this.$store.commit({ type: "reviewsModule/setReviews", serverReviews: null });
+    this.$store.commit({
+      type: "reviewsModule/setReviews",
+      serverReviews: null
+    });
   },
+
   methods: {
-    followUser() {
-			//can't follow if not logged in
-			// 2 secs to show "Please login to follow the user..."
-			var loggedInUser = this.currUser.userId
-			if(!loggedInUser){
-				this.isLoggedIn = !this.isLoggedIn
-				setTimeout(() => {		
-					this.isLoggedIn = !this.isLoggedIn;
-				}, 2000)
-				return
-			}
+    // followUser() {
+		// 	//can't follow if not logged in
+		// 	// 2 secs to show "Please login to follow the user..."
+		// 	var loggedInUser = this.currUser.userId
+		// 	if(!loggedInUser){
+		// 		this.isLoggedIn = !this.isLoggedIn
+		// 		setTimeout(() => {		
+		// 			this.isLoggedIn = !this.isLoggedIn;
+		// 		}, 2000)
+		// 		return
+		// 	}
 			
-			// 2 secs to show "Adding user to follow..."
-			this.isAddFollower = !this.isAddFollower;
-			setTimeout(() => {		
-				this.isAddFollower = !this.isAddFollower;
-			}, 2000)
+		// 	// 2 secs to show "Adding user to follow..."
+		// 	this.isAddFollower = !this.isAddFollower;
+		// 	setTimeout(() => {		
+		// 		this.isAddFollower = !this.isAddFollower;
+		// 	}, 2000)
 
-			var followedUser = this.$route.params.userId;
+		// 	var followedUser = this.$route.params.userId;
 
-			var users = {loggedInUser, followedUser}
-			this.$store.commit({ type: "usersModule/addRemoveFollower", users})
-		},
+		// 	var users = {loggedInUser, followedUser}
+		// 	this.$store.commit({ type: "usersModule/addRemoveFollower", users})
+		// },
 		toggleOpenNewReview() {
       this.isAddOpen = !this.isAddOpen;
     },
@@ -131,9 +140,10 @@ export default {
     onAddReview() {
       this.newReview.user = {
         userId: this.currUser.userId,
+        // userId: '5c94d22ba784a131347cb499',
         userImg: this.currUser.userImg,
         userName: this.currUser.name
-			};
+      };
       this.newReview.movie = {
         movieId: this.currMovie.movieId,
         movieImg: this.currMovie.details.movieImg,
@@ -150,7 +160,16 @@ export default {
     },
     toggleEditReview(currReview) {
       currReview.content.isEdit = !currReview.content.isEdit;
-      this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
+			this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
+		},
+    clickedLike(reviewId) {
+      // var userId = this.$store.state.usersModule.currUser.userId;
+      //var userId='user'
+      this.$store.dispatch({ type: "reviewsModule/addLike", reviewId });
+    },
+    clickedDislike(reviewId) {
+      //var userId='user'
+      this.$store.dispatch({ type: "reviewsModule/addDislike", reviewId });
     },
     removeReview(reviewToRemove) {
       var reviewId = reviewToRemove.reviewId;
@@ -158,17 +177,17 @@ export default {
     }
   },
   computed: {
-		isAddingReview(){
-			const userId = this.$route.params.userId;
-			const movieId = this.$route.params.movieId;
+		// isAddingReview(){
+		// 	const userId = this.$route.params.userId;
+		// 	const movieId = this.$route.params.movieId;
 			
-			if(movieId){
-				return true
-			}
-			if(userId){
-				return false
-			}		
-		},
+		// 	if(movieId){
+		// 		return true
+		// 	}
+		// 	if(userId){
+		// 		return false
+		// 	}		
+		// },
     reviewsToShow() {
       return this.$store.state.reviewsModule.currReviews;
     },
@@ -178,33 +197,35 @@ export default {
     currUser() {
       return this.$store.state.usersModule.currUser;
 		},
-		followedBy(){
-			if(this.$store.state.usersModule.viewUser){
+		// followedBy(){
+		// 	if(this.$store.state.usersModule.viewUser){
 				
-				console.log('follow', this.$store.state.usersModule.currUser.name)
-				return this.$store.state.usersModule.currUser.name
-			}
-		},
-		isFollowed(){
-			if(this.$store.state.usersModule.viewUser){
-				var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.folowedBy))
-			// if the user is not followed the variable isFollowed is empty array
-				if(isFollowed[0]){
-						return true
-					}
-			}
-
-
-		}
+		// 		console.log('follow', this.$store.state.usersModule.currUser.name)
+		// 		return this.$store.state.usersModule.currUser.name
+		// 	}
+		// },
+		// isFollowed(){
+		// 	if(this.$store.state.usersModule.viewUser){
+		// 		var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.folowedBy))
+		// 	// if the user is not followed the variable isFollowed is empty array
+		// 		if(isFollowed[0]){
+		// 				return true
+		// 			}
+		// 	}
+		// }
   },
+
   watch: {
-    directAndId: function (directAndId) {
+    directAndId: function(directAndId) {
       if (directAndId) {
-        this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId });
+        this.$store.dispatch({
+          type: "reviewsModule/loadReviews",
+          directAndId
+        });
       }
     }
   },
-  mounted() { },
+  mounted() {},
   components: {
     ReviewPreview
   }
@@ -267,7 +288,7 @@ h3 {
 }
 
 .list-section li {
-  height: 100px;
+  /* height: 100px; */
   width: 75vw;
   list-style: none;
   font-size: 1.1em;

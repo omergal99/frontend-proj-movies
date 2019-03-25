@@ -62,7 +62,7 @@ export default {
       if (this.currMovie) {
         var directAndId = {
           direct: "movie",
-          id: this.currMovie.movieId,
+          id: this.currMovie._id,
         };
         return directAndId;
       }else{

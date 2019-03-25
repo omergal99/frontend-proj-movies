@@ -1,4 +1,9 @@
-const fs = require('fs');
+import axios from 'axios'
+const BASE_URL = process.env.NODE_ENV !== 'development'
+    ? '/review'
+    : '//localhost:3003/review'
+
+const resolveData = res => res.data;
 
 var reviews = require('../../data/reviews_db.json');
 
@@ -7,10 +12,38 @@ export default {
     getById,
     remove,
     add,
-    update
+    update,
+    addLike,
+    addDislike
 }
 
 function query(directAndId) {
+    var direct = directAndId.direct;
+    var id = directAndId.id;
+    return axios.get(`${BASE_URL}/${direct}/${id}`)
+        .then(resolveData)
+        .catch(() => [])
+}
+
+function add(newReview) {
+    // newReview.reviewId = _makeId();
+    newReview.rate = {
+        countLike: [],
+        countDislike: []
+    };
+    // reviews.unshift(newReview);
+    var copy = JSON.parse(JSON.stringify(newReview))
+    console.log('newReview',copy)
+    // return Promise.resolve(newReview)
+    return axios.post(BASE_URL, copy)
+            .then(resolveData)
+            .catch(()=>{
+                return {_id:'asafasf',namee:'asfsaf'}
+                // TODO: roll back
+            })
+}
+
+function query2(directAndId) {
     if (directAndId.direct === 'movie') {
         var reviewsToSend = reviews.filter(review => {
             return (review.movie.movieId === directAndId.id)
@@ -26,13 +59,15 @@ function query(directAndId) {
     }
 }
 
-function add(newReview) {
+function add2(newReview) {
     newReview.reviewId = _makeId();
     newReview.rate = {
         countLike: [],
         countDislike: []
     };
     reviews.unshift(newReview);
+    var ff = JSON.parse(JSON.stringify(newReview))
+    console.log('newReview',ff)
     return Promise.resolve(newReview)
 
     // ---------------- save to server- backend ----------------------
@@ -60,6 +95,18 @@ function remove(reviewId) {
     return Promise.resolve('The Review Removed')
     // return _saveReviewsToFile();
 }
+function addLike(reviewId){
+    console.log('check',reviewId)
+    var review = reviews.find(review => review._id === reviewId);
+    review.rate.countLike.push('userID')
+    return _saveReviewsToFile().then(() => reviewId)
+}
+function addDislike(reviewId){
+    var review = reviews.find(review => review._id === reviewId);
+    review.rate.countDislike.push('userId')
+    return _saveReviewsToFile().then(() => reviewId)
+    return Promise.resolve(review)
+}
 
 function _makeId(length = 3) {
     var txt = '';
@@ -68,18 +115,6 @@ function _makeId(length = 3) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return txt;
-}
-
-function _saveReviewsToFile() {
-    return new Promise((resolve, reject) => {
-        var strReviews = JSON.stringify(reviews)
-        fs.writeFile('data/reviews_db.json', strReviews, (err) => {
-            if (err) {
-                console.error('Had problem writing to reviews file', err);
-                reject(err);
-            } else resolve();
-        });
-    })
 }
 
 function getEmpty() {
