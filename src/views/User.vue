@@ -60,6 +60,7 @@ export default {
         if (user && user._id) {
           console.log('LOGGED IN!', user);
               // this.$router.push('/movies');
+              this.$router.go(-1);
         } else {
           console.log('WRONG TO LOGGED IN');
           this.textFailLog = 'Wrong name or password - You stay in Guest mode';
