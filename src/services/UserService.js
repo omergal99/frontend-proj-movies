@@ -49,8 +49,8 @@ function getGuestUser() {
         dateCreated: 0,
         rating: 0,
         follow: {
-            folowedBy: [],
-            folowAfter: []
+            followedBy: [],
+            followAfter: []
         }
     }
 }

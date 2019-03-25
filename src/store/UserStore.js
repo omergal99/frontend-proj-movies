@@ -4,8 +4,8 @@ const usersModule = {
     strict: true,
     namespaced: true,
     state: {
-        currUser: null,
-        viewUser: null
+        currUser: null, // loged in user
+        viewUser: null //  user
     },
     mutations: {
         setCurrUser(state, payload) {

@@ -39,20 +39,22 @@
       <img src="../assets/img/banana2.gif">
     </div>
 
+         
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
 
         <div v-if="directAndId.direct === 'movie'" class="user-details">
-
           <router-link :to="'/user/details/' + currReview.user.userId">
             <img height="50px" :src="currReview.user.userImg">
             {{currReview.user.userName}}
           </router-link>
 
-          <button @click="clickedLike(currReview._id )">Like</button>
-          <!-- <span >{{likes}}</span> -->
-          <button @click="clickedDislike(currReview._id)">Dislike</button>
-          <!-- <span >{{disLikes}}</span> -->
+          <button @click="clickedLike(currReview._id,currUser)">
+            Like {{currReview.rate.countLike.length}}
+          </button>
+          
+          <button @click="clickedDislike(currReview._id,currUser)">Dislike {{currReview.rate.countDislike.length}}</button>
+          
         </div>
 
         <div v-if="directAndId.direct === 'user'" class="movie-details">
@@ -162,22 +164,32 @@ export default {
       this.isSendReview = true;
       this.newReview = { content: { txt: "" } };
     },
+
+    clickedLike(reviewId, logedInUser) {
+      var rateDetails={
+         reviewId :reviewId,
+         updateUser: logedInUser._id,
+         rateDitection : "like"
+      }
+     this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
+    },
     toggleEditReview(currReview) {
       currReview.content.isEdit = !currReview.content.isEdit;
 			this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
 		},
-    clickedLike(reviewId) {
-      // var userId = this.$store.state.usersModule.currUser.userId;
-      //var userId='user'
-      this.$store.dispatch({ type: "reviewsModule/addLike", reviewId });
+    clickedDislike(reviewId,logedInUser) {
+      var rateDetails={
+         reviewId :reviewId,
+         updateUser: logedInUser._id,
+         rateDitection : "disLike"
+      }
+      this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
+      
     },
-    clickedDislike(reviewId) {
-      //var userId='user'
-      this.$store.dispatch({ type: "reviewsModule/addDislike", reviewId });
-    },
+
     removeReview(reviewToRemove) {
       var reviewId = reviewToRemove.reviewId;
-      this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId });
+      this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId, logedInUser });
     }
   },
   computed: {

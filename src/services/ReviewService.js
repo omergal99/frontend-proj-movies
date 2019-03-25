@@ -13,8 +13,9 @@ export default {
     remove,
     add,
     update,
-    addLike,
-    addDislike
+    updateRate
+    // addLike,
+    // addDislike
 }
 
 function query(directAndId) {
@@ -95,18 +96,23 @@ function remove(reviewId) {
     return Promise.resolve('The Review Removed')
     // return _saveReviewsToFile();
 }
-function addLike(reviewId){
-    console.log('check',reviewId)
-    var review = reviews.find(review => review._id === reviewId);
-    review.rate.countLike.push('userID')
-    return _saveReviewsToFile().then(() => reviewId)
+
+function updateRate(rateDetails){
+  console.log ('rateDetails',rateDetails)
+  return new Promise((resolve, reject) => {
+    axios.put(BASE_URL , rateDetails)
+        .then(res => {
+            let updatedRev = res
+            console.log('updated review:', updatedRev)
+            resolve(updatedRev)
+        })
+        .catch(err => err)
+})
 }
-function addDislike(reviewId){
-    var review = reviews.find(review => review._id === reviewId);
-    review.rate.countDislike.push('userId')
-    return _saveReviewsToFile().then(() => reviewId)
-    return Promise.resolve(review)
-}
+
+
+
+
 
 function _makeId(length = 3) {
     var txt = '';

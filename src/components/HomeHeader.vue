@@ -44,9 +44,9 @@ export default {
   /* height: 100vh; */
   width: 80vw;
 }
-.poster-list li {
-  /* grid-column-start: 2; */
-}
+// .poster-list li {
+//   /* grid-column-start: 2; */
+// }
 .poster-list li img {
   max-height: 40vh;
   width: auto;
