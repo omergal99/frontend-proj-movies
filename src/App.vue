@@ -5,11 +5,11 @@
       <p class="user-name">Hello {{loggedInUser.name}}!</p>
       <div>
         <router-link to="/login">
-          <button class="login-btn" v-if="!loggedInUser.userId">Login</button>
+          <button class="login-btn" v-if="!loggedInUser._id">Login</button>
         </router-link>
 
         <router-link to="/">
-          <button class="logout-btn" v-if="loggedInUser.userId" @click="logoutUser">Logout</button>
+          <button class="logout-btn" v-if="loggedInUser._id" @click="logoutUser">Logout</button>
         </router-link>
       </div>
     </div>
@@ -57,7 +57,7 @@ export default {
 
 .div-hello{
   padding: 6px 8px 6px 8px;
-  background-color: #563f46;
+  background-color: #520000;
 }
 .user-name {
   margin: 0;
@@ -96,12 +96,12 @@ export default {
 }
 
 #nav {
-  background-color: #563f46;
+  background-color: #520000;
   font-size: 1.4em;
   padding: 0px 2px 10px 2px;
   a {
     font-weight: bold;
-    color: #e4effa;
+    color: #dbd5d5;
     &.router-link-exact-active {
       color: #488bc9;
     }

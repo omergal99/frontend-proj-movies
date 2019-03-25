@@ -57,14 +57,14 @@ export default {
 </script>
 <style scoped>
 .home section {
-  height: 50vh;
+  height: 80vh;
   z-index: -100;
 }
 .home section .bnr-strp {
   z-index: -150;
 }
 .bnr-strp {
-  bottom: -20vh;
+  bottom: -25vh;
   height: 300vw;
   width: 150%;
   position: absolute;
@@ -72,25 +72,36 @@ export default {
 .header {
   /* height: 50vh; */
   background-color: rgb(0, 150, 150);
+  background-color: #83ae84;
+  background-color: rgb(78, 105, 78);
+  background-color: #438573;
+  background-color: #4bb875;
   overflow: hidden;
   position: relative;
 }
 .header .bnr-strp {
   transform: rotate(150deg);
   background-color: rgb(0, 107, 150);
+  background-color: #6586a7;
+  background-color: rgb(88, 124, 160);
+  background-color: #6b5b95;
   border-radius: 50%;
 }
 
 .main-first {
   /* height: 50vh; */
   background-color: rgb(165, 112, 81);
+  background-color: #ffc652;
+  background-color: rgb(219, 167, 62);
   overflow: hidden;
   position: relative;
 }
 .main-first .bnr-strp {
-  right:-40vw;
+  right: -20vw;
   transform: rotate(80deg);
   background-color: rgb(87, 44, 57);
+  background-color: #5f021f;
+  background-color: rgb(117, 10, 44);
 }
 
 .main-second {
@@ -100,21 +111,23 @@ export default {
   position: relative;
 }
 .main-second .bnr-strp {
-  right: 20vh;
-  transform: rotate(20deg);
+  right: 70vw;
+  bottom: -55vh;
+  transform: rotate(-20deg);
   background-color: rgb(0, 54, 99);
 }
 
 .main-thrid {
   /* height: 50vh; */
   background-color: rgb(207, 135, 0);
+  background-color: #cf4e4a;
   overflow: hidden;
   position: relative;
 }
 .main-thrid .bnr-strp {
   right: 20vh;
   transform: rotate(280deg);
-  background-color: rgb(65, 9, 62);
+  background-color: rgb(107, 25, 103);
   border-radius: 50%;
 }
 
@@ -132,37 +145,53 @@ export default {
 
 .footer {
   /* height: 50vh; */
-  background-color: rgb(0, 95, 0);
+  background-color: #034f84;
   overflow: hidden;
   position: relative;
 }
 .footer .bnr-strp {
   left: 15vh;
   transform: rotate(130deg);
-  background-color: rgb(0, 107, 150);
+  background-color: rgb(0, 127, 177);
   border-radius: 50%;
 }
 
+@media (min-width: 400px) {
+  .bnr-strp {
+    height: 270vw;
+  }
+}
 @media (min-width: 500px) {
   .bnr-strp {
     height: 250vw;
   }
 }
+@media (min-width: 600px) {
+  .bnr-strp {
+    height: 225vw;
+  }
+}
 
 @media (min-width: 800px) {
   .bnr-strp {
-    height: 200vw;
+    height: 210vw;
   }
 }
 
 @media (min-width: 1030px) {
   .bnr-strp {
-    height: 170vw;
+    height: 200vw;
   }
 }
 @media (min-width: 1580px) {
   .bnr-strp {
-    height: 140vw;
+    height: 190vw;
+  }
+}
+
+@media (min-height: 500px) {
+  .home section {
+    height: 90vh;
   }
 }
 </style>

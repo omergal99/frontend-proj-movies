@@ -139,13 +139,14 @@ export default {
     },
     onAddReview() {
       this.newReview.user = {
-        userId: this.currUser.userId,
-        // userId: '5c94d22ba784a131347cb499',
+        // userId: this.currUser.userId,
+        userId: this.currUser._id,
         userImg: this.currUser.userImg,
         userName: this.currUser.name
       };
       this.newReview.movie = {
-        movieId: this.currMovie.movieId,
+        // movieId: this.currMovie.movieId,
+        movieId: this.currMovie._id,
         movieImg: this.currMovie.details.movieImg,
         movieName: this.currMovie.details.name
       };

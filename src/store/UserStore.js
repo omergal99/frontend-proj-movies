@@ -33,7 +33,7 @@ const usersModule = {
             return UserService.login(user)
                 .then( serverUser => {
                     context.commit({ type: 'setCurrUser', user: serverUser })
-                    return 'success login'
+                    return serverUser;
                 })
         },
         loadUser(context, {user}) {
