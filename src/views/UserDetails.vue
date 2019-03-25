@@ -1,13 +1,20 @@
 <template>
 	<section>
 		<div class="user-details" v-if="viewUser">
+<<<<<<< HEAD
 			<div class="div-img">
 				<img :src="viewUser.userImg">
 				
+=======
+
+			<div class="div-img">
+				<img :src="viewUser.userImg">
+>>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 			</div>
 
 			<div class="user-table">
 				<table class="details-table">
+<<<<<<< HEAD
 					<tr>
 						<td>Name</td>
 						<td>{{viewUser.name}}</td>
@@ -16,6 +23,10 @@
 						<td>Rating</td>
 						<td>{{viewUser.rating}}</td>
 					</tr>
+=======
+					<tr><td>Name</td><td>{{viewUser.name}}</td></tr>
+					<tr><td>Rating</td><td>{{viewUser.rating}}</td></tr>
+>>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 				</table>
 			</div>
 
@@ -24,6 +35,7 @@
 			</div>
 
 			<!-- follow button -->	
+<<<<<<< HEAD
 			<div class="">
 				<button @click="followUser">Follow user</button>
 				<div v-if="isAddFollower"> 
@@ -48,6 +60,17 @@
 		</div> -->
 
 		
+=======
+			<div class="follow" >
+				<button @click="followUser">Follow user</button>
+				<div v-if="isTellLogin">Please login to follow the user...</div>
+			</div>
+
+			<div v-if="isAlreadyFollowed">The user is already followed by {{followedBy}}</div>
+			<div v-if="isFollowed">The user is followed by {{followedByList}}</div>
+
+		</div>
+>>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 
 		<review-list :directAndId="detailsForShowReviews"></review-list>
 
@@ -63,16 +86,25 @@ export default {
 	name: 'UserDetails',
 	data() {
 		return {
+<<<<<<< HEAD
 			isAddFollower: false,
 			isLoggedIn: false,
+=======
+			isTellLogin: false,
+			isAlreadyFollowed: false,
+>>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 		};
 	},
 	created() {
 		const userId = this.$route.params.userId;
+<<<<<<< HEAD
     this.$store.dispatch({ type: 'usersModule/loadViewUser', userId });
 
 		// var directAndId = { direct: "user", id: userId };
 		// this.$store.dispatch({ type: "reviewsModule/loadReviews", directAndId });
+=======
+		this.$store.dispatch({ type: 'usersModule/loadViewUser', userId });
+>>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 	},
 	destroyed(){
     this.$store.commit({ type: "usersModule/cleanViewUser"});
@@ -93,13 +125,18 @@ export default {
       }
 		},
 		followedBy(){
+<<<<<<< HEAD
 			if(this.$store.state.usersModule.viewUser){
 				
 				console.log('follow', this.$store.state.usersModule.currUser.name)
+=======
+			if(this.$store.state.usersModule.currUser){	
+>>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 				return this.$store.state.usersModule.currUser.name
 			}
 		},
 		isFollowed(){
+<<<<<<< HEAD
 			if(this.$store.state.usersModule.viewUser){
 				var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.folowedBy))
 			// if the user is not followed the variable isFollowed is empty array
@@ -138,6 +175,73 @@ export default {
 			this.$store.commit({ type: "usersModule/addRemoveFollower", users})
 		},
 		},
+=======
+			var viewUserFollowedBy = this.$store.state.usersModule.viewUser.follow.followedBy
+			viewUserFollowedBy = JSON.parse(JSON.stringify(viewUserFollowedBy))
+			if(viewUserFollowedBy.toString() !== ''){
+				return true
+			}
+			return false
+		},
+		followedByList(){
+			var viewUserFollowedBy = this.$store.state.usersModule.viewUser.follow.followedBy
+			
+			if(viewUserFollowedBy){
+				return viewUserFollowedBy
+			}
+		},		
+		currUser() {
+      return this.$store.state.usersModule.currUser;
+		},
+		
+		
+	},
+	methods: {
+		followUser() {
+			//can't follow if not logged in
+			var loggedInUser = this.currUser
+			if(loggedInUser.name === 'Guest'){
+				this.isTellLogin = !this.isTellLogin
+				setTimeout(() => {		
+					this.isTellLogin = !this.isTellLogin;
+				}, 2000)   // 2 secs to show "Please login to follow the user..."
+				return
+			}
+
+			// check if already follow
+			var ifAlreadyFollowed = this.ifAlreadyFollowed()
+			if (ifAlreadyFollowed) return
+
+			// send to backend
+			var followedUser = this.$route.params.userId;
+			loggedInUser = loggedInUser._id
+
+			var users = {loggedInUser, followedUser}
+			this.$store.dispatch({ type: "usersModule/addFollower", users})
+		},
+		ifAlreadyFollowed(){
+			var viewUserFollowedBy = this.$store.state.usersModule.viewUser.follow.followedBy
+			var currUserId = this.$store.state.usersModule.currUser._id
+
+			if( viewUserFollowedBy ){
+				viewUserFollowedBy = JSON.parse(JSON.stringify(viewUserFollowedBy))
+				currUserId = JSON.parse(JSON.stringify(currUserId))
+
+				var followed = viewUserFollowedBy.some((by) => {
+					return by === currUserId 
+				})
+
+				if (followed)	{
+					this.isAlreadyFollowed = true
+								setTimeout(() => {		
+									this.isAlreadyFollowed = false;
+								}, 3000)   // 3 secs to show "The user is already followed by ..."
+					return true
+				}
+			}
+		},
+	},
+>>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 	components: {
 		ReviewList,
 	}

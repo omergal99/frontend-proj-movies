@@ -15,7 +15,12 @@ export default {
     remove,
     getGuestUser,
     getById,
+<<<<<<< HEAD
     login
+=======
+    login,
+    addFollowUser
+>>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 }
 
 var users = require('../../data/users_db.json');
@@ -139,4 +144,11 @@ function _makeId(length = 6) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return txt;
+}
+
+
+function addFollowUser(users){
+    const userId = users.followedUser
+    return axios.put(`${USER_API}/details/${userId}`, users)
+
 }
