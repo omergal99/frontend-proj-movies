@@ -4,7 +4,7 @@
       <div class="poster-wrap">
         <ul class="poster-list">
           <li v-for="(movie,idx) in movies" :key="idx">
-            <img src="../assets/img/movieImg/apollo11.jpg">
+            <img src="../assets/img/omer/apollo11.jpg">
           </li>
         </ul>
       </div>

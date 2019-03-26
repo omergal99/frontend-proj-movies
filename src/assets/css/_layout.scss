@@ -10,13 +10,6 @@
     background-attachment: fixed;
     background-size: cover;
 
-    // &.footer {
-    //     height: 50vh;
-    // }
-    // &.about {
-    //     height: 50vh;
-    // }
-
     &.screen {
         >* {
             position: relative;
@@ -37,11 +30,11 @@
     }
 
     &.header {
-        background-image: url(http://www.pptbackgrounds.org/uploads/dark-blue-background-backgrounds-wallpapers.jpg);
-    }
-
-    &.main-second {
         background-image: url(https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/dark-background-with-star-like-dots_bkpaotdgh__F0000.png);
+    }
+    
+    &.main-second {
+        background-image: url(http://www.pptbackgrounds.org/uploads/dark-blue-background-backgrounds-wallpapers.jpg);
     }
 
     &.footer {
