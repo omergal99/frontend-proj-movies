@@ -4,7 +4,7 @@ const reviewsModule = {
     strict: true,
     namespaced: true,
     state: {
-        currReviews: null,
+        currReviews: [],
 
     },
     mutations: {
@@ -39,6 +39,11 @@ const reviewsModule = {
 
     },
     getters: {
+        reviews(state){
+            return state.currReviews.sort((r1,r2)=>{
+                return r2.rate.countLike.length - r1.rate.countLike.length
+            })
+        }
 
     },
     actions: {

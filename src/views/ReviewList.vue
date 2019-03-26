@@ -109,7 +109,7 @@ export default {
   destroyed() {
     this.$store.commit({
       type: "reviewsModule/setReviews",
-      serverReviews: null
+      serverReviews: []
     });
   },
 
@@ -212,7 +212,8 @@ export default {
 		// 	}		
 		// },
     reviewsToShow() {
-      return this.$store.state.reviewsModule.currReviews;
+      // return this.$store.state.reviewsModule.currReviews;
+      return this.$store.getters['reviewsModule/reviews'];
     },
     currMovie() {
       return this.$store.state.moviesModule.currMovie;
