@@ -15,12 +15,8 @@ export default {
     remove,
     getGuestUser,
     getById,
-<<<<<<< HEAD
-    login
-=======
     login,
     addFollowUser
->>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 }
 
 var users = require('../../data/users_db.json');
