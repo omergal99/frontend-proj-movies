@@ -2,11 +2,15 @@
   <div class="header-wrap">
     <header>
       <div v-if="loggedInUser" class="div-hello flex wrap space-between">
-        <p class="user-name">Hello {{loggedInUser.name}}!</p>
+        <p class="user-name">Hello {{loggedInUser.name}}! </p>
         <div>
           <router-link to="/login">
             <button class="login-btn" v-if="!loggedInUser._id">Login</button>
           </router-link>
+
+          <router-link v-if="loggedInUser._id" :to="'/user/details/'+ loggedInUser._id">
+            <button class="logout-btn" v-if="loggedInUser._id">My Profile</button>
+          </router-link> 
 
           <router-link to="/">
             <button class="logout-btn" v-if="loggedInUser._id" @click="logoutUser">Logout</button>
@@ -26,26 +30,28 @@
 import UserService from "../services/UserService.js";
 
 export default {
-  name: 'mainBar',
+  name: "mainBar",
   mounted() {
     if (!this.$store.state.usersModule.currUser) {
       var guestUser = UserService.getGuestUser();
-      this.$store.dispatch({ type: 'usersModule/loadUser', user: guestUser });
+      this.$store.dispatch({ type: "usersModule/loadUser", user: guestUser });
     }
   },
   computed: {
     loggedInUser() {
       if (this.$store.state.usersModule.currUser) {
-        return JSON.parse(JSON.stringify(this.$store.state.usersModule.currUser))
+        return JSON.parse(
+          JSON.stringify(this.$store.state.usersModule.currUser)
+        );
       }
     }
   },
   methods: {
     logoutUser() {
-      this.$store.dispatch({ type: 'usersModule/logoutUser' })
-    },
-  },
-}
+      this.$store.dispatch({ type: "usersModule/logoutUser" });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

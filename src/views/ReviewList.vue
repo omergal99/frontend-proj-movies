@@ -68,7 +68,7 @@
 
         <div class="review">
           <div class="div-btn">
-            <button @click="toggleEditReview(currReview)">Edit (Admin)</button>
+            <button v-if="currUser._id===currReview.user.userId" @click="toggleEditReview(currReview)">Edit (Admin)</button>
           </div>
         </div>
       </li>
@@ -135,7 +135,9 @@ export default {
 		toggleOpenNewReview() {
       this.isAddOpen = !this.isAddOpen;
     },
+    
     toggleEditReview(currReview) {
+      console.log(currUser._id,)
       currReview.content.isEdit = !currReview.content.isEdit;
       this.$store.dispatch({
         type: "reviewsModule/updateReview",
