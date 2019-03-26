@@ -4,7 +4,7 @@ const moviesModule = {
     strict: true,
     namespaced: true,
     state: {
-        movies: null,
+        movies: [],
         currMovie: null,
         filterBy: '',
     },

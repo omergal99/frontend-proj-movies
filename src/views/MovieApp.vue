@@ -21,7 +21,7 @@ export default {
     };
   },
   created() {
-    if(!this.$store.state.moviesModule.movies){
+    if(!this.$store.state.moviesModule.movies.length){
       this.$store.dispatch({ type: 'moviesModule/loadMovies' });
     }
   },

@@ -1,11 +1,8 @@
-import axios from 'axios'
-const BASE_URL = process.env.NODE_ENV !== 'development'
-    ? '/review'
-    : '//localhost:3003/review'
+import HttpService from './HttpService';
+
+const REVIEW_URL = HttpService.getUrl('review');
 
 const resolveData = res => res.data;
-
-var reviews = require('../../data/reviews_db.json');
 
 export default {
     query,
@@ -21,7 +18,7 @@ export default {
 function query(directAndId) {
     var direct = directAndId.direct;
     var id = directAndId.id;
-    return axios.get(`${BASE_URL}/${direct}/${id}`)
+    return HttpService.get(`${REVIEW_URL}/${direct}/${id}`)
         .then(resolveData)
         .catch(() => [])
 }
@@ -36,7 +33,7 @@ function add(newReview) {
     var copy = JSON.parse(JSON.stringify(newReview))
     console.log('newReview',copy)
     // return Promise.resolve(newReview)
-    return axios.post(BASE_URL, copy)
+    return HttpService.post(REVIEW_URL, copy)
             .then(resolveData)
             .catch(()=>{
                 return {_id:'asafasf',namee:'asfsaf'}
@@ -44,42 +41,10 @@ function add(newReview) {
             })
 }
 
-function query2(directAndId) {
-    if (directAndId.direct === 'movie') {
-        var reviewsToSend = reviews.filter(review => {
-            return (review.movie.movieId === directAndId.id)
-        })
-        return Promise.resolve(reviewsToSend);
-    }
-
-    if (directAndId.direct === 'user') {
-        var reviewsToSend = reviews.filter(review => {
-            return (review.user.userId === directAndId.id)
-        })
-        return Promise.resolve(reviewsToSend);
-    }
-}
-
-function add2(newReview) {
-    newReview.reviewId = _makeId();
-    newReview.rate = {
-        countLike: [],
-        countDislike: []
-    };
-    reviews.unshift(newReview);
-    var ff = JSON.parse(JSON.stringify(newReview))
-    console.log('newReview',ff)
-    return Promise.resolve(newReview)
-
-    // ---------------- save to server- backend ----------------------
-    // return _saveReviewsToFile().then(() => newReview);
-}
-
 function update(updatedReview) {
     var reviewIdx = reviews.findIndex(review => review.reviewId === updatedReview.reviewId);
     reviews.splice(reviewIdx, 1, updatedReview)
     return Promise.resolve(updatedReview)
-
     // return _saveReviewsToFile().then(() => updatedReview)
 }
 
@@ -100,7 +65,7 @@ function remove(reviewId) {
 function updateRate(rateDetails){
   console.log ('rateDetails',rateDetails)
   return new Promise((resolve, reject) => {
-    axios.put(BASE_URL , rateDetails)
+    HttpService.put(REVIEW_URL , rateDetails)
         .then(res => {
             let updatedRev = res
             console.log('updated review:', updatedRev)

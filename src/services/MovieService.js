@@ -1,10 +1,8 @@
-import axios from 'axios'
-const BASE_URL = process.env.NODE_ENV !== 'development'
-    ? '/movie'
-    : '//localhost:3003/movie'
+import HttpService from './HttpService';
 
-const UserService = require('./UserService');
+const MOVIE_URL = HttpService.getUrl('movie');
 
+const resolveData = res => res.data;
 
 export default {
     query,
@@ -13,16 +11,6 @@ export default {
     add,
     update
 }
-// ---------------  FOR WORKING WITH SERVER --------------
-// const BASE_URL = 'http://localhost:3003/movie';
-
-// const BASE_URL = (process.env.NODE_ENV !== 'development') ?
-//     '/movie' :
-//     '//localhost:3003/movie';
-
-const resolveData = res => res.data;
-// --------------------------------------------------------
-
 
 const MOVIES_KEY = 'movieeee';
 
@@ -31,44 +19,15 @@ function query(filterBy) {
     if (filterBy) {
         queryStr = `?name=${filterBy.name}&category=${filterBy.category}&sort=${filterBy.sort}&isNew=${filterBy.isNew}`
     }
-    return axios.get(`${BASE_URL}${queryStr}`)
+    console.log('sdgfsdg',MOVIE_URL)
+    return HttpService.get(`${MOVIE_URL}${queryStr}`)
         .then(resolveData)
         .catch(() => _createMovies())
 }
 
 function getById(movieId) {
-    return axios.get(`${BASE_URL}/${movieId}`)
+    return HttpService.get(`${MOVIE_URL}/${movieId}`)
         .then(resolveData)
-}
-
-function query2(filterBy) {
-
-    if (filterBy) {
-        var moviesToSend = movies.filter(movie => {
-            if (filterBy.name) {
-                var movieName = movie.details.name.toLowerCase();
-                var filterName = filterBy.name.toLowerCase();
-                var isNameOk = movieName.includes(filterName);
-                if (!isNameOk) {
-                    return false;
-                }
-            }
-            return true;
-        })
-        return Promise.resolve(moviesToSend);
-    } else {
-        return Promise.resolve(movies);
-    }
-
-    // ---------------  FOR WORKING WITH SERVER --------------
-    // var queryStr = '';
-    // if (filterBy) {
-    //     queryStr = `?name=${filterBy.name}&category=${filterBy.category}&sort=${filterBy.sort}&isNew=${filterBy.isNew}`
-    // }
-    // return axios.get(`${BASE_URL}${queryStr}`)
-    //     .then(resolveData)
-    //     .catch(() => _createMovies())
-    // --------------------------------------------------------
 }
 
 function add(movie) {
