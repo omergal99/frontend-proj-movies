@@ -1,34 +1,43 @@
 <template>
 	<section>
-		<div class="user-details" v-if="viewUser">
 
-			<div class="div-img">
-				<img :src="viewUser.userImg">
+
+		<div class="user-profile flex column">
+
+			<div class="user-details" v-if="viewUser">
+				<div class="div-img">
+					<img :src="viewUser.userImg">
+				</div>
+
+				<div class="user-table">
+					<table class="details-table">
+						<tr><td>Name</td><td>{{viewUser.name}}</td></tr>
+						<tr><td>Rating</td><td>{{viewUser.rating}}</td></tr>
+					</table>
+				</div>
+
+				<div>
+					<button>Lets Chat!</button>
+				</div>
+
+				<!-- follow button -->	
+				<div class="follow" v-if="isSelfProfile">
+					<button @click="followUser">Follow user</button>
+					<div v-if="isTellLogin">Please login to follow the user...</div>
+				</div>
+				<div v-if="isAlreadyFollowed">The user is already followed by {{followedBy}}</div>
+				<div v-if="isFollowed">The user is followed by {{followedByList}}</div>
+
 			</div>
 
-			<div class="user-table">
-				<table class="details-table">
-					<tr><td>Name</td><td>{{viewUser.name}}</td></tr>
-					<tr><td>Rating</td><td>{{viewUser.rating}}</td></tr>
-				</table>
-			</div>
+		   <div>
+			  <review-list :directAndId="detailsForShowReviews"></review-list>
+		  </div>
 
-			<div>
-				<button>Lets Chat!</button>
-			</div>
 
-			<!-- follow button -->	
-			<div class="follow" >
-				<button @click="followUser">Follow user</button>
-				<div v-if="isTellLogin">Please login to follow the user...</div>
-			</div>
+	  </div>
+		
 
-			<div v-if="isAlreadyFollowed">The user is already followed by {{followedBy}}</div>
-			<div v-if="isFollowed">The user is followed by {{followedByList}}</div>
-
-		</div>
-
-		<review-list :directAndId="detailsForShowReviews"></review-list>
 
 	</section>
 </template>
@@ -91,7 +100,9 @@ export default {
 		currUser() {
       return this.$store.state.usersModule.currUser;
 		},
-		
+		isSelfProfile(){
+			// if()
+		}
 		
 	},
 	methods: {
@@ -160,7 +171,7 @@ h3 {
 }
 
 .user-details {
-  display: flex;
+  /* display: flex; */
   padding: 8px;
 }
 

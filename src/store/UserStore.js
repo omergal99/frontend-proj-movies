@@ -65,7 +65,8 @@ const usersModule = {
             UserService.addFollowUser(users);
 
             return context.commit({ type: 'setFollower', users})
-        }
+        },
+        
     }
 }
 

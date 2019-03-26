@@ -46,7 +46,7 @@ function getGuestUser() {
         name: 'Guest',
         email: '',
         userId: '',
-        userImg: 'https://png2.kisspng.com/sh/8e98be3168e6ad6677e8a5df5744c937/L0KzQYm3VMAzN5RuiZH0aYP2gLBuTgVvcaVqfJ98dHH3dcS0ggZifJJ3RdH7Z3HxecvolPlwdl5uhth4cn3khLr2jr12e5Z3RdNBYYTkgn68gfMzOGk1TNVuZUjkQHA8WMUyOGM8SqMAMkK5Roa7V8Y5PGg6RuJ3Zx==/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804cee8a0.5851027215226654768475.png',
+        userImg: '',
         dateCreated: 0,
         rating: 0,
         follow: {
@@ -148,3 +148,4 @@ function addFollowUser(users){
     return axios.put(`${USER_API}/details/${userId}`, users)
 
 }
+

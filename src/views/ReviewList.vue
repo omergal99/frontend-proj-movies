@@ -18,20 +18,6 @@
 			</div>
 		</div>
 
-		<!-- follow button	
-		<div class="new-review">
-			<button class="margin-bottom6" @click="followUser" v-if="!isAddingReview">Follow user's reviews</button>
-			<div v-if="isAddFollower"> 
-				Adding user to follow...
-			</div>
-			<div v-if="isLoggedIn"> 
-				Please login to follow the user...
-			</div>
-		</div> -->
-
-    <!-- <div v-if="isFollowed">The user is followed by {{followedBy}}</div> -->
-    <!-- <div v-if="isFollowed">The user is followed by {{followedBy}}</div> -->
-
     <!-- Louder -->
     <div v-if="!reviewsToShow">
       <img src="../assets/img/banana3.gif">
@@ -305,7 +291,7 @@ h3 {
 
 .list-section li {
   /* height: 100px; */
-  width: 75vw;
+  /* width: 75vw; */
   list-style: none;
   font-size: 1.1em;
   background-color: #97bcc0;
