@@ -1,13 +1,13 @@
 <template>
     <div class="main-div">
       
-    <div class="poster-wrap">
-      <ul class="poster-list">
-        <li v-for="(movie,idx) in movies" :key="idx">
-          <img src="../assets/img/movieImg/apollo11.jpg">
-        </li>
-      </ul>
-    </div>
+      <div class="poster-wrap">
+        <ul class="poster-list">
+          <li v-for="(movie,idx) in movies" :key="idx">
+            <img src="../assets/img/movieImg/apollo11.jpg">
+          </li>
+        </ul>
+      </div>
 
       <ul class="feature-list flex wrap space-center align-center">
         <li v-for="(feature,idx) in features" :key="idx">

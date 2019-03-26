@@ -44,12 +44,8 @@ export default {
 
 <style scoped>
 h2 {
-<<<<<<< HEAD
-  color: rgb(148, 198, 238);
-=======
   /* color: rgb(148, 198, 238); */
   color: rgb(255, 255, 255);
->>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
   margin: 6px 0 6px 0;
 }
 </style>

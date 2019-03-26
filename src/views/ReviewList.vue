@@ -222,11 +222,7 @@ export default {
 		// },
 		// isFollowed(){
 		// 	if(this.$store.state.usersModule.viewUser){
-<<<<<<< HEAD
-		// 		var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.folowedBy))
-=======
 		// 		var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.followedBy))
->>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 		// 	// if the user is not followed the variable isFollowed is empty array
 		// 		if(isFollowed[0]){
 		// 				return true
@@ -312,11 +308,7 @@ h3 {
   width: 75vw;
   list-style: none;
   font-size: 1.1em;
-<<<<<<< HEAD
-  background-color: #80ced6;
-=======
   background-color: #97bcc0;
->>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
   color: rgb(39, 39, 39);
   margin: 0 8px 6px 0;
   padding: 4px;

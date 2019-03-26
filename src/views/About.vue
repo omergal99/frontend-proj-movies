@@ -65,18 +65,10 @@
 @media (min-height: 500px) {
   .about-page header h1 {
     font-size: 1.75em;
-<<<<<<< HEAD
-    margin: 20px 0 6px 0;
-  }
-  .about-txt {
-    margin: 0 auto 4px auto;
-  }
-=======
   margin: 4px 0 6px 0;
   }
   .about-txt {
   margin: 0 auto 4px auto;
 }
->>>>>>> 8731cb37b65d229f289dd6336243ba6890f3e375
 }
 </style>
