@@ -8,7 +8,6 @@
     <input type="text" class="div-reviews" 
         v-model="review.content.txt"
     >
-
   <button @click="emitRemoveReview">Delete All</button>
   </div>
 
