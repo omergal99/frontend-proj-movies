@@ -30,15 +30,11 @@
 
 			</div>
 
-		   <div>
+		  <div>
 			  <review-list :directAndId="detailsForShowReviews"></review-list>
 		  </div>
-
-
 	  </div>
 		
-
-
 	</section>
 </template>
 

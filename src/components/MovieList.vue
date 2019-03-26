@@ -1,5 +1,5 @@
 <template>
-  <section class="list-section">
+  <section class="list-section ">
     <h3>Movie List</h3>
 
     <ul class="ul-movies-list">

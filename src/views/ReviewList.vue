@@ -1,22 +1,21 @@
 <template>
   <section class="list-section">
-    <h3>Reviews</h3>
 
 		<!-- add review button -->
     <div class="new-review" v-if="directAndId.direct === 'movie'">
-			<div class="new-review">
-				<button class="margin-bottom6" 
-          @click="toggleOpenNewReview">
-          Add Review
+				<button class="btn-add-review" @click="toggleOpenNewReview">
+          Add Your Review
         </button>
 				<div v-if="isAddOpen">
 					<form class="flex flex-col" @submit.prevent="onAddReview">
-						<textarea class="margin-bottom6" v-model="newReview.content.txt" rows="6" cols="50"></textarea>
-						<button class="margin-bottom6" type="submit">Send Review</button>
+						<textarea class="textarea-add-review" v-model="newReview.content.txt" rows="6" cols="50"></textarea>
+						<button class="btn-send-review" type="submit">Send Review</button>
 					</form>
 				</div>
-			</div>
 		</div>
+
+
+    <h3>Our Reader's Reaviews</h3>
 
     <!-- Louder -->
     <div v-if="!reviewsToShow">
@@ -28,40 +27,48 @@
          
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
+        
+        <div class="movie-review">
 
-        <div v-if="directAndId.direct === 'movie'" class="user-details flex">
-          <router-link :to="'/user/details/' + currReview.user.userId">
-            <img :src="currReview.user.userImg">
-            {{currReview.user.userName}}
-          </router-link>
+          <div v-if="directAndId.direct === 'movie'" class="user-details flex flex-col">
+            <router-link :to="'/user/details/' + currReview.user.userId" class="user-details-link">
+              <img :src="currReview.user.userImg">
+              {{currReview.user.userName}}
+            </router-link>
           
-          <div class="likes-btn">
-            <button @click="clickedLike(currReview._id,currUser)">
-              Like {{currReview.rate.countLike.length}}
-            </button>
-            
-            <button @click="clickedDislike(currReview._id,currUser)">
-              Dislike {{currReview.rate.countDislike.length}}
-            </button>
+            <div class="likes-btn flex space-center">
+              <button @click="clickedLike(currReview._id,currUser)">
+                <i class="fas fa-thumbs-up"></i> 
+                {{currReview.rate.countLike.length}}
+              </button>
+              
+              <button @click="clickedDislike(currReview._id,currUser)">
+                <i class="fas fa-thumbs-down"></i> 
+                {{currReview.rate.countDislike.length}}
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div v-if="directAndId.direct === 'user'" class="movie-details">
-          <router-link :to="'/movies/details/' + currReview.movie.movieId">
-            <img :src="currReview.movie.movieImg">
-            <div>{{currReview.movie.movieName}}</div>
-          </router-link>
+          <div v-if="directAndId.direct === 'user'" class="movie-details">
+            <router-link :to="'/movies/details/' + currReview.movie.movieId">
+              <img :src="currReview.movie.movieImg">
+              <div>{{currReview.movie.movieName}}</div>
+            </router-link>
+          </div>
+        
+          <div class="review-preview">
+            <review-preview :review="currReview" @onRemoveReview="removeReview"></review-preview>
+          </div>
+
+          <div class="review">
+            <div class="div-btn">
+              <button v-if="currUser._id===currReview.user.userId" @click="toggleEditReview(currReview)">Edit (Admin)</button>
+            </div>
+          </div>
+
+
         </div>
         
-        <div>
-          <review-preview :review="currReview" @onRemoveReview="removeReview"></review-preview>
-        </div>
-
-        <div class="review">
-          <div class="div-btn">
-            <button v-if="currUser._id===currReview.user.userId" @click="toggleEditReview(currReview)">Edit (Admin)</button>
-          </div>
-        </div>
       </li>
     </ul>
 
@@ -100,29 +107,6 @@ export default {
   },
 
   methods: {
-    // followUser() {
-		// 	//can't follow if not logged in
-		// 	// 2 secs to show "Please login to follow the user..."
-		// 	var loggedInUser = this.currUser.userId
-		// 	if(!loggedInUser){
-		// 		this.isLoggedIn = !this.isLoggedIn
-		// 		setTimeout(() => {		
-		// 			this.isLoggedIn = !this.isLoggedIn;
-		// 		}, 2000)
-		// 		return
-		// 	}
-			
-		// 	// 2 secs to show "Adding user to follow..."
-		// 	this.isAddFollower = !this.isAddFollower;
-		// 	setTimeout(() => {		
-		// 		this.isAddFollower = !this.isAddFollower;
-		// 	}, 2000)
-
-		// 	var followedUser = this.$route.params.userId;
-
-		// 	var users = {loggedInUser, followedUser}
-		// 	this.$store.commit({ type: "usersModule/addRemoveFollower", users})
-		// },
 		toggleOpenNewReview() {
       this.isAddOpen = !this.isAddOpen;
     },
@@ -186,17 +170,7 @@ export default {
     }
   },
   computed: {
-		// isAddingReview(){
-		// 	const userId = this.$route.params.userId;
-		// 	const movieId = this.$route.params.movieId;
-			
-		// 	if(movieId){
-		// 		return true
-		// 	}
-		// 	if(userId){
-		// 		return false
-		// 	}		
-		// },
+		
     reviewsToShow() {
       // return this.$store.state.reviewsModule.currReviews;
       return this.$store.getters['reviewsModule/reviews'];
@@ -207,22 +181,7 @@ export default {
     currUser() {
       return this.$store.state.usersModule.currUser;
 		},
-		// followedBy(){
-		// 	if(this.$store.state.usersModule.viewUser){
-				
-		// 		console.log('follow', this.$store.state.usersModule.currUser.name)
-		// 		return this.$store.state.usersModule.currUser.name
-		// 	}
-		// },
-		// isFollowed(){
-		// 	if(this.$store.state.usersModule.viewUser){
-		// 		var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.followedBy))
-		// 	// if the user is not followed the variable isFollowed is empty array
-		// 		if(isFollowed[0]){
-		// 				return true
-		// 			}
-		// 	}
-		// }
+
   },
 
   watch: {
@@ -243,32 +202,38 @@ export default {
 </script>
 
 <style scoped>
-.new-review button {
+.list-section{
+  max-width: 85%;
+  margin: 0 auto;
+}
+.btn-add-review{
+  margin-bottom: 15px;
+}
+.btn-add-review, .btn-send-review{
+  color: white;
+  padding: 15px;
   cursor: pointer;
   border: none;
-  color: white;
   border-radius: 4px;
   outline: none;
   font-family: cursive, arial, serif, sans-serif;
-  background-color: rgb(52, 180, 94);
-  font-size: 0.8em;
-  padding: 8px 4px;
-  transition: background-color 0.3s;
+  background-color: #1a1818;
 }
-.new-review button:hover {
-  background-color: rgb(55, 190, 100);
+.btn-add-review:hover, .btn-send-review:hover {
+  background-color: #3481b4;
 }
-
-.margin-bottom6 {
-  margin-bottom: 6px;
+.textarea-add-review, .btn-send-review{
+  margin: 10px; 
+  padding: 8px;
 }
-.new-review {
-  margin: 0 auto 6px auto;
-  max-width: 80vw;
+.btn-send-review{
+  width: fit-content;
+  padding: 15px;
+  margin: 0 auto;
 }
 
 h3 {
-  margin: 0 0 6px 0;
+  margin: 30px 0;
   color: aliceblue;
 }
 .div-btn {
@@ -289,45 +254,48 @@ h3 {
   transition: background-color 0.3s;
 }
 .div-btn button:hover {
-  background-color: rgb(55, 190, 170);
+  background-color: #3481b4;
 }
 
-.list-section ul {
+/* .list-section ul {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
-}
-
-.list-section li {
-  /* height: 100px; */
-  /* width: 75vw; */
-  list-style: none;
-  font-size: 1.1em;
-  background-color: #97bcc0;
-  color: rgb(39, 39, 39);
-  margin: 0 8px 6px 0;
-  padding: 4px;
-  border-radius: 4px;
-}
+} */
 
 .clean-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.list-section li{
+  width: 100%;
+}
+.movie-review{
+  display: flex;
+  border: 2px solid #1a1818;
+  background-color: #e6e2d3;
+  margin: 10px;
+  border-radius: 7px;
 }
 
 .user-details {
-  width: 100%;
+  width:25%;
+  border-right: 0.3px solid #1a1818;
 }
-.user-details .likes-btn {
-  width: 100%;
-}
-
-.movie-details {
-  width: 150px;
+.user-details-link{
+  margin: 10px;
 }
 
-.review {
-  width: 85%;
+.likes-btn>*{
+  padding: 5px;
+  margin: 10px 8px 20px 8px;
+
 }
+
+.review-preview{
+  width: 100%;
+  /* padding: 15px; */
+}
+
 </style>
