@@ -101,7 +101,11 @@ export default {
       return this.$store.state.usersModule.currUser;
 		},
 		isSelfProfile(){
-			// if()
+			if(this.currUser.name === this.viewUser.name){
+				return false
+			} else {
+				return true
+			}
 		}
 		
 	},
