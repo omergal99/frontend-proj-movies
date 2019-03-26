@@ -1,21 +1,18 @@
-import axios from 'axios';
+import HttpService from './HttpService';
 
-
-const USER_API = (process.env.NODE_ENV !== 'development') ?
-'/user' :
-'//localhost:3003/user';
+const USER_URL = HttpService.getUrl('user');
 
 const resolveData = res => res.data;
 
 export default {
     getUsers,
     add,
-    // isNameAndPassOk,
     isNameNotInUse,
     remove,
     getGuestUser,
     getById,
-    login
+    login,
+    addFollowUser
 }
 
 var users = require('../../data/users_db.json');
@@ -36,7 +33,7 @@ function getUsers(userId) {
 }
 
 function getById(userId) {
-    return axios.get(`${USER_API}/${userId}`)
+    return HttpService.get(`${USER_URL}/${userId}`)
         .then(resolveData)
 }
 
@@ -74,7 +71,7 @@ function add(newUser) {
     // return _saveUsersToFile().then(() => user);
 }
 function login(userNamePass) {
-    var prmAnsRes = axios.put(`${USER_API}/login`, userNamePass)
+    var prmAnsRes = HttpService.put(`${USER_URL}/login`, userNamePass)
     prmAnsRes.catch(err => {
         console.log('Service Cought an Error - ', err);
     })
@@ -91,24 +88,6 @@ function login(userNamePass) {
     return prmAns;
 }
 
-// function isNameAndPassOk(user) {
-//     var name = user.name;
-//     var pass = user.pass;
-//     var user = users.find(user => {
-//         return (user.name.toLowerCase() === name.toLowerCase() && user.password === pass)
-//     });
-//     if (user) {
-//         var userToReturn = {
-//             ...user
-//         };
-//         delete userToReturn.password;
-//         delete userToReturn.isAdmin;
-//         return Promise.resolve(userToReturn);
-//     } else {
-//         return Promise.resolve('Unknown User');
-//     }
-// }
-
 function isNameNotInUse(name) {
     var user = users.find(user => {
         return (user.name.toLowerCase() === name.toLowerCase())
@@ -120,23 +99,8 @@ function isNameNotInUse(name) {
     }
 }
 
-// function _saveUsersToFile() {
-//     return new Promise((resolve, reject) => {
-//         var strUsers = JSON.stringify(users)
-//         fs.writeFile('data/users_db.json', strUsers, (err) => {
-//             if (err) {
-//                 console.error('Had problem writing to Users file', err);
-//                 reject(err);
-//             } else resolve();
-//         });
-//     })
-// }
+function addFollowUser(users){
+    const userId = users.followedUser
+    return axios.put(`${USER_URL}/details/${userId}`, users)
 
-function _makeId(length = 6) {
-    var txt = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < length; i++) {
-        txt += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return txt;
 }

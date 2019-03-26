@@ -1,15 +1,21 @@
 // Home css
-@import './vars';
+// @import './vars';
 
 
 .home>section {
     background-color: #141414;
     background-color: $clr1;
-    height: 100vh;
     overflow: hidden;
     position: relative;
     background-attachment: fixed;
     background-size: cover;
+
+    // &.footer {
+    //     height: 50vh;
+    // }
+    // &.about {
+    //     height: 50vh;
+    // }
 
     &.screen {
         >* {
@@ -38,7 +44,7 @@
         background-image: url(https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/dark-background-with-star-like-dots_bkpaotdgh__F0000.png);
     }
 
-    &.about {
-        background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGoFM8QXEQubrHwXIsyvgNUspjvu_ZRrtQnFv0BXSNSP9DHDUpfA);
+    &.footer {
+        background-image: url(http://www.pptbackgrounds.org/uploads/dark-blue-background-backgrounds-wallpapers.jpg);
     }
 }

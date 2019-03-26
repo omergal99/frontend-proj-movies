@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>We Now at MOVIES GALERY</h2>
+    <h2>The Movie Gallery</h2>
 
     <movie-filter @filterd="doFilter"></movie-filter>
 
@@ -44,7 +44,8 @@ export default {
 
 <style scoped>
 h2 {
-  color: rgb(148, 198, 238);
+  /* color: rgb(148, 198, 238); */
+  color: rgb(255, 255, 255);
   margin: 6px 0 6px 0;
 }
 </style>

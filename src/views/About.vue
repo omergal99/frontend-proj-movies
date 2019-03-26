@@ -18,14 +18,12 @@
 </template>
 
 <style scoped>
+.about-page {
+  color: rgb(207, 214, 228);
+}
 .about-page header h1 {
   font-size: 2.5em;
-  margin: 6px 0 10px 0;
-  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
-    -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000,
-    1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000,
-    -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000,
-    2px 0px 0 #000;
+  margin: 20px 0 10px 0;
 }
 
 .about-img-div {
@@ -45,13 +43,7 @@
   width: 80%;
   border-radius: 4px;
   background-color: #d8d8d800;
-  color: rgb(255, 255, 255);
   font-size: 1.2em;
-  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
-    -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000,
-    1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000,
-    -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000,
-    2px 0px 0 #000;
 }
 
 .about-page main a {

@@ -1,33 +1,27 @@
 <template>
   <section class="home">
     
-    <section class="header screen">
-      <!-- <div class="bnr-strp"></div> -->
+    <section class="header screen full-height">
       <HomeHeader/>
     </section>
 
-    <section class="main-first">
-      <!-- <div class="bnr-strp"></div> -->
+    <section class="main-first container">
       <HomeMain1/>
     </section>
 
     <section class="main-second screen">
-      <!-- <div class="bnr-strp"></div> -->
       <HomeMain2/>
     </section>
 
-    <section class="main-thrid">
-      <!-- <div class="bnr-strp"></div> -->
+    <!-- <section class="main-thrid">
       <HomeMain3/>
-    </section>
+    </section> -->
 
-    <section class="about screen">
-      <!-- <div class="bnr-strp"></div> -->
+    <section class="about ">
       <About/>
     </section>
 
-    <section class="footer">
-      <!-- <div class="bnr-strp"></div> -->
+    <section class="footer screen">
       <HomeFooter/>
     </section>
   </section>
@@ -39,7 +33,7 @@ import About from '@/views/About.vue'
 import HomeHeader from '@/components/HomeHeader.vue'
 import HomeMain1 from '@/components/HomeMain1.vue'
 import HomeMain2 from '@/components/HomeMain2.vue'
-import HomeMain3 from '@/components/HomeMain3.vue'
+// import HomeMain3 from '@/components/HomeMain3.vue'
 import HomeFooter from '@/components/HomeFooter.vue'
 
 export default {
@@ -49,13 +43,15 @@ export default {
     HomeHeader,
     HomeMain1,
     HomeMain2,
-    HomeMain3,
+    // HomeMain3,
     HomeFooter,
   }
 }
 </script>
 
 <style lang="scss">
-@import '../assets/css/_layout.scss';
-
+// @import '../assets/css/_vars.scss';
+//    body {
+//      background: $clr2;
+//    }
 </style>

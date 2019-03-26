@@ -51,7 +51,7 @@ const reviewsModule = {
                 //     context.commit({ type: 'setMovies', serverReviews: storageReviews })
                 // })
                 .finally(() => {
-                    console.log('FINISH ****loadReviews****');
+                    // console.log('FINISH ****loadReviews****');
                 })
         },
 

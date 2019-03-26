@@ -43,28 +43,33 @@
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
 
-        <div v-if="directAndId.direct === 'movie'" class="user-details">
+        <div v-if="directAndId.direct === 'movie'" class="user-details flex">
           <router-link :to="'/user/details/' + currReview.user.userId">
-            <img height="50px" :src="currReview.user.userImg">
+            <img :src="currReview.user.userImg">
             {{currReview.user.userName}}
           </router-link>
-
-          <button @click="clickedLike(currReview._id,currUser)">
-            Like {{currReview.rate.countLike.length}}
-          </button>
           
-          <button @click="clickedDislike(currReview._id,currUser)">Dislike {{currReview.rate.countDislike.length}}</button>
-          
+          <div class="likes-btn">
+            <button @click="clickedLike(currReview._id,currUser)">
+              Like {{currReview.rate.countLike.length}}
+            </button>
+            
+            <button @click="clickedDislike(currReview._id,currUser)">
+              Dislike {{currReview.rate.countDislike.length}}
+            </button>
+          </div>
         </div>
 
         <div v-if="directAndId.direct === 'user'" class="movie-details">
           <router-link :to="'/movies/details/' + currReview.movie.movieId">
-            <img height="50px" :src="currReview.movie.movieImg">
+            <img :src="currReview.movie.movieImg">
             <div>{{currReview.movie.movieName}}</div>
           </router-link>
         </div>
-
-        <review-preview :review="currReview" @onRemoveReview="removeReview"></review-preview>
+        
+        <div>
+          <review-preview :review="currReview" @onRemoveReview="removeReview"></review-preview>
+        </div>
 
         <div class="review">
           <div class="div-btn">
@@ -224,7 +229,7 @@ export default {
 		// },
 		// isFollowed(){
 		// 	if(this.$store.state.usersModule.viewUser){
-		// 		var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.folowedBy))
+		// 		var isFollowed = JSON.parse(JSON.stringify(this.$store.state.usersModule.viewUser.follow.followedBy))
 		// 	// if the user is not followed the variable isFollowed is empty array
 		// 		if(isFollowed[0]){
 		// 				return true
@@ -277,6 +282,7 @@ export default {
 
 h3 {
   margin: 0 0 6px 0;
+  color: aliceblue;
 }
 .div-btn {
   margin: 6px 0 0 0;
@@ -310,7 +316,7 @@ h3 {
   width: 75vw;
   list-style: none;
   font-size: 1.1em;
-  background-color: #80ced6;
+  background-color: #97bcc0;
   color: rgb(39, 39, 39);
   margin: 0 8px 6px 0;
   padding: 4px;
@@ -324,8 +330,12 @@ h3 {
 }
 
 .user-details {
-  width: 15%;
+  width: 100%;
 }
+.user-details .likes-btn {
+  width: 100%;
+}
+
 .movie-details {
   width: 150px;
 }
