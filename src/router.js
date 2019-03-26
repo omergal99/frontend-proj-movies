@@ -7,6 +7,7 @@ import MovieEdit from './views/MovieEdit.vue' // only for Admin
 import MovieDetails from './views/MovieDetails.vue' //all
 import UserDetails from './views/UserDetails.vue' //all
 
+
 import UserEnter from './views/User.vue'
 
 
@@ -50,6 +51,7 @@ export default new Router({
       path: '/user/details/:userId',
       name: 'UserDetails',
       component: UserDetails
+     
     }
   ]
 })

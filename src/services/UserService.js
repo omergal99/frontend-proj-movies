@@ -101,6 +101,6 @@ function isNameNotInUse(name) {
 
 function addFollowUser(users){
     const userId = users.followedUser
-    return axios.put(`${USER_URL}/details/${userId}`, users)
+    return HttpService.put(`${USER_URL}/details/${userId}`, users)
 
 }

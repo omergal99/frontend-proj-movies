@@ -65,7 +65,7 @@ function remove(reviewId) {
 function updateRate(rateDetails){
   console.log ('rateDetails',rateDetails)
   return new Promise((resolve, reject) => {
-    axios.put(REVIEW_URL , rateDetails)
+    HttpService.put(REVIEW_URL , rateDetails)
         .then(res => {
             let updatedRev = res
             console.log('updated review:', updatedRev)
