@@ -1,11 +1,11 @@
 <template>
   <section class="home">
     
-    <section class="header screen">
+    <section class="header screen full-height">
       <HomeHeader/>
     </section>
 
-    <section class="main-first">
+    <section class="main-first container">
       <HomeMain1/>
     </section>
 
@@ -50,6 +50,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/css/_layout.scss';
-
+// @import '../assets/css/_vars.scss';
+//    body {
+//      background: $clr2;
+//    }
 </style>
