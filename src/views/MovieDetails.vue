@@ -10,7 +10,7 @@
 
 
     <div v-if="currMovie" class="movie-details flex">
-      <div class="div-img">
+      <div class="movie-img">
         <img :src="currMovie.details.movieImg">
       </div>
       <div class="movie-table">
@@ -90,12 +90,11 @@ export default {
   margin-top: 40px;
   margin-bottom: 40px;
 }
-.div-img {
+.movie-img {
   width:25%;
 
 }
-/* .div-img img {
-}  */
+
 .movie-table {
   color: rgb(31, 31, 31);
   width:75%;

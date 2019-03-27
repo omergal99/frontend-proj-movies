@@ -91,8 +91,6 @@ export default {
   },
   data() {
     return {
-			// isAddFollower: false,
-			// isLoggedIn: false,
 			isAddOpen: false,
       isSendReview: false,
       newReview: {
@@ -250,35 +248,6 @@ h3 {
   color: aliceblue;
 }
 
-
-/* .div-btn {
-  margin: 6px 0 0 0;
-}
-.div-btn button {
-  margin: 0 6px 0 0;
-  cursor: pointer;
-  border: none;
-  color: rgb(39, 39, 39);
-  font-weight: bold;
-  border-radius: 4px;
-  outline: none;
-  font-family: cursive, arial, serif, sans-serif;
-  background-color: rgb(52, 180, 163);
-  font-size: 0.8em;
-  padding: 8px 4px;
-  transition: background-color 0.3s;
-}
-.div-btn button:hover {
-  background-color: #3481b4;
-} */
-
-/* .list-section ul {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-} */
-
 .clean-list {
   display: flex;
   flex-direction: column;
@@ -316,7 +285,6 @@ h3 {
 }
 .review-preview{
   width: 100%;
-  /* padding: 15px; */
 }
 
 </style>
