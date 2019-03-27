@@ -58,7 +58,20 @@
             </router-link>
           </div>
         
-          <div class="review-preview" >
+        <div>
+           <review-preview
+          :review="currReview" 
+          v-if="currUser" :currUser="currUser"
+          @onRemoveReview="removeReview"
+          @onEditReview="editReview"></review-preview>
+        </div>
+
+        <!-- <div class="review">
+          <div class="div-btn">
+            <button v-if="currUser._id===currReview.user.userId" @click="toggleEditReview(currReview)">Edit (Admin)</button>
+          </div>
+        </div> -->
+          <!-- <div class="review-preview" >
               <button 
                 class="btn-edit-review"
                 v-if="currUser._id===currReview.user.userId" 
@@ -66,7 +79,7 @@
                 <i class="fas fa-pencil-alt"></i>
               </button>           
               <review-preview :review="currReview" @onRemoveReview="removeReview"></review-preview>
-          </div>
+          </div> -->
 
         </div>
       </li>
@@ -108,14 +121,14 @@ export default {
       this.isAddOpen = !this.isAddOpen;
     },
     
-    toggleEditReview(currReview) {
-      console.log(currUser._id,)
-      currReview.content.isEdit = !currReview.content.isEdit;
-      this.$store.dispatch({
-        type: "reviewsModule/updateReview",
-        updatedReview: currReview
-      });
-    },
+    // toggleEditReview(currReview) {
+    //   console.log(currUser._id,)
+    //   currReview.content.isEdit = !currReview.content.isEdit;
+    //   this.$store.dispatch({
+    //     type: "reviewsModule/updateReview",
+    //     updatedReview: currReview
+    //   });
+    // },
     onAddReview() {
       this.newReview.user = {
         userId: this.currUser._id,
@@ -145,10 +158,10 @@ export default {
       }
      this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
     },
-    toggleEditReview(currReview) {
-      currReview.content.isEdit = !currReview.content.isEdit;
-			this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
-		},
+    // toggleEditReview(currReview) {
+    //   currReview.content.isEdit = !currReview.content.isEdit;
+		// 	this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
+		// },
     clickedDislike(reviewId,logedInUser) {
       var rateDetails={
          reviewId :reviewId,
@@ -157,11 +170,18 @@ export default {
       }
       this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
       
-    },
+   },
 
     removeReview(reviewToRemove) {
-      var reviewId = reviewToRemove.reviewId;
-      this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId, logedInUser });
+      var reviewId = reviewToRemove._id;
+      console.log(reviewId)
+      this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId});
+    },
+
+    editReview(reviewToEdit){
+      console.log('Natalia rev',reviewToEdit )
+     //var reviewId = reviewToEdit.reviewId;
+      this.$store.dispatch({ type: "reviewsModule/updateReviewTxt", reviewToEdit});
     }
   },
   computed: {
