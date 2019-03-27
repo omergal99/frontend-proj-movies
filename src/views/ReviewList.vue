@@ -16,7 +16,7 @@
 
 
     <h3 v-if="directAndId.direct === 'movie'">{{currMovie.details.name}} Reaviews</h3>
-    <h3 v-if="directAndId.direct === 'user'">Reviews</h3>
+    <h3 v-if="directAndId.direct === 'user'" class="reviews-title">Reviews</h3>
 
     <!-- Loader -->
     <div v-if="!reviewsToShow">
@@ -59,7 +59,9 @@
           </div>
         
         <div>
-          <review-preview v-if="currUser._id===currReview.user.userId"  :review="currReview" 
+           <review-preview
+          :review="currReview" 
+          v-if="currUser" :currUser="currUser"
           @onRemoveReview="removeReview"
           @onEditReview="editReview"></review-preview>
         </div>
@@ -119,14 +121,14 @@ export default {
       this.isAddOpen = !this.isAddOpen;
     },
     
-    toggleEditReview(currReview) {
-      console.log(currUser._id,)
-      currReview.content.isEdit = !currReview.content.isEdit;
-      this.$store.dispatch({
-        type: "reviewsModule/updateReview",
-        updatedReview: currReview
-      });
-    },
+    // toggleEditReview(currReview) {
+    //   console.log(currUser._id,)
+    //   currReview.content.isEdit = !currReview.content.isEdit;
+    //   this.$store.dispatch({
+    //     type: "reviewsModule/updateReview",
+    //     updatedReview: currReview
+    //   });
+    // },
     onAddReview() {
       this.newReview.user = {
         userId: this.currUser._id,
@@ -214,6 +216,9 @@ export default {
 </script>
 
 <style scoped>
+.reviews-title{
+  text-align: left;
+}
 .btn-add-review{
   margin-bottom: 15px;
 }
@@ -222,7 +227,7 @@ export default {
   padding: 15px;
   cursor: pointer;
   border: none;
-  border-radius: 4px;
+  border-radius: 3px;
   outline: none;
   font-family: cursive, arial, serif, sans-serif;
   background-color: #1a1818;
@@ -265,8 +270,8 @@ h3 {
   display: flex;
   border: 2px solid #2d2f31;;
   background-color: #e6e2d3;
-  margin: 10px;
-  border-radius: 7px;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 .review-details{

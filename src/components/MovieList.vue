@@ -2,7 +2,7 @@
   <section class="list-section container-movies">
     <h3>Movie List</h3>
 
-      <transition-group name="list" class="movie-list" tag="ul">
+      <transition-group name="list" class="movie-list clean-list" tag="ul">
         <li class="list-item" v-for="currMovie in movies" :key="currMovie._id">
           <router-link :to="'/movies/details/' + currMovie._id">
             <movie-preview :movie="currMovie"></movie-preview>

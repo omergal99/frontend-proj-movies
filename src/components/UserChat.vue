@@ -94,6 +94,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.chat-user-container{
+  margin-bottom: 10px;
+}
 .btn-chat {
   color: white;
   padding: 10px;
