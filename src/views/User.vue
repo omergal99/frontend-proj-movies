@@ -11,12 +11,24 @@
 
     <div v-else>
       <div class="div-login">
-        <p class="margin-bottom6">Enter to your account</p>
+        <button class="go-back-btn" @click="goBack">Back</button>
+        <p class="margin-bottom6">Enter to your details</p>
         <form class="form-login flex flex-col" @submit.prevent="onLogin">
-          <input required autofocus class="margin-bottom6" type="text" placeholder="User name" 
-            v-model="user.name">
-          <input required class="margin-bottom6" type="text" placeholder="Password" 
-            v-model="user.pass">
+          <input
+            required
+            autofocus
+            class="margin-bottom6"
+            type="text"
+            placeholder="User name"
+            v-model="user.name"
+          >
+          <input
+            required
+            class="margin-bottom6"
+            type="text"
+            placeholder="Password"
+            v-model="user.pass"
+          >
           <button class="margin-bottom6" type="submit">Login</button>
         </form>
         <p class="msg-login-fail">{{msgFailLogin}}</p>
@@ -25,8 +37,20 @@
       <div class="div-register">
         <p class="margin-bottom6">New here? Let's register</p>
         <form class="form-register flex flex-col" @submit.prevent="onRegister">
-          <input class="margin-bottom6" type="text" required placeholder="New user name" v-model="newUser.name">
-          <input class="margin-bottom6" type="text" required placeholder="Password" v-model="newUser.pass">
+          <input
+            class="margin-bottom6"
+            type="text"
+            required
+            placeholder="New user name"
+            v-model="newUser.name"
+          >
+          <input
+            class="margin-bottom6"
+            type="text"
+            required
+            placeholder="Password"
+            v-model="newUser.pass"
+          >
           <button class="margin-bottom6" type="submit">Register</button>
         </form>
       </div>
@@ -38,64 +62,63 @@
 import UserService from "../services/UserService.js";
 
 export default {
-  name: 'user',
+  name: "user",
   data() {
     return {
       user: {
-        name: '',
-        pass: ''
+        name: "",
+        pass: ""
       },
       newUser: {
-        name: '',
-        pass: ''
+        name: "",
+        pass: ""
       },
       isMsgFailLog: false,
-      textFailLog: ''
+      textFailLog: ""
     };
   },
   methods: {
     onLogin() {
-      this.$store.dispatch({ type: 'usersModule/doLogin', user: this.user })
+      this.$store
+        .dispatch({ type: "usersModule/doLogin", user: this.user })
         .then(user => {
-        if (user && user._id) {
-          console.log('LOGGED IN!', user);
-              // this.$router.push('/movies');
-              this.$router.go(-1);
-        } else {
-          console.log('WRONG TO LOGGED IN');
-          this.textFailLog = 'Wrong name or password - You stay in Guest mode';
-          this.isMsgFailLog = true;
-        }
-      });
+          if (user && user._id) {
+            console.log("LOGGED IN!", user);
+            // this.$router.push('/movies');
+            this.$router.go(-1);
+          } else {
+            console.log("WRONG TO LOGGED IN");
+            this.textFailLog =
+              "Wrong name or password - You stay in Guest mode";
+            this.isMsgFailLog = true;
+          }
+        });
     },
     onRegister() {
       if (this.newUser.name && this.newUser.pass) {
-        UserService.isNameNotInUse(this.newUser.name)
-          .then(() => {
-            this.$store.dispatch({ type: 'usersModule/addUser', newUser: this.newUser })
-              .then(res => {
-                if (res) {
-                  console.log('register NEW SUCCESS!');
-                  // this.$router.push('/movies');
-                  this.$router.go(-1);
-                } else {
-                  console.log('register FAIL');
-                }
-              })
-              .catch(err => {
-                console.log('WRONG TO register - ', err);
-              });
+        this.$store.dispatch({ type: "usersModule/addUser", newUser: this.newUser })
+          .then(res => {
+            //console.log("register NEW SUCCESS!", res);
+            this.$router.go(-1);
           })
-          .catch((err) => {
-            this.textFailLog = 'This name is already in use';
-            this.isMsgFailLog = true;
-          })
+          .catch(err => {
+            console.log("WRONG TO register - ", err);
+          });
       }
+      // .catch((err) => {
+      //   this.textFailLog = 'This name is already in use';
+      //   this.isMsgFailLog = true;
+      // })
     },
+
     logoutUser() {
-      this.$store.dispatch({ type: 'usersModule/logoutUser' })
+      this.$store.dispatch({ type: "usersModule/logoutUser" });
     },
+    goBack() {
+      this.$router.go(-1);
+    }
   },
+
   computed: {
     msgFailLogin() {
       if (this.isMsgFailLog) {
@@ -104,7 +127,7 @@ export default {
         }, 3000);
         return this.textFailLog;
       } else {
-        return '';
+        return "";
       }
     },
     loggedInUser() {
@@ -191,9 +214,9 @@ h2 {
     width: 60vw;
   }
   .div-login button,
-.div-register button {
-  width: 50vw;
-}
+  .div-register button {
+    width: 50vw;
+  }
 }
 
 @media (min-width: 1030px) {
@@ -201,9 +224,9 @@ h2 {
   .div-register {
     width: 40vw;
   }
-   .div-login button,
-.div-register button {
-  width: 30vw;
-}
+  .div-login button,
+  .div-register button {
+    width: 30vw;
+  }
 }
 </style>

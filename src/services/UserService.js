@@ -33,6 +33,7 @@ function getUsers(userId) {
 }
 
 function getById(userId) {
+    //console.log('i am heer')
     return HttpService.get(`${USER_URL}/${userId}`)
         .then(resolveData)
 }
@@ -56,20 +57,41 @@ function remove(userId) {
     var userIdx = users.findIndex(user => user.userId === userId);
     if (userIdx === -1) return Promise.reject('Not Found');
     users.splice(userIdx, 1)
-    return _saveUsersToFile();
+        ();
 }
+
+// function signup(user) {
+//     return HttpService.put(`${BASE_URL}/signup`, user).then(resolveData)
+// }
+
 
 function add(newUser) {
-    var fullNewUser = getGuestUser();
-    fullNewUser.name = newUser.name;
-    fullNewUser.password = newUser.pass;
-    // fullNewUser.userId = _makeId();
-    fullNewUser.isAdmin = false;
-    users.push(fullNewUser);
-    return Promise.resolve(fullNewUser);
-
-    // return _saveUsersToFile().then(() => user);
+    console.log('signup', newUser)
+    return new Promise((resolve, reject) => {
+        HttpService.post(`${USER_URL}/singup`, newUser)
+            //.then(res => console.log ("natalia registratin", res.data))
+            .then(res => {
+                let newUser = res.data
+                //console.log('updated relllllllw:', newUser)
+                resolve(newUser)
+            })
+            .catch(err => err)
+    })
 }
+//   .catch(()=>{
+//             return {_id:'asafasf',namee:'asfsaf'}
+//             // TODO: roll back
+//         })
+// var fullNewUser = getGuestUser();
+// fullNewUser.name = newUser.name;
+// fullNewUser.password = newUser.pass;
+// // fullNewUser.userId = _makeId();
+// fullNewUser.isAdmin = false;
+// users.push(fullNewUser);
+// return Promise.resolve(fullNewUser);
+
+// return _saveUsersToFile().then(() => user);
+
 function login(userNamePass) {
     var prmAnsRes = HttpService.put(`${USER_URL}/login`, userNamePass)
     prmAnsRes.catch(err => {
@@ -99,7 +121,7 @@ function isNameNotInUse(name) {
     }
 }
 
-function addFollowUser(users){
+function addFollowUser(users) {
     const userId = users.followedUser
     return HttpService.put(`${USER_URL}/details/${userId}`, users)
 

@@ -9,12 +9,14 @@ const usersModule = {
     },
     mutations: {
         setCurrUser(state, payload) {
+            
             state.currUser = payload.user;
         },
         cleanCurrUser(state, payload) {
             state.currUser = payload.guest;
         },
         setViewUser(state, payload) {
+            console.log('payload.user',payload.user)
             state.viewUser = payload.user;
         },
         cleanViewUser(state) {
@@ -42,10 +44,12 @@ const usersModule = {
             return context.commit({ type: 'setCurrUser', user })
         },
         addUser(context, {newUser}) {
+            console.log('heeeeer', newUser)
             return UserService.add(newUser)
-                .then( addedUser => {
+                .then(addedUser => {
+                    console.log("addedUser",addedUser)
                     context.commit({ type: 'setCurrUser', user: addedUser })
-                    return 'success registar'
+                    return 'success registration'
                 })
         },
         logoutUser(context){
@@ -54,9 +58,10 @@ const usersModule = {
         },
         loadViewUser(context, {userId}) {
             // console.log('state.currUser', context.state.currUser)
-            // console.log('state.viewUser', context.state.viewUser)
+             console.log('state.viewUser', userId)
             return UserService.getById(userId)
                 .then( user => {
+                    console.log('uuuuuuuser', user)
                     return context.commit({ type: 'setViewUser', user })
                 })
         },

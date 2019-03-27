@@ -1,16 +1,13 @@
 <template>
-    
-  <div v-if="!review.content.isEdit">
-    <div class="div-reviews">{{review.content.txt}}</div>
-  </div>
+  <div>
+    <div class="div-reviews">{{txt}}</div>
 
-  <div v-else class="edit-Review">
-    <input type="text" class="div-reviews" 
-        v-model="review.content.txt"
-    >
-  <button @click="emitRemoveReview">Delete All</button>
+    <input type="text" class="div-reviews" v-if="isEditOpen" v-model="txt">
+    <button v-if="!isEditOpen" @click="toggleEditReview(review)">Edit</button>
+    <button v-if="isEditOpen" @click="emitSaveReview">Save</button>
+    <button v-if="isEditOpen" @click="cancelEditReview(review)">Cancel</button>
+    <button @click="emitRemoveReview">Delete All</button>
   </div>
-
 </template>
 
 <script>
@@ -19,16 +16,36 @@ export default {
   props: {
     review: Object
   },
+  data() {
+    return {
+      isEditOpen: false,
+      txt: this.review.content.txt,
+      tempTxt: null
+    };
+  },
   methods: {
-      emitRemoveReview(){
-        this.$emit('onRemoveReview', this.review)
-      }
+    emitRemoveReview() {
+      this.$emit("onRemoveReview", this.review);
+    },
+    emitSaveReview(){
+      this.isEditOpen = !this.isEditOpen;
+      this.review.content.txt=this.txt
+      this.$emit("onEditReview", this.review);
+    },
+    toggleEditReview(currReview) {
+      this.isEditOpen = !this.isEditOpen;
+      this.tempTxt = this.txt;
+    },
+    cancelEditReview(review) {
+      this.isEditOpen = !this.isEditOpen;
+      this.txt = this.tempTxt;
+    }
   }
 };
 </script>
 
 <style scoped>
-.edit-Review input{
+.edit-Review input {
   border-radius: 2px;
   padding: 2px 8px 2px 8px;
   background-color: rgb(190, 218, 241);

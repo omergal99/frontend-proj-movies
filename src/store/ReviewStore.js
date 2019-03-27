@@ -32,6 +32,7 @@ const reviewsModule = {
         },
 
         removeReview(state, { reviewId }) {
+            console.log('heeeeer')
             const idx = state.currReviews.findIndex(review => review.reviewId === reviewId);
             state.currReviews.splice(idx, 1);
         },
@@ -77,8 +78,9 @@ const reviewsModule = {
                 })
         },
 
-        updateReview(context, { updatedReview }) {
-            return ReviewService.update(updatedReview)
+        updateReviewTxt(context, { reviewToEdit }) {
+            console.log('natliaaaaaa',reviewToEdit )
+            return ReviewService.update(reviewToEdit)
                 .then((savedReview) => {
                     context.commit({ type: ' updateReview', savedReview })
                 })

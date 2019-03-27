@@ -11,7 +11,7 @@
 
 				<div class="user-table">
 					<table class="details-table">
-						<tr><td>Name</td><td>{{viewUser.name}}</td></tr>
+						<tr><td>Name</td><td>{{viewUser.name}} </td></tr>
 						<tr><td>Rating</td><td>{{viewUser.rating}}</td></tr>
 					</table>
 				</div>
@@ -57,7 +57,9 @@ export default {
 	},
 	created() {
 		const userId = this.$route.params.userId;
-		this.$store.dispatch({ type: 'usersModule/loadViewUser', userId });
+		//console.log('ffffff', userId)
+		this.$store.dispatch({ type: 'usersModule/loadViewUser', userId })
+		//.then(()=>viewUser() );
 	},
 	destroyed(){
     this.$store.commit({ type: "usersModule/cleanViewUser"});

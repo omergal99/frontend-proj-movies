@@ -54,14 +54,16 @@
         </div>
         
         <div>
-          <review-preview :review="currReview" @onRemoveReview="removeReview"></review-preview>
+          <review-preview v-if="currUser._id===currReview.user.userId"  :review="currReview" 
+          @onRemoveReview="removeReview"
+          @onEditReview="editReview"></review-preview>
         </div>
 
-        <div class="review">
+        <!-- <div class="review">
           <div class="div-btn">
             <button v-if="currUser._id===currReview.user.userId" @click="toggleEditReview(currReview)">Edit (Admin)</button>
           </div>
-        </div>
+        </div> -->
       </li>
     </ul>
 
@@ -80,8 +82,7 @@ export default {
   },
   data() {
     return {
-			// isAddFollower: false,
-			// isLoggedIn: false,
+			
 			isAddOpen: false,
       isSendReview: false,
       newReview: {
@@ -100,29 +101,7 @@ export default {
   },
 
   methods: {
-    // followUser() {
-		// 	//can't follow if not logged in
-		// 	// 2 secs to show "Please login to follow the user..."
-		// 	var loggedInUser = this.currUser.userId
-		// 	if(!loggedInUser){
-		// 		this.isLoggedIn = !this.isLoggedIn
-		// 		setTimeout(() => {		
-		// 			this.isLoggedIn = !this.isLoggedIn;
-		// 		}, 2000)
-		// 		return
-		// 	}
-			
-		// 	// 2 secs to show "Adding user to follow..."
-		// 	this.isAddFollower = !this.isAddFollower;
-		// 	setTimeout(() => {		
-		// 		this.isAddFollower = !this.isAddFollower;
-		// 	}, 2000)
-
-		// 	var followedUser = this.$route.params.userId;
-
-		// 	var users = {loggedInUser, followedUser}
-		// 	this.$store.commit({ type: "usersModule/addRemoveFollower", users})
-		// },
+    
 		toggleOpenNewReview() {
       this.isAddOpen = !this.isAddOpen;
     },
@@ -137,13 +116,11 @@ export default {
     },
     onAddReview() {
       this.newReview.user = {
-        // userId: this.currUser.userId,
-        userId: this.currUser._id,
+           userId: this.currUser._id,
         userImg: this.currUser.userImg,
         userName: this.currUser.name
       };
       this.newReview.movie = {
-        // movieId: this.currMovie.movieId,
         movieId: this.currMovie._id,
         movieImg: this.currMovie.details.movieImg,
         movieName: this.currMovie.details.name
@@ -166,10 +143,10 @@ export default {
       }
      this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
     },
-    toggleEditReview(currReview) {
-      currReview.content.isEdit = !currReview.content.isEdit;
-			this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
-		},
+    // toggleEditReview(currReview) {
+    //   currReview.content.isEdit = !currReview.content.isEdit;
+		// 	this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
+		// },
     clickedDislike(reviewId,logedInUser) {
       var rateDetails={
          reviewId :reviewId,
@@ -178,11 +155,18 @@ export default {
       }
       this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
       
-    },
+   },
 
     removeReview(reviewToRemove) {
-      var reviewId = reviewToRemove.reviewId;
-      this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId, logedInUser });
+      var reviewId = reviewToRemove._id;
+      console.log(reviewId)
+      this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId});
+    },
+
+    editReview(reviewToEdit){
+      console.log('Natalia rev',reviewToEdit )
+     //var reviewId = reviewToEdit.reviewId;
+      this.$store.dispatch({ type: "reviewsModule/updateReviewTxt", reviewToEdit});
     }
   },
   computed: {
