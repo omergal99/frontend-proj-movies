@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="">
     <h2>The Movie Gallery</h2>
 
     <movie-filter @filterd="doFilter"></movie-filter>

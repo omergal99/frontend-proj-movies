@@ -18,22 +18,21 @@ export default {
 
 <style lang="scss" scoped>
 
-  h3 {
-    margin: 0 0 6px 0;
+  .movie{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
   }
   .movie-name{
     margin: 10px auto;
-    // max-width: 100%;
     width: 134px;
     overflow-wrap: break-word;
-    // height: 40px;
     overflow: hidden;
     color: aliceblue;
   }
 
   .movie-poster {
-    height: 200px;
-    width: 134px;
     overflow: hidden;
     margin: 0 auto;
 

@@ -5,12 +5,19 @@
 .full-height{
     min-height: 100vh;
 }
+/********** Containers **********/
 
 .container {
     max-width: 860px;
     margin: 0 auto;
     padding-left: 10px; 
     padding-right: 10px; 
+}
+.container-movies{
+    max-width: 960px;
+    margin: 0 auto;
+    padding-left: 26px; 
+    padding-right: 26px; 
 }
 
 /********** Flex **********/

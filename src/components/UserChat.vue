@@ -1,6 +1,9 @@
 <template>
   <section class="chat-user-container">
-    <button @click="toggleUserChat">Lets Chat!</button>
+    <button class="btn-chat" @click="toggleUserChat">
+      Lets Chat!
+      <i class="far fa-comments"></i>
+    </button>
 
     <div class="chat-box" v-if="isUserChatOpen" :class="{ 'min-box': isMinimize }">
       <div @click.stop="minimizeChat" class="top-line flex space-between">
@@ -91,6 +94,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.btn-chat {
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  font-family: cursive, arial, serif, sans-serif;
+  background-color: #1a1818;
+  transition: 0.3s;
+  margin-right: 3px;
+  &:hover {
+    color: #3481b4;
+  }
+}
+
 .messages {
   overflow-y: scroll;
   height: 240px;
@@ -110,10 +129,7 @@ export default {
     }
   }
 }
-.chat-user-container > button {
-  margin: 12px;
-  padding: 8px;
-}
+
 .chat-box {
   color: #060606;
   position: fixed;

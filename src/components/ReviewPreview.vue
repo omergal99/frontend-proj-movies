@@ -1,16 +1,18 @@
 <template>
+  <section>
+
+    <div v-if="!review.content.isEdit" class="div-reviews">
+      <a >{{review.content.txt}}</a>
+    </div>
     
-  <div v-if="!review.content.isEdit">
-    <div class="div-reviews">{{review.content.txt}}</div>
-  </div>
+    <div v-else class="edit-review">
+      <input type="text" class="div-reviews" 
+          v-model="review.content.txt">
+      
+      <button @click="emitRemoveReview">Delete All</button>
+    </div>
 
-  <div v-else class="edit-Review">
-    <input type="text" class="div-reviews" 
-        v-model="review.content.txt"
-    >
-  <button @click="emitRemoveReview">Delete All</button>
-  </div>
-
+  </section>
 </template>
 
 <script>
@@ -23,12 +25,17 @@ export default {
       emitRemoveReview(){
         this.$emit('onRemoveReview', this.review)
       }
-  }
+  },
 };
 </script>
 
 <style scoped>
-.edit-Review input{
+
+section{
+  padding: 10px;
+  float: left;
+}
+/* .edit-review input{
   border-radius: 2px;
   padding: 2px 8px 2px 8px;
   background-color: rgb(190, 218, 241);
@@ -38,7 +45,7 @@ export default {
   margin-right: 6px;
 }
 
-.edit-Review button {
+.edit-review button {
   border: none;
   cursor: pointer;
   color: white;
@@ -56,5 +63,5 @@ export default {
 }
 .div-reviews {
   max-width: 75vw;
-}
+} */
 </style>
