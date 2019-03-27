@@ -14,9 +14,7 @@ body {
     font-size: 16px;
     height: 100%;
     min-height: 100vh;
-    // min-height: 98vh;
     background-color: $clr1;
-    // background: linear-gradient(215deg, rgba(41, 124, 172, 0.8),rgba(255, 72, 0, 0) 70.71%),linear-gradient(80deg, rgba(255, 246, 120, 0.8),rgba(0, 255, 0, 0) 70.71%), linear-gradient(356deg, rgba(206, 56, 56, 0.8), rgba(0, 0, 255, 0) 70.71%);
 }
 
 img {
@@ -25,5 +23,4 @@ img {
 
 #app {
     text-align: center;
-    // color: #e2eaf1;
 }

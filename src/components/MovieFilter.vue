@@ -1,9 +1,16 @@
 <template>
   <section>
-    <h3>Movie Filter</h3>
+    <h3>Search Your Movie</h3>
 
-    <div class="main-filter">
-      <select class="select-catagory" @change="emitFilter" v-model="filterBy.category">
+    <div class="filter-container flex flex-col">
+
+      <label class="filter-new">  
+        New Movies
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+      </label>
+
+      <select class="filter-category" @change="emitFilter" v-model="filterBy.category">
         <option value>Category</option>
         <option value="action">Action</option>
         <option value="comedy">Comedy</option>
@@ -13,36 +20,26 @@
         <option value="romance">Romance</option>
       </select>
 
-      <!-- <div class="check-box-is-new">
-        <input type="checkbox" v-model="filterBy.isNew">New!
-      </div>-->
-
-      <label class="container">
-        New!
-        <input type="checkbox" checked="checked">
-        <span class="checkmark"></span>
-      </label>
-
-      <input
-        class="search-input"
-        type="text"
-        placeholder="Find Movie By Name"
-        @input="emitFilter"
-        v-model="filterBy.name"
-      >
-
-      <select class="select-sort" @change="emitFilter" v-model="filterBy.sort">
-        <!-- <option value>Sort</option> -->
+      <select class="filter-by" @change="emitFilter" v-model="filterBy.sort">
         <option value="topRated">Top Rated</option>
         <option value="year">Year</option>
         <option value="name">Name</option>
       </select>
 
-      <div class="div-search-btn">
-        <button class="search-btn" title="Search" @click="emitFilter">🍭</button>
+      <input class="filter-input"
+        type="text"
+        placeholder="Find Movie By Name"
+        @input="emitFilter"
+        v-model="filterBy.name">
+
+      <div class="filter-search">
+        <button class="search-button" title="Search" @click="emitFilter">
+          <i class="fas fa-search"></i>
+        </button>
       </div>
 
     </div>
+
   </section>
 </template>
 
@@ -74,137 +71,94 @@ export default {
 };
 </script>
 
-<style scoped>
-.container {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-  font-size: 1em;
-  user-select: none;
-  margin-left: 6px;
-  /* background-color: #563f46; */
-  background-color: #ffffff;
-  padding: 4px 4px 4px 24px;
-  border-radius: 2px;
-  transition: background-color .3s;
-}
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-  transition: background-color .3s;
+<style>
+  .filter-container{
+    max-width: 300px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  
+  h3{
+    margin: 25px 0;
+  }
 
-}
-.container:hover input ~ .checkmark {
-  /* background-color: #563f46; */
-  background-color: #ffffff;
-}
-.container:hover {
-  /* background-color: #685158; */
-  background-color: #488bc9;
-}
-.container input:checked ~ .checkmark {
-  /* background-color: #563f46; */
-  background-color: #ffffff;
-}
-.checkmark {
-  position: absolute;
-  top: 4px;
-  left: 2px;
-  height: 20px;
-  width: 20px;
-  /* background-color: #816b72; */
-  /* background-color: #2b2a44; */
-  border-radius: 12px;
-  transition: background-color .3s;
-}
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-.container{
-  color: #2b2a44;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.container input:checked ~ .checkmark:after {
-  display: block;
-}
-.container .checkmark:after {
-  left: 7px;
-  top: 3px;
-  width: 4px;
-  height: 9px;
-  border: solid rgb(238, 238, 238);
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
-}
-.search-input {
-  margin-left: 6px;
-  /* background-color: #563f46; */
-  background-color: #ffffff;
-  font-size: 1em;
-  padding: 4px;
-  border: none;
-  color: rgb(241, 236, 229);
-  font-family: quando, Arial, serif;
-  border-radius: 2px;
-}
-.search-input::placeholder {
-  color: rgba(192, 192, 192, 0.7);
-}
-.div-search-btn{
-  position: relative;
-  width: 30px;
-  height: 20px;
-  display: inline-block;
-  background-color: rgba(128, 128, 128, 0);
-  margin-left: 6px;
+  .filter-input, .filter-category, .filter-by{
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 3px;
+  }
 
-}
-.search-btn{
-    margin-left: 6px;
-    font-size: 24px;
-    font-weight: bold;
-    background-color: rgba(238, 225, 225, 0);
-    border: none;
+  .filter-new {
+    display: inline-block;
+    position: relative;
     cursor: pointer;
-    transition: transform .3s;
-    padding: 0;
-    left: -6px;
-    outline: none;
-    transform: rotate(90deg);
+    font-size: 1em;
+    user-select: none;
+    margin-left: 6px;
+    background-color: #e4e7ff;
+    padding: 4px 4px 4px 24px;
+    border-radius: 3px;
+    transition: background-color .3s;
+  }
+  .filter-new input {
     position: absolute;
-}
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    transition: background-color .3s;
 
-.search-btn:hover {
-    transform: scale(1.1) rotate(45deg);
-}
+  }
+  .filter-new:hover input ~ .checkmark {
+    background-color: #ffffff;
+  }
+  .filter-new:hover {
+    background-color: #488bc9;
+  }
+  .filter-new input:checked ~ .checkmark {
+    color: black;
+    background-color: #488bc9;
+  }
+  .checkmark {
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    height: 20px;
+    width: 20px;
+    border-radius: 12px;
+    transition: background-color .3s;
+  }
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  .filter-new{
+    color: #2b2a44;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .filter-new input:checked ~ .checkmark:after {
+    display: block;
+  }
+  .filter-new .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 4px;
+    height: 9px;
+    border: solid rgb(238, 238, 238);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
 
-.select-catagory,
-.select-sort{
-  /* background-color: #563f46; */
-  background-color: #ffffff;
-  height: 30px;
-  /* color: rgb(241, 236, 229); */
-  color: #2b2a44;
-  cursor: pointer;
-  border: none;
-  padding: 4px;
-  margin-left: 6px;
-  /* font-family: quando, Arial, serif; */
-  border-radius: 2px;
-  transition: background-color .2s;
-}
-.select-catagory:hover,
-.select-sort:hover{
-  background-color: #5f484f;
-}
+  .filter-search{
+    margin: 5px 0;
+    height: 29px;
+  }
 
-h3 {
-  margin: 0 0 6px 0;
-}
+  .fa-search{
+    color: #488bc9;
+  }
+
 </style>

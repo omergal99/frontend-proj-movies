@@ -1,12 +1,18 @@
 <template>
-  <section class="details-section">
+  
+  <section class="details-section container-movies">
 
     <div v-if="!currMovie">
       <img src="../assets/img/banana3.gif">
       <img src="../assets/img/banana1.gif">
       <img src="../assets/img/banana2.gif">
     </div>
-    <div v-if="currMovie" class="movie-details">
+
+
+    <div v-if="currMovie" class="movie-details flex">
+      <div class="movie-img">
+        <img :src="currMovie.details.movieImg">
+      </div>
       <div class="movie-table">
         <table class="details-table">
           <tr>
@@ -17,10 +23,6 @@
             <td>Year</td>
             <td>{{currMovie.details.year}}</td>
           </tr>
-          <!-- <tr>
-            <td>Description</td>
-            <td>{{currMovie.details.description}}</td>
-          </tr> -->
           <tr>
             <td>Actors</td>
             <td>{{currMovie.details.actors}}</td>
@@ -29,11 +31,13 @@
             <td>Director</td>
             <td>{{currMovie.details.director}}</td>
           </tr>
+          <tr>
+            <td>Description</td>
+            <td>{{currMovie.details.description}}</td>
+          </tr>
         </table>
       </div>
-      <div class="div-img">
-        <img :src="currMovie.details.movieImg">
-      </div>
+      
     </div>
 
     <review-list :directAndId="detailsForShowReviews"></review-list>
@@ -78,33 +82,26 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  margin: 0 0 6px 0;
-}
-.div-img {
-  width: 25vw;
-}
-.div-img img {
-  max-height: 150px;
-  text-align: center;
-}
 
 .movie-details {
-  display: flex;
-  padding: 8px;
+  max-width: 85%;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.movie-img {
+  width:25%;
+}
+.movie-table {
+  color: rgb(31, 31, 31);
+  width:75%;
 }
 
-.movie-table {
-  min-width: 75vw;
-  color: rgb(31, 31, 31);
-}
-.movie-table table {
-  margin: 0 auto;
-}
 .details-table td {
-  padding: 4px;
+  padding: 5px;
   border: 1px solid #c4b7a6;
-}
+} 
 .details-table td:first-child {
   font-weight: bold;
 }

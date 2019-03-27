@@ -71,7 +71,9 @@ header {
   background-color: #1a1818;
 }
 .user-name {
+  color: white;
   margin: 0;
+  color: #dbd5d5;
   text-align: left;
   font-size: 1.2em;
   font-weight: bold;
@@ -109,6 +111,7 @@ header {
   background-color: #1a1818;
   font-size: 1.4em;
   padding: 0px 2px 10px 2px;
+  color: #dbd5d5;
   a {
     font-weight: bold;
     color: #dbd5d5;
@@ -116,5 +119,8 @@ header {
       color: #488bc9;
     }
   }
+}
+#nav>*{
+  color: white;
 }
 </style>

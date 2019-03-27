@@ -8,6 +8,20 @@
     <button v-if="isEditOpen" @click="cancelEditReview(review)">Cancel</button>
     <button @click="emitRemoveReview">Delete All</button>
   </div>
+  <!-- <section>
+
+    <div v-if="!review.content.isEdit" class="div-reviews">
+      <a >{{review.content.txt}}</a>
+    </div>
+    
+    <div v-else class="edit-review">
+      <input type="text" class="div-reviews" 
+          v-model="review.content.txt">
+      
+      <button @click="emitRemoveReview">Delete All</button>
+    </div>
+
+  </section> -->
 </template>
 
 <script>
@@ -45,33 +59,10 @@ export default {
 </script>
 
 <style scoped>
-.edit-Review input {
-  border-radius: 2px;
-  padding: 2px 8px 2px 8px;
-  background-color: rgb(190, 218, 241);
-  border: none;
-  font-size: 0.9em;
-  font-family: cursive, arial, serif, sans-serif;
-  margin-right: 6px;
+
+section{
+  padding: 10px;
+  float: left;
 }
 
-.edit-Review button {
-  border: none;
-  cursor: pointer;
-  color: white;
-  border-radius: 4px;
-  font-family: cursive, arial, serif, sans-serif;
-  font-size: 0.9em;
-  padding: 2px 8px 2px 8px;
-  transition: background-color 0.3s;
-  background-color: rgb(180, 52, 52);
-  margin-bottom: 6px;
-}
-
-.edit-Review button:hover {
-  background-color: rgb(163, 47, 47);
-}
-.div-reviews {
-  max-width: 75vw;
-}
 </style>
