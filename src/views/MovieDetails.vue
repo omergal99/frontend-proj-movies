@@ -1,6 +1,6 @@
 <template>
-  <!-- <section class="details-section container"> -->
-  <section class="details-section">
+  
+  <section class="details-section container-movies">
 
     <div v-if="!currMovie">
       <img src="../assets/img/banana3.gif">

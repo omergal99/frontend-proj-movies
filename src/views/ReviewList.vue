@@ -15,9 +15,10 @@
 		</div>
 
 
-    <h3>Our Reader's Reaviews</h3>
+    <h3 v-if="directAndId.direct === 'movie'">{{currMovie.details.name}} Reaviews</h3>
+    <h3 v-if="directAndId.direct === 'user'">Reviews</h3>
 
-    <!-- Louder -->
+    <!-- Loader -->
     <div v-if="!reviewsToShow">
       <img src="../assets/img/banana3.gif">
       <img src="../assets/img/banana1.gif">
@@ -29,49 +30,52 @@
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
         
         <div class="movie-review">
-
-          <div v-if="directAndId.direct === 'movie'" class="user-details flex flex-col">
-            <router-link :to="'/user/details/' + currReview.user.userId" class="user-details-link">
+          <!-- reviews of the movie -->
+          <div v-if="directAndId.direct === 'movie'" class="review-details flex flex-col align-center">
+            <router-link :to="'/user/details/' + currReview.user.userId" class="review-details-link">
               <img :src="currReview.user.userImg">
               {{currReview.user.userName}}
             </router-link>
           
-            <div class="likes-btn flex space-center">
+            <div class="likes-btn flex">
               <button @click="clickedLike(currReview._id,currUser)">
-                <i class="fas fa-thumbs-up"></i> 
-                {{currReview.rate.countLike.length}}
+                <i class="fas fa-thumbs-up"></i>
+                <span>{{currReview.rate.countLike.length}}</span>
               </button>
               
               <button @click="clickedDislike(currReview._id,currUser)">
                 <i class="fas fa-thumbs-down"></i> 
-                {{currReview.rate.countDislike.length}}
+                <span>{{currReview.rate.countDislike.length}}</span>
               </button>
             </div>
           </div>
 
-          <div v-if="directAndId.direct === 'user'" class="movie-details">
-            <router-link :to="'/movies/details/' + currReview.movie.movieId">
+          <!-- reviews of the user -->
+          <div v-if="directAndId.direct === 'user'" class="review-details flex flex-col align-center">
+            <router-link :to="'/movies/details/' + currReview.movie.movieId" class="review-details-link">
               <img :src="currReview.movie.movieImg">
               <div>{{currReview.movie.movieName}}</div>
             </router-link>
           </div>
         
-          <div class="review-preview">
-            <review-preview :review="currReview" @onRemoveReview="removeReview"></review-preview>
+          <div class="review-preview" >
+              <button 
+                class="btn-edit-review"
+                v-if="currUser._id===currReview.user.userId" 
+                @click="toggleEditReview(currReview)">
+                <i class="fas fa-pencil-alt"></i>
+              </button>           
+              <review-preview :review="currReview" @onRemoveReview="removeReview"></review-preview>
           </div>
-
-          <div class="review">
-            <div class="div-btn">
-              <button v-if="currUser._id===currReview.user.userId" @click="toggleEditReview(currReview)">Edit (Admin)</button>
-            </div>
-          </div>
-
 
         </div>
         
       </li>
     </ul>
 
+
+    
+   
 
   </section>
 </template>
@@ -202,14 +206,14 @@ export default {
 </script>
 
 <style scoped>
-.list-section{
+/* .list-section{
   max-width: 85%;
   margin: 0 auto;
-}
+} */
 .btn-add-review{
   margin-bottom: 15px;
 }
-.btn-add-review, .btn-send-review{
+.btn-add-review, .btn-send-review, .btn-edit-review{
   color: white;
   padding: 15px;
   cursor: pointer;
@@ -218,8 +222,17 @@ export default {
   outline: none;
   font-family: cursive, arial, serif, sans-serif;
   background-color: #1a1818;
+  transition: 0.3s;
 }
-.btn-add-review:hover, .btn-send-review:hover {
+.btn-edit-review{
+  height: fit-content;
+  padding: 5px 8px;
+  margin: 5px 5px 0 0;
+  float: right;
+  background-color: #2d2f31;
+  transition: 0.3s;
+}
+.btn-add-review:hover, .btn-send-review:hover, .btn-edit-review:hover {
   background-color: #3481b4;
 }
 .textarea-add-review, .btn-send-review{
@@ -236,7 +249,9 @@ h3 {
   margin: 30px 0;
   color: aliceblue;
 }
-.div-btn {
+
+
+/* .div-btn {
   margin: 6px 0 0 0;
 }
 .div-btn button {
@@ -255,7 +270,7 @@ h3 {
 }
 .div-btn button:hover {
   background-color: #3481b4;
-}
+} */
 
 /* .list-section ul {
   display: flex;
@@ -273,26 +288,32 @@ h3 {
 }
 .movie-review{
   display: flex;
-  border: 2px solid #1a1818;
+  border: 2px solid #2d2f31;;
   background-color: #e6e2d3;
   margin: 10px;
   border-radius: 7px;
 }
 
-.user-details {
+.review-details{
   width:25%;
-  border-right: 0.3px solid #1a1818;
+  border-right: 0.3px solid #ced0d2;;
 }
-.user-details-link{
+.review-details-link{
   margin: 10px;
 }
 
 .likes-btn>*{
   padding: 5px;
-  margin: 10px 8px 20px 8px;
-
+  margin: 2px;
+  color: #2d2f31;
+  border: none;
+  background-color: #dac292;
+  max-width: 50px;
+  border-radius: 3px;
 }
-
+.likes-btn>*:hover{
+  background-color: #3481b4;
+}
 .review-preview{
   width: 100%;
   /* padding: 15px; */

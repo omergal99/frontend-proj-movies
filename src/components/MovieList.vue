@@ -1,5 +1,5 @@
 <template>
-  <section class="list-section ">
+  <section class="list-section container-movies">
     <h3>Movie List</h3>
 
     <ul class="ul-movies-list">
@@ -35,8 +35,11 @@ export default {
 </script>
 
 <style lang="scss">
+.list-section{
+
+}
+
 .ul-movies-list {
-  margin: 0 0 0 8px;
   list-style-type: none;
   padding: 0;
 }
@@ -46,17 +49,13 @@ h3 {
 }
 
 .list-section ul {
-  // display: flex;
-  // flex-wrap: wrap;
-  // justify-content: center;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 26px;
 }
 
 .list-section li {
-  // width: 180px;
   margin: 0 auto;
-  // padding: 10px;
   list-style: none;
   border-radius: 4px;
   text-decoration: none;
@@ -71,19 +70,5 @@ h3 {
   margin: 0;
   padding: 0;
 }
-@media (min-width: 1000px) {
-  .list-section ul {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-@media (min-width: 600px) and (max-width: 1000px) {
-  .list-section ul {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-@media (min-width: 450px) and (max-width: 600px) {
-  .list-section ul {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+
 </style>

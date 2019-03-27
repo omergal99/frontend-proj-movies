@@ -1,40 +1,39 @@
 <template>
-	<section>
+	<section class="user-profile container-movies flex column">
 
-
-		<div class="user-profile flex column">
-
-			<div class="user-details" v-if="viewUser">
-				<div class="div-img">
+		<!-- left column with user details -->
+		<div class="user-details" v-if="viewUser">
+				<div class="user-img">
 					<img :src="viewUser.userImg">
 				</div>
 
-				<div class="user-table">
-					<table class="details-table">
-						<tr><td>Name</td><td>{{viewUser.name}}</td></tr>
-						<tr><td>Rating</td><td>{{viewUser.rating}}</td></tr>
-					</table>
+				<table class="details-table">
+					<tr><td>Name</td><td>{{viewUser.name}}</td></tr>
+					<tr><td>Rating</td><td>{{viewUser.rating}}</td></tr>
+				</table>
+
+				<div class="btns flex">
+					<!-- chat button -->
+					<div>
+						<button class="btn-chat" title="Chat"><i class="far fa-comments"></i></button>
+					</div>
+
+					<!-- follow button -->	
+					<div class="follow" v-if="isSelfProfile">
+						<button @click="followUser" class="btn-follow" title="Follow User"><i class="fas fa-user-plus"></i></button>
+						<div v-if="isTellLogin">Please login to follow the user...</div>
+					</div>
+					<div v-if="isAlreadyFollowed">The user is already followed by {{followedBy}}</div>
+					<div v-if="isFollowed">The user is followed by {{followedByList}}</div>
 				</div>
+				
+		</div>
 
-				<div>
-					<button>Lets Chat!</button>
-				</div>
-
-				<!-- follow button -->	
-				<div class="follow" v-if="isSelfProfile">
-					<button @click="followUser">Follow user</button>
-					<div v-if="isTellLogin">Please login to follow the user...</div>
-				</div>
-				<div v-if="isAlreadyFollowed">The user is already followed by {{followedBy}}</div>
-				<div v-if="isFollowed">The user is followed by {{followedByList}}</div>
-
-			</div>
-
-		  <div>
-			  <review-list :directAndId="detailsForShowReviews"></review-list>
-		  </div>
-	  </div>
-		
+		<!-- right column with user reviews -->
+		<div class="user-reviews">
+				<review-list :directAndId="detailsForShowReviews"></review-list>
+		</div>
+	
 	</section>
 </template>
 
@@ -159,45 +158,41 @@ export default {
 
 
 <style scoped>
-h3 {
-  margin: 0 0 6px 0;
-}
-.div-img {
-  width: 25vw;
-}
-.div-img img {
-  max-height: 150px;
-  text-align: center;
-}
-
 .user-details {
-  /* display: flex; */
-  padding: 8px;
+	width: 25vw;
+	margin-top: 30px;
 }
-
-.user-table {
-  max-width: 75vw;
-  color: rgb(31, 31, 31);
+.details-table{
+	margin: 20px 0;
 }
-.user-table table {
-  max-width: 75vw;
-  margin: 0 auto;
-}
-.details-table td {
-  padding: 4px;
-  border: 1px solid #c4b7a6;
+.details-table td{
+	border: 1px solid #c4b7a6;
+	padding: 4px;
+	border-radius: 2px;
 }
 .details-table td:first-child {
-  background-color: #dac292;
-}
-.details-table td:first-child {
-  font-weight: bold;
+	background-color: #dac292;
+	font-weight: bold;
 }
 .details-table td:not(:first-child) {
   background-color: #e6e2d3;
 }
-table{
-	margin: 0 auto;
+.btn-chat, .btn-follow{
+	color: white;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  font-family: cursive, arial, serif, sans-serif;
+  background-color: #1a1818;
+  transition: 0.3s;
+}
+.btn-chat:hover, .btn-follow:hover{
+	background-color: #3481b4;
+}
+.btn-chat{
+	margin-right: 3px;
 }
 
 </style>

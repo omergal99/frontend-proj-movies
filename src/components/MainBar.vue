@@ -69,6 +69,7 @@ header {
   background-color: #1a1818;
 }
 .user-name {
+  color: white;
   margin: 0;
   text-align: left;
   font-size: 1.2em;
@@ -114,5 +115,8 @@ header {
       color: #488bc9;
     }
   }
+}
+#nav>*{
+  color: white;
 }
 </style>
