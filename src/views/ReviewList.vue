@@ -16,7 +16,7 @@
 
 
     <h3 v-if="directAndId.direct === 'movie'">{{currMovie.details.name}} Reaviews</h3>
-    <h3 v-if="directAndId.direct === 'user'">Reviews</h3>
+    <h3 v-if="directAndId.direct === 'user'" class="reviews-title">Reviews</h3>
 
     <!-- Loader -->
     <div v-if="!reviewsToShow">
@@ -28,8 +28,8 @@
          
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
-        
         <div class="movie-review">
+
           <!-- reviews of the movie -->
           <div v-if="directAndId.direct === 'movie'" class="review-details flex flex-col align-center">
             <router-link :to="'/user/details/' + currReview.user.userId" class="review-details-link">
@@ -69,13 +69,8 @@
           </div>
 
         </div>
-        
       </li>
     </ul>
-
-
-    
-   
 
   </section>
 </template>
@@ -123,13 +118,11 @@ export default {
     },
     onAddReview() {
       this.newReview.user = {
-        // userId: this.currUser.userId,
         userId: this.currUser._id,
         userImg: this.currUser.userImg,
         userName: this.currUser.name
       };
       this.newReview.movie = {
-        // movieId: this.currMovie.movieId,
         movieId: this.currMovie._id,
         movieImg: this.currMovie.details.movieImg,
         movieName: this.currMovie.details.name
@@ -174,7 +167,6 @@ export default {
   computed: {
 		
     reviewsToShow() {
-      // return this.$store.state.reviewsModule.currReviews;
       return this.$store.getters['reviewsModule/reviews'];
     },
     currMovie() {
@@ -204,10 +196,9 @@ export default {
 </script>
 
 <style scoped>
-/* .list-section{
-  max-width: 85%;
-  margin: 0 auto;
-} */
+.reviews-title{
+  text-align: left;
+}
 .btn-add-review{
   margin-bottom: 15px;
 }
@@ -216,7 +207,7 @@ export default {
   padding: 15px;
   cursor: pointer;
   border: none;
-  border-radius: 4px;
+  border-radius: 3px;
   outline: none;
   font-family: cursive, arial, serif, sans-serif;
   background-color: #1a1818;
@@ -259,8 +250,8 @@ h3 {
   display: flex;
   border: 2px solid #2d2f31;;
   background-color: #e6e2d3;
-  margin: 10px;
-  border-radius: 7px;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 .review-details{

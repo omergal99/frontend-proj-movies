@@ -21,7 +21,6 @@
       </select>
 
       <select class="filter-by" @change="emitFilter" v-model="filterBy.sort">
-        <!-- <option value>Sort</option> -->
         <option value="topRated">Top Rated</option>
         <option value="year">Year</option>
         <option value="name">Name</option>
@@ -34,7 +33,6 @@
         v-model="filterBy.name">
 
       <div class="filter-search">
-        <!-- <button class="search-button" title="Search" @click="emitFilter">🍭</button> -->
         <button class="search-button" title="Search" @click="emitFilter">
           <i class="fas fa-search"></i>
         </button>
@@ -77,15 +75,12 @@ export default {
   .filter-container{
     max-width: 300px;
     margin: 0 auto;
-    /* justify-content: center; */
     align-items: center;
   }
   
   h3{
     margin: 25px 0;
   }
-
-  /* filter-new filter-category filter-by filter-input filter-search */
 
   .filter-input, .filter-category, .filter-by{
     width: 100%;
@@ -101,7 +96,6 @@ export default {
     font-size: 1em;
     user-select: none;
     margin-left: 6px;
-    /* background-color: #563f46; */
     background-color: #e4e7ff;
     padding: 4px 4px 4px 24px;
     border-radius: 3px;
@@ -117,16 +111,12 @@ export default {
 
   }
   .filter-new:hover input ~ .checkmark {
-    /* background-color: #563f46; */
     background-color: #ffffff;
-    /* background-color: #488bc9; */
   }
   .filter-new:hover {
-    /* background-color: #685158; */
     background-color: #488bc9;
   }
   .filter-new input:checked ~ .checkmark {
-    /* background-color: #563f46; */
     color: black;
     background-color: #488bc9;
   }
@@ -136,8 +126,6 @@ export default {
     left: 2px;
     height: 20px;
     width: 20px;
-    /* background-color: #816b72; */
-    /* background-color: #2b2a44; */
     border-radius: 12px;
     transition: background-color .3s;
   }
@@ -167,10 +155,6 @@ export default {
   .filter-search{
     margin: 5px 0;
     height: 29px;
-  }
-
-  .search-button{
-
   }
 
   .fa-search{

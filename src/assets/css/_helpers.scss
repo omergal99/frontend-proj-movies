@@ -1,8 +1,11 @@
+/**************** Helpers ****************/
+
+/********** Layout **********/
+
 .full-height{
     min-height: 100vh;
 }
-
-// Layout
+/********** Containers **********/
 
 .container {
     max-width: 860px;
@@ -10,7 +13,6 @@
     padding-left: 10px; 
     padding-right: 10px; 
 }
-
 .container-movies{
     max-width: 960px;
     margin: 0 auto;
@@ -18,6 +20,71 @@
     padding-right: 26px; 
 }
 
-.container-user-reviews{
-    
+/********** Flex **********/
+
+.flex {
+    display: flex;
+    .full {
+        flex: 1;
+    }
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.space-even {
+    justify-content: space-evenly;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.space-center {
+    justify-content: center;
+}
+
+.space-start {
+    justify-content: start;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.flex.wrap {
+    flex-wrap: wrap;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-reverse {
+    flex-direction: row-reverse;
+}
+
+.flex-child {
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-basis: 100%;
+}
+
+/********** Lists **********/
+
+.clean-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.text-wrap {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }

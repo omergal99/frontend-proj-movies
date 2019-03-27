@@ -37,7 +37,7 @@ export default {
     margin: 0 auto;
 
     img{
-      transition: transform .3s;
+      transition: transform .4s;
       width: 100%;
       height: 100%;
       object-fit: cover;
