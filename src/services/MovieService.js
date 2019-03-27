@@ -19,7 +19,6 @@ function query(filterBy) {
     if (filterBy) {
         queryStr = `?name=${filterBy.name}&category=${filterBy.category}&sort=${filterBy.sort}&isNew=${filterBy.isNew}`
     }
-    console.log('sdgfsdg',MOVIE_URL)
     return HttpService.get(`${MOVIE_URL}${queryStr}`)
         .then(resolveData)
         .catch(() => _createMovies())

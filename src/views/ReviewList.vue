@@ -31,7 +31,7 @@
 
         <div v-if="directAndId.direct === 'movie'" class="user-details flex">
           <router-link :to="'/user/details/' + currReview.user.userId">
-            <img :src="currReview.user.userImg">
+            <img class="review-img" :src="currReview.user.userImg">
             {{currReview.user.userName}}
           </router-link>
           
@@ -48,7 +48,7 @@
 
         <div v-if="directAndId.direct === 'user'" class="movie-details">
           <router-link :to="'/movies/details/' + currReview.movie.movieId">
-            <img :src="currReview.movie.movieImg">
+            <img class="review-img" :src="currReview.movie.movieImg">
             <div>{{currReview.movie.movieName}}</div>
           </router-link>
         </div>
@@ -309,7 +309,9 @@ h3 {
   padding: 4px;
   border-radius: 4px;
 }
-
+.review-img{
+  width: 50%;
+}
 .clean-list {
   list-style-type: none;
   margin: 0;

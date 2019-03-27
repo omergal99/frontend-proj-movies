@@ -85,8 +85,8 @@ h3 {
   width: 25vw;
 }
 .div-img img {
-  max-height: 150px;
   text-align: center;
+  width: 70%;
 }
 
 .movie-details {

@@ -1,15 +1,14 @@
 <template>
-  <section class="list-section">
+  <section>
     <h3>Movie List</h3>
 
-    <ul class="ul-movies-list">
-      <li v-for="currMovie in movies" :key="currMovie.movieId">
-        <router-link :to="'/movies/details/' + currMovie._id">
-          <movie-preview :movie="currMovie"></movie-preview>
-        </router-link>
-      </li>
-    </ul>
-
+      <transition-group name="list" class="movie-list" tag="ul">
+        <li class="list-item" v-for="currMovie in movies" :key="currMovie._id">
+          <router-link :to="'/movies/details/' + currMovie._id">
+            <movie-preview :movie="currMovie"></movie-preview>
+          </router-link>
+        </li>
+      </transition-group>
   </section>
 </template>
 
@@ -17,6 +16,7 @@
 import MoviePreview from "@/components/MoviePreview.vue";
 
 export default {
+  // el: '#list-demo',
   name: "movieList",
   props: {
     movies: Array
@@ -24,10 +24,10 @@ export default {
   data() {
     return {};
   },
-  created() {},
+  created() { },
   methods: {},
   computed: {},
-  mounted() {},
+  mounted() { },
   components: {
     MoviePreview
   }
@@ -35,17 +35,24 @@ export default {
 </script>
 
 <style lang="scss">
-.ul-movies-list {
-  margin: 0 0 0 8px;
-  list-style-type: none;
-  padding: 0;
+.list-item {
+    display: inline-block;
+    margin-right: 10px;
+    max-height: 400px;
+    overflow: hidden;
 }
 
 h3 {
   margin: 0 0 6px 0;
 }
 
-.list-section ul {
+.movie-list {
+  margin: 0 0 0 8px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.movie-list {
   // display: flex;
   // flex-wrap: wrap;
   // justify-content: center;
@@ -53,17 +60,17 @@ h3 {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.list-section li {
+.movie-list li {
   // width: 180px;
   margin: 0 auto;
   // padding: 10px;
   list-style: none;
   border-radius: 4px;
   text-decoration: none;
-  transition: background-color 0.3s;
 }
-.list-section li:hover img {
-  transform: scale(1.1);
+
+.movie-list li:hover img {
+  transform: scale(1.05);
 }
 
 .clean-list {
@@ -72,17 +79,17 @@ h3 {
   padding: 0;
 }
 @media (min-width: 1000px) {
-  .list-section ul {
+  .movie-list {
     grid-template-columns: repeat(6, 1fr);
   }
 }
 @media (min-width: 600px) and (max-width: 1000px) {
-  .list-section ul {
+  .movie-list {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 @media (min-width: 450px) and (max-width: 600px) {
-  .list-section ul {
+  .movie-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
