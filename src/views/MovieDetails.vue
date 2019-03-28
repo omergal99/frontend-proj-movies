@@ -2,11 +2,11 @@
   
   <section class="details-section container-movies">
 
-    <div v-if="!currMovie">
+    <!-- <div v-if="!currMovie">
       <img src="../assets/img/banana3.gif">
       <img src="../assets/img/banana1.gif">
       <img src="../assets/img/banana2.gif">
-    </div>
+    </div> -->
 
     <div v-if="currMovie" class="movie-details flex">
       <div class="movie-img">

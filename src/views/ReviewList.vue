@@ -19,11 +19,11 @@
     <h3 v-if="directAndId.direct === 'user'" class="reviews-title">Reviews</h3>
 
     <!-- Loader -->
-    <div v-if="!reviewsToShow">
+    <!-- <div v-if="!reviewsToShow">
       <img src="../assets/img/banana3.gif">
       <img src="../assets/img/banana1.gif">
       <img src="../assets/img/banana2.gif">
-    </div>
+    </div> -->
 
          
     <ul class="clean-list" v-if="reviewsToShow">
