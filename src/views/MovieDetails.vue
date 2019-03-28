@@ -87,23 +87,23 @@ export default {
 <style scoped>
 
 .movie-details {
-  max-width: 85%;
   width: fit-content;
-  margin: 0 auto;
   margin-top: 40px;
   margin-bottom: 40px;
 }
-.movie-img {
-  width:25%;
+.movie-img img{
+  width: 250px;;
+  border-radius: 4px;
+  margin-right: 26px;
 }
 .movie-table {
   color: rgb(31, 31, 31);
-  width:75%;
 }
 
 .details-table td {
   padding: 5px;
   border: 1px solid #c4b7a6;
+  border-radius: 3px;
 } 
 .details-table td:first-child {
   font-weight: bold;

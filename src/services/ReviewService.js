@@ -11,8 +11,7 @@ export default {
     add,
     update,
     updateRate
-    // addLike,
-    // addDislike
+
 }
 
 function query(directAndId) {
@@ -24,29 +23,36 @@ function query(directAndId) {
 }
 
 function add(newReview) {
-    // newReview.reviewId = _makeId();
     newReview.rate = {
         countLike: [],
         countDislike: []
     };
-    // reviews.unshift(newReview);
     var copy = JSON.parse(JSON.stringify(newReview))
-    console.log('newReview',copy)
-    // return Promise.resolve(newReview)
     return HttpService.post(REVIEW_URL, copy)
-            .then(resolveData)
-            .catch(()=>{
-                return {_id:'asafasf',namee:'asfsaf'}
-                // TODO: roll back
-            })
+        .then(resolveData)
+        .catch(() => {
+            return { _id: 'asafasf', namee: 'asfsaf' }
+            // TODO: roll back
+        })
 }
 
-function update(updatedReview) {
-    var reviewIdx = reviews.findIndex(review => review.reviewId === updatedReview.reviewId);
-    reviews.splice(reviewIdx, 1, updatedReview)
-    return Promise.resolve(updatedReview)
-    // return _saveReviewsToFile().then(() => updatedReview)
+function update(review) {
+    var idAndTxt = {
+        id: review._id,
+        txt: review.content.txt
+    }
+    // console.log ('natalia update', idAndTxt)
+    return new Promise((resolve, reject) => {
+        HttpService.put(`${REVIEW_URL}/${review._id}`, idAndTxt)
+            .then(res => {
+                let updatedRev = res
+                //console.log('updated review:', updatedRev)
+                resolve(updatedRev)
+            })
+            .catch(err => err)
+    })
 }
+
 
 function getById(id) {
     var review = reviews.find(review => review.reviewId === id);
@@ -55,38 +61,31 @@ function getById(id) {
 }
 
 function remove(reviewId) {
-    var reviewIdx = reviews.findIndex(review => review.reviewId === reviewId);
-    if (reviewIdx === -1) return Promise.reject('Not Found');
-    reviews.splice(reviewIdx, 1)
-    return Promise.resolve('The Review Removed')
-    // return _saveReviewsToFile();
-}
-
-function updateRate(rateDetails){
-  console.log ('rateDetails',rateDetails)
-  return new Promise((resolve, reject) => {
-    HttpService.put(REVIEW_URL , rateDetails)
-        .then(res => {
-            let updatedRev = res
-            console.log('updated review:', updatedRev)
-            resolve(updatedRev)
-        })
-        .catch(err => err)
-})
+    return new Promise((resolve, reject) => {
+        HttpService.delete(`${REVIEW_URL}/${reviewId}`, reviewId)
+            .then((resp) => {
+                console.log(resp)
+                resolve()
+            })
+            .catch(err => err)
+    })
 }
 
 
-
-
-
-function _makeId(length = 3) {
-    var txt = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < length; i++) {
-        txt += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return txt;
+function updateRate(rateDetails) {
+    console.log('rateDetails', rateDetails)
+    return new Promise((resolve, reject) => {
+        HttpService.put(REVIEW_URL, rateDetails)
+            .then(res => {
+                let updatedRev = res
+                console.log('updated review:', updatedRev)
+                resolve(updatedRev)
+            })
+            .catch(err => err)
+    })
 }
+
+
 
 function getEmpty() {
     return {

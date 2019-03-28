@@ -19,6 +19,7 @@
       </div>
 
       <div id="nav">
+       
         <router-link to="/">Home</router-link> |
         <router-link to="/movies">Movies</router-link>
       </div>
@@ -33,6 +34,7 @@ export default {
   name: "mainBar",
   mounted() {
     if (!this.$store.state.usersModule.currUser) {
+
       var guestUser = UserService.getGuestUser();
       this.$store.dispatch({ type: "usersModule/loadUser", user: guestUser });
     }

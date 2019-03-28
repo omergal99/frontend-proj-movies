@@ -6,35 +6,40 @@
         <img :src="viewUser.userImg">
       </div>
 
-      <table class="details-table">
-        <tr>
-          <td>Name</td>
-          <td>{{viewUser.name}}</td>
-        </tr>
-        <tr>
-          <td>Rating</td>
-          <td>{{viewUser.rating}}</td>
-        </tr>
-      </table>
+			<div class="table-container flex full">
+					<table class="details-table">
+						<tr>
+							<td>Name</td>
+							<td>{{viewUser.name}}</td>
+						</tr>
+						<tr>
+							<td>Rating</td>
+							<td>{{viewUser.rating}}</td>
+						</tr>
+					</table>
+			</div>
+      
 
-      <div class="btns flex">
+      <div class="btns">
         <!-- CHAT WITH USER -->
-        <user-chat/>
+				<div class="chat-link">
+        	<user-chat/>
+				</div>
 
         <!-- follow button -->
         <div class="follow" v-if="isSelfProfile">
           <button @click="followUser" class="btn-follow" title="Follow User">
-            <i class="fas fa-user-plus"></i>
+            Follow User! <i class="fas fa-user-plus"></i>
           </button>
           <div v-if="isTellLogin">Please login to follow the user...</div>
         </div>
-        <div v-if="isAlreadyFollowed">The user is already followed by {{followedBy}}</div>
-        <div v-if="isFollowed">The user is followed by {{followedByList}}</div>
+				<div v-if="isAlreadyFollowed">The user is already followed by {{followedBy}}</div>
+				<div v-if="isFollowed">The user is followed by {{followedByList}}</div>
       </div>
     </div>
 
     <!-- right column with user reviews -->
-    <div class="user-reviews">
+    <div class="user-reviews full">
       <review-list :directAndId="detailsForShowReviews"></review-list>
     </div>
   </section>
@@ -79,7 +84,9 @@ export default {
     },
     followedBy() {
       if (this.$store.state.usersModule.currUser) {
-        return this.$store.state.usersModule.currUser.name
+        var followedBy = this.$store.state.usersModule.currUser.name;
+        console.log('followedBy',followedBy)
+        return followedBy
       }
     },
     isFollowed() {
@@ -92,7 +99,7 @@ export default {
     },
     followedByList() {
       var viewUserFollowedBy = this.$store.state.usersModule.viewUser.follow.followedBy
-
+      console.log('viewUserFollowedBy',viewUserFollowedBy)
       if (viewUserFollowedBy) {
         return viewUserFollowedBy
       }
@@ -164,21 +171,21 @@ export default {
 
 
 <style scoped lang="scss">
-.user-img img {
-  text-align: center;
-  width: 70%;
-}
-
 .user-details {
-  width: 25vw;
-  margin-top: 30px;
+  flex: 0 0 270px;
+	margin-top: 30px;
+	margin-right: 26px;
+}
+.user-img img{
+	border-radius: 3px;
 }
 .details-table {
-  margin: 20px 0;
+	margin: 26px 0;
+	flex-grow: 1;
 }
 .details-table td {
   border: 1px solid #c4b7a6;
-  padding: 4px;
+  padding: 4px 2px;
   border-radius: 2px;
 }
 .details-table td:first-child {
@@ -188,18 +195,21 @@ export default {
 .details-table td:not(:first-child) {
   background-color: #e6e2d3;
 }
+
 .btn-follow {
   color: white;
-  padding: 10px;
-  cursor: pointer;
+	padding: 10px;
+	margin-bottom: 40px;
   border: none;
   border-radius: 3px;
   outline: none;
   font-family: cursive, arial, serif, sans-serif;
   background-color: #1a1818;
+  cursor: pointer;
   transition: 0.3s;
   &:hover {
     color: #3481b4;
-  }
+	}
+
 }
 </style>

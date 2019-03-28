@@ -1,31 +1,70 @@
 <template>
-  <section>
+  <div>
+    <div class="div-reviews">{{txt}}</div>
 
-    <div v-if="!review.content.isEdit" class="div-reviews">
-      <a >{{review.content.txt}}</a>
+    <input type="text" class="div-reviews" v-if="isEditOpen" v-model="txt">
+    <div v-if="currUser._id===review.user.userId">
+      <button v-if="!isEditOpen" 
+        class="btn" 
+        @click="toggleEditReview(review)">
+        <i class="fas fa-pencil-alt"></i>
+      </button>
+      <button v-if="isEditOpen" 
+        class="btn"
+        @click="emitSaveReview">
+        <i class="far fa-save"></i>
+      </button>
+      <button v-if="isEditOpen" 
+        class="btn"
+        @click="cancelEditReview(review)">
+        <i class="far fa-window-close"></i>
+      </button>
+      <button @click="emitRemoveReview"
+        class="btn">
+        <i class="far fa-trash-alt"></i>
+      </button>
     </div>
+  </div>
+
     
-    <div v-else class="edit-review">
-      <input type="text" class="div-reviews" 
-          v-model="review.content.txt">
-      
-      <button @click="emitRemoveReview">Delete All</button>
-    </div>
-
-  </section>
 </template>
 
 <script>
 export default {
   name: "reviewPreview",
   props: {
-    review: Object
+    review: Object,
+   currUser: Object,
+  },
+  data() {
+    return {
+      isEditOpen: false,
+      txt: this.review.content.txt,
+      tempTxt: null
+    };
   },
   methods: {
-      emitRemoveReview(){
-        this.$emit('onRemoveReview', this.review)
-      }
+    emitRemoveReview() {
+      this.$emit("onRemoveReview", this.review);
+    },
+    emitSaveReview(){
+      this.isEditOpen = !this.isEditOpen;
+      this.review.content.txt=this.txt
+      this.$emit("onEditReview", this.review);
+    },
+    toggleEditReview(currReview) {
+      this.isEditOpen = !this.isEditOpen;
+      this.tempTxt = this.txt;
+    },
+    cancelEditReview(review) {
+      this.isEditOpen = !this.isEditOpen;
+      this.txt = this.tempTxt;
+    }
   },
+  created(){
+    console.log('hhhhh', this.currUser)
+  }
+  
 };
 </script>
 
@@ -35,33 +74,22 @@ section{
   padding: 10px;
   float: left;
 }
-/* .edit-review input{
-  border-radius: 2px;
-  padding: 2px 8px 2px 8px;
-  background-color: rgb(190, 218, 241);
-  border: none;
-  font-size: 0.9em;
-  font-family: cursive, arial, serif, sans-serif;
-  margin-right: 6px;
-}
-
-.edit-review button {
-  border: none;
-  cursor: pointer;
+.btn{
+  height: fit-content;
+  padding: 5px 8px;
+  margin: 5px 5px 0 0;
+  float: right;
+  background-color: #2d2f31;
+  transition: 0.3s;
   color: white;
-  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  outline: none;
   font-family: cursive, arial, serif, sans-serif;
-  font-size: 0.9em;
-  padding: 2px 8px 2px 8px;
-  transition: background-color 0.3s;
-  background-color: rgb(180, 52, 52);
-  margin-bottom: 6px;
+  transition: 0.3s;
 }
-
-.edit-Review button:hover {
-  background-color: rgb(163, 47, 47);
+.btn:hover {
+  background-color: #3481b4;
 }
-.div-reviews {
-  max-width: 75vw;
-} */
 </style>
