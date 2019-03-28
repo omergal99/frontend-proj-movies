@@ -16,15 +16,6 @@
         </li>
       </ul>
 
-      <!-- <ul class="feature-list flex wrap space-center align-center">
-        <li v-for="(feature,idx) in features" :key="idx">
-          <div>
-            <span class="icon"></span>
-            <p>{{feature}}</p>
-          </div>
-        </li>
-      </ul> -->
-
     </div>
 </template>
 
@@ -32,8 +23,6 @@
 
 export default {
   name: "main1",
-  props: {
-  },
   data() {
     return {
       movies: ['name1', 'name2', 'name3', 'name3'],
@@ -96,36 +85,6 @@ export default {
     text-align: left;
   }
 }
-
-
-// .feature-list {
-//   list-style-type: none;
-//   margin: 0;
-//   padding: 0;
-//   margin: 6vh 22px 0 0;
-// }
-// .feature-list li > div {
-//   border-radius: 6px;
-//   width: 20vw;
-//   background-color: rgb(18, 22, 26);
-//   width: 42vw;
-//   padding: 20px;
-//   height: 100px;
-//   margin: 0 0 30px 22px;
-//   transition: background-color .3s;
-//   cursor: pointer;
-//   &:hover {
-//     background-color: rgb(9, 11, 14);
-//   }
-//   & p {
-//     color: rgb(223, 223, 223);
-//     font-size: 0.8em;
-//     margin: 0 0 0 70px;
-//     text-align: left;
-//     // max-height: 46px;
-//     // overflow: hidden;
-//   }
-// }
 
 .icon {
   position: relative;

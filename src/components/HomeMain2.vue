@@ -1,23 +1,14 @@
 <template>
-    <div class="main-div">
-      <h2>Main 2</h2>
-      <h2>Some Best reviews in the last weekend!</h2>
+    <div class="main-second">
+      <img src="../assets/img/omer/people4.png">
     </div>
 </template>
 
 <style scoped>
 
-.main-div{
+.main-second{
   height: 100%;
-  /* padding-top: 6px; */
   line-height: 15vh;
-}
-
-h2 {
-  color: rgb(233, 212, 212);
-  font-size: 2em;
-  margin: 0 0 10px 0;
-  
 }
 
 </style>

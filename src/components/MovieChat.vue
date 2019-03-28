@@ -70,7 +70,7 @@ export default {
   methods: {
     send() {
       // SocketRoomService.emit('post-msg', this.newMsg);
-      console.log('asfasgsaw4214', this.newMsg)
+      // console.log('asfasgsaw4214', this.newMsg)
       SocketRoomService.send(this.newMsg);
       this.newMsg = SocketRoomService.createEmptyMsg();
       this.newMsg.from = (this.currUser) ? this.currUser.name : 'Guest-4';

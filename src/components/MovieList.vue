@@ -1,14 +1,12 @@
 <template>
   <section class="list-section container-movies">
-    <h3>Movie List</h3>
-
-      <transition-group name="list" class="movie-list clean-list" tag="ul">
-        <li class="list-item" v-for="currMovie in movies" :key="currMovie._id">
-          <router-link :to="'/movies/details/' + currMovie._id">
-            <movie-preview :movie="currMovie"></movie-preview>
-          </router-link>
-        </li>
-      </transition-group>
+    <transition-group name="list" class="movie-list clean-list" tag="ul">
+      <li class="list-item" v-for="currMovie in movies" :key="currMovie._id">
+        <router-link :to="'/movies/details/' + currMovie._id">
+          <movie-preview :movie="currMovie"></movie-preview>
+        </router-link>
+      </li>
+    </transition-group>
   </section>
 </template>
 
@@ -20,13 +18,6 @@ export default {
   props: {
     movies: Array
   },
-  data() {
-    return {};
-  },
-  created() { },
-  methods: {},
-  computed: {},
-  mounted() { },
   components: {
     MoviePreview
   }
@@ -35,19 +26,10 @@ export default {
 
 <style lang="scss">
 .list-item {
-    display: inline-block;
-    margin-right: 10px;
-    max-height: 400px;
-    overflow: hidden;
-}
-
-.ul-movies-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-h3 {
-  margin: 0 0 6px 0;
+  display: inline-block;
+  margin-right: 10px;
+  max-height: 400px;
+  overflow: hidden;
 }
 
 .list-section ul {
@@ -61,15 +43,8 @@ h3 {
   list-style: none;
   border-radius: 4px;
   text-decoration: none;
-}
-
-.movie-list li:hover img {
-  transform: scale(1.05);
-}
-
-.clean-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  &:hover img {
+    transform: scale(1.05);
+  }
 }
 </style>

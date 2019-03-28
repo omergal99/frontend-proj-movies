@@ -13,17 +13,17 @@ function init(topic, user){
 	socket.emit('roomRequested', {user, topic});
 
 	socket.on('userConnected', user => {
-		console.log('user conncted in front', { newUser: user });
+		// console.log('user conncted in front', { newUser: user });
 	});
 
 	socket.on('msg-recived', msg => {
-		console.log('Got new msg', msg);
+		// console.log('Got new msg', msg);
 		msgs.push(msg);
 	});
 }
 
 function send(msg){
-    console.log('We Got new msgggggg', msg);
+    // console.log('We Got new msgggggg', msg);
     socket.emit('post-msg', msg);
     // msgs.push(msg);
 }

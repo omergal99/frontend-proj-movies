@@ -1,23 +1,14 @@
 <template>
-    <div class="main-div">
-      <h2>Footer - Contect Us</h2>
-      <h2>Some labels and Linkes</h2>
+    <div class="main-footer">
+      <img src="../assets/img/omer/people3.png">
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 
-.main-div{
+.main-footer{
   height: 100%;
-  /* padding-top: 6px; */
   line-height: 20vh;
-}
-
-h2 {
-  color: rgb(233, 212, 212);
-  font-size: 2em;
-  margin: 0 0 10px 0;
- 
 }
 
 </style>

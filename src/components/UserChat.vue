@@ -50,11 +50,11 @@ export default {
     this.msgs = SocketService.getMsgs();
 
     SocketService.on('chat newUser', nickName => {
-      console.log('New User JOINED', nickName);
+      // console.log('New User JOINED', nickName);
     });
 
     SocketService.on('chat historyMsgs', (msgs) => {
-      console.log('Got history msg', msgs);
+      // console.log('Got history msg', msgs);
     });
 
     // SocketService.on('chat newMsg', (msg) => {
@@ -77,7 +77,7 @@ export default {
       return (msg.from !== this.nickName) ? 'received' : 'sent';
     },
     send() {
-      console.log('sending msg to the server...');
+      // console.log('sending msg to the server...');
       SocketService.send(this.newMsg);
       this.newMsg = SocketService.createEmptyMsg();
       this.newMsg.from = this.currUser.name;

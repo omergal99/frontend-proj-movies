@@ -13,14 +13,14 @@ connectSocket();
 function connectSocket() {
 
     
-    console.log('sending socket!')
+    // console.log('sending socket!')
     
     socket.on('chat historyMsgs', function (historyMsgs) {
         msgs.push(...historyMsgs)
     });
     
     socket.on('chat newUser',nickName=>{
-        console.log('New User JOINEDDDDDD', nickName);
+        // console.log('New User JOINEDDDDDD', nickName);
         var magGetIn = {
             from: nickName,
             processed: false,
@@ -30,7 +30,7 @@ function connectSocket() {
     });
 
     socket.on('user disconnected', function (nickName) {
-        console.log('USER go home:',nickName)
+        // console.log('USER go home:',nickName)
         var magGoOut = {
             from: nickName,
             processed: false,
