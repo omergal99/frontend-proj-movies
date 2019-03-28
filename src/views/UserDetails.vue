@@ -84,7 +84,9 @@ export default {
     },
     followedBy() {
       if (this.$store.state.usersModule.currUser) {
-        return this.$store.state.usersModule.currUser.name
+        var followedBy = this.$store.state.usersModule.currUser.name;
+        console.log('followedBy',followedBy)
+        return followedBy
       }
     },
     isFollowed() {
@@ -97,7 +99,7 @@ export default {
     },
     followedByList() {
       var viewUserFollowedBy = this.$store.state.usersModule.viewUser.follow.followedBy
-
+      console.log('viewUserFollowedBy',viewUserFollowedBy)
       if (viewUserFollowedBy) {
         return viewUserFollowedBy
       }

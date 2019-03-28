@@ -62,7 +62,7 @@ export default {
     }
   },
   created(){
-    console.log('hhhhh', this.currUser)
+    // console.log('hhhhh', this.currUser)
   }
   
 };

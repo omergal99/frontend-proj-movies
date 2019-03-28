@@ -1,10 +1,11 @@
 <template>
   <section class="details-section container-movies">
-    <div v-if="!currMovie">
+
+    <!-- <div v-if="!currMovie">
       <img src="../assets/img/banana3.gif">
       <img src="../assets/img/banana1.gif">
       <img src="../assets/img/banana2.gif">
-    </div>
+    </div> -->
 
     <div v-if="currMovie" class="movie-details flex">
       <div class="movie-img">
@@ -40,14 +41,17 @@
       </div>
     </div>
 
+    <!-- CHAT IN CURRENT MOVIE -->
+    <movie-chat/>
+
     <review-list :directAndId="detailsForShowReviews"></review-list>
   </section>
 </template>
 
 <script>
 import ReviewList from "./ReviewList.vue";
-//import axios from "axios";
 import StarRating from "../components/RatingStars.vue";
+import MovieChat from '../components/MovieChat.vue';
 
 export default {
   name: "movieDetails",
@@ -81,15 +85,7 @@ export default {
       }
     },
 
-    // updateStarRating(selectedRate){
-    //   console.log('jopa')
-    //   var rateDetails={
-    //     movieId: this.currMovie._id,
-    //     rate: this.selectedRate
-    //     }
-    // this.$store.dispatch({ type: "moviesModule/updateStarRate", rateDetails })
-    // }
-
+    
   },
 
   watch: {
@@ -107,7 +103,8 @@ export default {
   methods: {},
   components: {
     ReviewList,
-    StarRating
+    StarRating,
+    MovieChat
   }
 };
 </script>

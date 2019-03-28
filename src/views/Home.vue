@@ -1,16 +1,16 @@
 <template>
   <section class="home">
     
-    <section class="header screen full-height">
-      <HomeHeader/>
+    <section class="main-second screen">
+      <HomeMain2/>
     </section>
 
     <section class="main-first container">
       <HomeMain1/>
     </section>
 
-    <section class="main-second screen">
-      <HomeMain2/>
+    <section class="header screen full-height">
+      <HomeHeader/>
     </section>
 
     <!-- <section class="main-thrid">
@@ -21,9 +21,10 @@
       <About/>
     </section>
 
-    <section class="footer screen">
+    <!-- <section class="footer screen">
       <HomeFooter/>
-    </section>
+    </section> -->
+
   </section>
 </template>
 
