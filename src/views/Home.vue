@@ -1,6 +1,5 @@
 <template>
   <section class="home">
-    
     <section class="main-second screen">
       <HomeMain2/>
     </section>
@@ -15,16 +14,15 @@
 
     <!-- <section class="main-thrid">
       <HomeMain3/>
-    </section> -->
+    </section>-->
 
-    <section class="about ">
+    <section class="about">
       <About/>
     </section>
 
     <!-- <section class="footer screen">
       <HomeFooter/>
-    </section> -->
-
+    </section>-->
   </section>
 </template>
 

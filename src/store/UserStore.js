@@ -9,7 +9,7 @@ const usersModule = {
     },
     mutations: {
         setCurrUser(state, payload) {
-            
+
             state.currUser = payload.user;
         },
         cleanCurrUser(state, payload) {
@@ -22,55 +22,85 @@ const usersModule = {
         cleanViewUser(state) {
             state.viewUser = null;
         },
-        setFollower(state, {users}){
+        setFollower(state, {
+            users
+        }) {
             state.currUser.follow.followAfter.push(users.loggedInUser.name)
             state.viewUser.follow.followedBy.push(users.followedUser.name)
-            console.log('currUser',state.currUser.follow.followAfter)
-            console.log('viewUser',state.viewUser.follow.followedBy)
+            console.log('currUser', state.currUser.follow.followAfter)
+            console.log('viewUser', state.viewUser.follow.followedBy)
         }
     },
     getters: {
-       
+
     },
     actions: {
-        doLogin(context, {user}) {
+        doLogin(context, {
+            user
+        }) {
             return UserService.login(user)
-                .then( serverUser => {
-                    context.commit({ type: 'setCurrUser', user: serverUser })
+                .then(serverUser => {
+                    context.commit({
+                        type: 'setCurrUser',
+                        user: serverUser
+                    })
                     return serverUser;
                 })
         },
-        loadUser(context, {user}) {
-            return context.commit({ type: 'setCurrUser', user })
+        loadUser(context, {
+            user
+        }) {
+            return context.commit({
+                type: 'setCurrUser',
+                user
+            })
         },
-        addUser(context, {newUser}) {
+        addUser(context, {
+            newUser
+        }) {
             console.log('heeeeer', newUser)
             return UserService.singup(newUser)
                 .then(addedUser => {
                     // console.log("addedUser",addedUser)
-                    context.commit({ type: 'setCurrUser', user: addedUser })
+                    context.commit({
+                        type: 'setCurrUser',
+                        user: addedUser
+                    })
                     return 'success registration'
                 })
         },
-        logoutUser(context){
+        logoutUser(context) {
             UserService.logout()
             var guest = UserService.getGuestUser();
-            return context.commit({ type: 'cleanCurrUser', guest })
+            return context.commit({
+                type: 'cleanCurrUser',
+                guest
+            })
         },
-        loadViewUser(context, {userId}) {
+        loadViewUser(context, {
+            userId
+        }) {
             // console.log('state.currUser', context.state.currUser)
             //  console.log('state.viewUser', userId)
             return UserService.getById(userId)
-                .then( user => {
+                .then(user => {
                     // console.log('uuuuuuuser', user)
-                    return context.commit({ type: 'setViewUser', user })
+                    return context.commit({
+                        type: 'setViewUser',
+                        user
+                    })
                 })
         },
-        addFollower(context, {users}){
+        addFollower(context, {
+            users
+        }) {
             UserService.addFollowUser(users);
-            return context.commit({ type: 'setFollower', users})
+            return context.commit({
+                type: 'setFollower',
+                users
+            })
         },
-        
+
     }
 }
 
@@ -83,4 +113,3 @@ export default usersModule;
 // 					user.userImg = res.data.results[0].picture.large
 // 				})
 // 				.catch(console.log('error'))
-

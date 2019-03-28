@@ -6,31 +6,29 @@
         <img :src="viewUser.userImg">
       </div>
 
-			<div class="table-container flex full">
-					<table class="details-table">
-						<tr>
-							<td>Name</td>
-							<td>{{viewUser.name}}</td>
-						</tr>
-						<tr>
-							<td>Rating</td>
-							<td>{{viewUser.rating}}</td>
-						</tr>
-					</table>
-			</div>
-      
+      <div class="table-container flex full">
+        <table class="details-table">
+          <tr>
+            <td>Name</td>
+            <td>{{viewUser.name}}</td>
+          </tr>
+          <tr>
+            <td>Rating</td>
+            <td>{{viewUser.rating}}</td>
+          </tr>
+        </table>
+      </div>
 
       <div class="btns">
         <!-- chat with user -->
-				<div class="chat-link">
-        	<user-chat/>
-				</div>
+        <div class="chat-link">
+          <user-chat/>
+        </div>
 
         <!-- follow user -->
         <div class="follow-link">
           <follow-user></follow-user>
         </div>
-
       </div>
     </div>
 
@@ -77,38 +75,31 @@ export default {
       } else {
         return { err: 'problem in UserDetails page' }
       }
-    },   
+    },
     currUser() {
       return this.$store.state.usersModule.currUser;
     },
-    
-
-  },
-  methods: {
-    
   },
   components: {
     ReviewList,
     UserChat,
     FollowUser
   }
-
 };
 </script>
-
 
 <style scoped lang="scss">
 .user-details {
   flex: 0 0 270px;
-	margin-top: 30px;
-	margin-right: 26px;
+  margin-top: 30px;
+  margin-right: 26px;
 }
-.user-img img{
-	border-radius: 3px;
+.user-img img {
+  border-radius: 3px;
 }
 .details-table {
-	margin: 26px 0;
-	flex-grow: 1;
+  margin: 26px 0;
+  flex-grow: 1;
 }
 .details-table td {
   border: 1px solid #c4b7a6;
@@ -122,5 +113,4 @@ export default {
 .details-table td:not(:first-child) {
   background-color: #e6e2d3;
 }
-
 </style>

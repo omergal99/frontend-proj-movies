@@ -1,12 +1,5 @@
 <template>
   <section class="details-section container-movies">
-
-    <!-- <div v-if="!currMovie">
-      <img src="../assets/img/banana3.gif">
-      <img src="../assets/img/banana1.gif">
-      <img src="../assets/img/banana2.gif">
-    </div> -->
-
     <div v-if="currMovie" class="movie-details flex">
       <div class="movie-img">
         <img :src="currMovie.details.movieImg">
@@ -24,20 +17,22 @@
           <tr>
             <td>Actors</td>
             <td>
-              <span v-for="actor in currMovie.details.actors" :key="actor._id">{{actor}}
-              <span v-if="actor !== currMovie.details.actors[currMovie.details.actors.length-1]"> 
-                ,
+              <span v-for="actor in currMovie.details.actors" :key="actor._id">
+                {{actor}}
+                <span
+                  v-if="actor !== currMovie.details.actors[currMovie.details.actors.length-1]"
+                >,</span>
               </span>
-            </span>
             </td>
           </tr>
           <tr>
             <td>Director</td>
             <td>
-              <span v-for="director in currMovie.details.director" :key="director._id">{{director}}
-              <span v-if="director !== currMovie.details.director[currMovie.details.director.length-1]"> 
-                ,
-              </span>
+              <span v-for="director in currMovie.details.director" :key="director._id">
+                {{director}}
+                <span
+                  v-if="director !== currMovie.details.director[currMovie.details.director.length-1]"
+                >,</span>
               </span>
             </td>
           </tr>
@@ -72,7 +67,6 @@ export default {
       selectedRate: 0
     };
   },
-
   created() {
     const movieId = this.$route.params.movieId;
     this.$store.dispatch({ type: "moviesModule/loadMovie", movieId });
@@ -84,7 +78,6 @@ export default {
     currMovie() {
       return this.$store.state.moviesModule.currMovie;
     },
-
     detailsForShowReviews() {
       if (this.currMovie) {
         var directAndId = {
@@ -96,22 +89,17 @@ export default {
         return { err: "problem in MovieDetails page" };
       }
     },
-
-    
   },
-
   watch: {
-    selectedRate: function(selectedRate) {
-        var rateDetails={
+    selectedRate: function (selectedRate) {
+      var rateDetails = {
         movieId: this.currMovie._id,
         rate: this.selectedRate
-        }
-        console.log('jopa',rateDetails )
-    this.$store.dispatch({ type: "moviesModule/updateStarRate", rateDetails })
       }
-    },
-  
-
+      console.log('jopa', rateDetails)
+      this.$store.dispatch({ type: "moviesModule/updateStarRate", rateDetails })
+    }
+  },
   methods: {},
   components: {
     ReviewList,
@@ -151,11 +139,3 @@ export default {
   background-color: #e6e2d3;
 }
 </style>
-
-
-
-// axios.get(`http://www.omdbapi.com/?apikey=b672deef&i=${imdbId}`)
-//           .then((res) => {
-//               console.log(res.data)
-//           })
-//           .catch(console.log('error api'))

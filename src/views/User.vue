@@ -83,11 +83,11 @@ export default {
         .dispatch({ type: "usersModule/doLogin", user: this.user })
         .then(user => {
           if (user && user._id) {
-            console.log("LOGGED IN!", user);
+            // console.log("LOGGED IN!", user);
             // this.$router.push('/movies');
             this.$router.go(-1);
           } else {
-            console.log("WRONG TO LOGGED IN");
+            // console.log("WRONG TO LOGGED IN");
             this.textFailLog =
               "Wrong name or password - You stay in Guest mode";
             this.isMsgFailLog = true;
