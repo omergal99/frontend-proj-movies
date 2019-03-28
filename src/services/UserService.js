@@ -12,10 +12,16 @@ export default {
     getGuestUser,
     getById,
     login,
-    addFollowUser
+    addFollowUser,
 }
 
-var users = require('../../data/users_db.json');
+// var users = require('../../data/users_db.json');
+
+var loggedInUser = JSON.parse(localStorage.getItem(USER_ON))
+
+function getLoggedInUser() {
+    return loggedInUser;
+}
 
 function getUsers(userId) {
     var prm = getById(userId)

@@ -8,7 +8,6 @@
       <img src="../assets/img/banana2.gif">
     </div>
 
-
     <div v-if="currMovie" class="movie-details flex">
       <div class="movie-img">
         <img :src="currMovie.details.movieImg">
@@ -37,8 +36,10 @@
           </tr>
         </table>
       </div>
-      
     </div>
+
+    <!-- CHAT IN CURRENT MOVIE -->
+    <movie-chat/>
 
     <review-list :directAndId="detailsForShowReviews"></review-list>
 
@@ -48,6 +49,7 @@
 <script>
 import ReviewList from "./ReviewList.vue";
 import axios from "axios";
+import MovieChat from '../components/MovieChat.vue';
 
 export default {
   name: "movieDetails",
@@ -76,7 +78,8 @@ export default {
   },
   methods: {},
   components: {
-    ReviewList
+    ReviewList,
+    MovieChat
   }
 };
 </script>

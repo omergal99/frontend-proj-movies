@@ -11,6 +11,8 @@ var nickName = lorem();
 
 connectSocket();
 function connectSocket() {
+
+    
     console.log('sending socket!')
     
     socket.on('chat historyMsgs', function (historyMsgs) {
@@ -22,7 +24,7 @@ function connectSocket() {
         var magGetIn = {
             from: nickName,
             processed: false,
-            txt: `$$$ Goin The Chat $$$`
+            txt: `$$$ Join The Chat $$$`
         }
         msgs.push(magGetIn)
     });
@@ -39,7 +41,6 @@ function connectSocket() {
     });
 
     socket.on('chat newMsg', function (msg) {
-        // JIF
         if (nickName === msg.from) msgs[msgs.length - 1].processed = true;
         else msgs.push(msg);
     });
@@ -50,7 +51,6 @@ const getMsgs = () => {
 }
 
 const send = (msg) => {
-    // msgs.push(msg);
     socket.emit('chat msgToSend', msg);
 }
 
@@ -63,7 +63,6 @@ function on(eventName, cb) {
 }
 
 function emit(eventName, data) {
-    console.log(data)
     socket.emit(eventName, data)
 }
 
