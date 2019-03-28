@@ -9,10 +9,9 @@ export default {
     getById,
     remove,
     add,
-    update
+    update,
+    updateRate
 }
-
-const MOVIES_KEY = 'movieeee';
 
 function query(filterBy) {
     var queryStr = '';
@@ -21,7 +20,7 @@ function query(filterBy) {
     }
     return HttpService.get(`${MOVIE_URL}${queryStr}`)
         .then(resolveData)
-        .catch(() => _createMovies())
+        .catch((err) => err)
 }
 
 function getById(movieId) {
@@ -49,38 +48,22 @@ function remove(movieId) {
     return _saveMoviesToFile();
 }
 
-function _makeId(length = 3) {
-    var txt = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < length; i++) {
-        txt += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return txt;
+function updateRate(rateDetails){
+    console.log('rateDetails',rateDetails);
+    
+    return new Promise((resolve, reject) => {
+        HttpService.put(MOVIE_URL, rateDetails)
+            .then(res => {
+                let updatedMovie = res
+                console.log('updated movie:', updatedMovie)
+                resolve(updatedMovie)
+            })
+            .catch(err => err)
+    })
 }
 
-function _createMovies() {
-    var movies = StorageService.loadFromStorage(MOVIES_KEY);
-    if (!(movies && movies.length)) {
-        var movies = ['movie name', ' Listen Radio', 'Double Cassette']
-            .map(_createMovie) // chackkkkkkkkkkkkkkkk
-    }
-    StorageService.saveToStorage(MOVIES_KEY, movies);
-    return movies;
-}
 
-function _createMovie(movie) {
-    var putId = UtilService.makeId();
-    return {
-        movie: {
-            movieId: putId,
-            name: movie,
-            price: UtilService.getRandomInt(30, 80),
-            type: 'okkk for now',
-            createAt: 'put date',
-            inStock: UtilService.getRandomInt(0, 40)
-        }
-    }
-}
+
 
 function getEmpty() {
     return {

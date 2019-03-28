@@ -44,8 +44,8 @@ const usersModule = {
             return context.commit({ type: 'setCurrUser', user })
         },
         addUser(context, {newUser}) {
-            // console.log('heeeeer', newUser)
-            return UserService.add(newUser)
+            console.log('heeeeer', newUser)
+            return UserService.singup(newUser)
                 .then(addedUser => {
                     // console.log("addedUser",addedUser)
                     context.commit({ type: 'setCurrUser', user: addedUser })
@@ -53,6 +53,7 @@ const usersModule = {
                 })
         },
         logoutUser(context){
+            UserService.logout()
             var guest = UserService.getGuestUser();
             return context.commit({ type: 'cleanCurrUser', guest })
         },

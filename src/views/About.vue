@@ -1,24 +1,26 @@
 <template>
   <section class="about-page">
     <header>
-      <h1>About Us</h1>
+      <!-- <h1>About Us</h1> -->
     </header>
 
     <main>
-      <p class="about-txt">Hello&nbsp; there!</p>
+      <!-- <p class="about-txt">Hello&nbsp; there!</p>
       <p class="about-txt">We want to tell you that....</p>
 
       <div class="about-img-div">
         <img src="../assets/img/about/team.jpg">
-      </div>
+      </div> -->
 
-      <!-- <router-link exact to="/">Back Home</router-link> -->
+        <img src="../assets/img/omer/accessories/credit.png">
+        <img src="../assets/img/omer/accessories/credit3.png">
     </main>
   </section>
 </template>
 
 <style scoped>
 .about-page {
+  padding: 20px 10px 20px 10px;
   color: rgb(207, 214, 228);
 }
 .about-page header h1 {

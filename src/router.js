@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 
 import MovieApp from './views/MovieApp.vue' // all
-import MovieEdit from './views/MovieEdit.vue' // only for Admin
 import MovieDetails from './views/MovieDetails.vue' //all
 import UserDetails from './views/UserDetails.vue' //all
 
@@ -31,11 +30,6 @@ export default new Router({
       path: '/movies',
       name: 'movies',
       component: MovieApp
-    },
-    {
-      path: '/movies/edit/:movieId?',
-      name: 'movieEdit',
-      component: MovieEdit
     },
     {
       path: '/movies/details/:movieId',

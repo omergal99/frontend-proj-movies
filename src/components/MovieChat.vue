@@ -5,9 +5,11 @@
       <i class="far fa-comments"></i>
     </button>
 
+    <label v-if="isUserChatOpen" class="info-msg">{{infoMsg}}</label>
+
     <div class="chat-box" v-if="isUserChatOpen" :class="{ 'min-box': isMinimize }">
       <div @click.stop="minimizeChat" class="top-line flex space-between">
-        <label>Chat with EveryOne!</label>
+        <label>Chat movie: {{currMovie.details.name}}</label>
         <button @click.stop="toggleUserChat">Close X</button>
       </div>
 
@@ -28,59 +30,54 @@
 </template>
 
 <script>
-import SocketService from "../services/SocketService.js";
+import SocketRoomService from "../services/SocketRoomService.js";
 
 export default {
-  name: 'userChat',
+  name: 'movieChat',
   data() {
     return {
       isUserChatOpen: false,
       isMinimize: false,
       msgs: [],
+      newMsg: null,
+      infoMsg: '',
       nickName: 'omererrerer123124124523',
-      newMsg: null
     };
   },
   created() {
-    // this.nickName = prompt('Write your name!', 'User1');
-    SocketService.emit('chat joined', this.currUser.name)
+    this.newMsg = SocketRoomService.createEmptyMsg();
+    this.newMsg.from = (this.currUser) ? this.currUser.name : 'Guest-3';
 
-    this.newMsg = SocketService.createEmptyMsg();
-    this.newMsg.from = this.currUser.name;
-    this.msgs = SocketService.getMsgs();
+    this.msgs = SocketRoomService.getMsgs();
 
-    SocketService.on('chat newUser', nickName => {
-      // console.log('New User JOINED', nickName);
-    });
+    const movieId = this.$route.params.movieId;
+    var user = (this.newMsg.from) ? this.newMsg.from : 'Guest';
+    SocketRoomService.init(movieId, user);
 
-    SocketService.on('chat historyMsgs', (msgs) => {
-      // console.log('Got history msg', msgs);
-    });
-
-    // SocketService.on('chat newMsg', (msg) => {
-    //   // msg.from = this.currUser.name;
-    //   console.log('Got new msg', msg);
-    //   this.msgs.push(msg);
-    // })
+    SocketRoomService.on('userConnected', (user) => {
+      this.showInfoMsg(`${user} Just joined the room`)
+    })
 
   },
   computed: {
-    viewUser() {
-      return this.$store.state.usersModule.viewUser;
-    },
     currUser() {
       return this.$store.state.usersModule.currUser;
     },
+    currMovie() {
+      return this.$store.state.moviesModule.currMovie;
+    },
   },
   methods: {
-    msgClass(msg) {
-      return (msg.from !== this.nickName) ? 'received' : 'sent';
-    },
     send() {
-      // console.log('sending msg to the server...');
-      SocketService.send(this.newMsg);
-      this.newMsg = SocketService.createEmptyMsg();
-      this.newMsg.from = this.currUser.name;
+      // SocketRoomService.emit('post-msg', this.newMsg);
+      // console.log('asfasgsaw4214', this.newMsg)
+      SocketRoomService.send(this.newMsg);
+      this.newMsg = SocketRoomService.createEmptyMsg();
+      this.newMsg.from = (this.currUser) ? this.currUser.name : 'Guest-4';
+    },
+    showInfoMsg(infoMsg) {
+      this.infoMsg = infoMsg;
+      setTimeout(() => this.infoMsg = '', 3000);
     },
     toggleUserChat() {
       this.isUserChatOpen = !this.isUserChatOpen;
@@ -89,14 +86,27 @@ export default {
     minimizeChat() {
       this.isMinimize = !this.isMinimize;
     },
+    msgClass(msg) {
+      return (msg.from !== this.nickName) ? 'received' : 'sent';
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.chat-user-container{
-  margin-bottom: 10px;
+.info-msg {
+  position: absolute;
+  top: 45px;
+  left: 10px;
+  color: white;
+  font-size: 20px;
+  z-index: 15;
+  background-color: #323251;
 }
+.chat-user-container {
+  padding: 10px;
+}
+
 .btn-chat {
   color: white;
   padding: 10px;
@@ -115,7 +125,8 @@ export default {
 
 .messages {
   overflow-y: scroll;
-  height: 240px;
+  height: 224px;
+  background-color: #b6c3e4;
   .message {
     padding: 2px 0 0 4px;
     text-align: left;
@@ -143,31 +154,57 @@ export default {
   height: 300px;
   transition: height 0.3s;
   z-index: 5;
+  border-radius: 6px 6px 0 0;
   &.min-box {
-    height: 30px;
+    height: 46px;
   }
   .top-line {
     cursor: pointer;
     padding: 4px 4px 4px 8px;
-    background-color: #cacaca;
+    background-color: #4e4c4c;
+    border-radius: 4px 4px 0 0;
+    min-height: 46px;
     label {
-      color: #0c0c0d;
+      cursor: pointer;
+      color: #f7f7f7;
       top: 2px;
       position: relative;
+      margin: auto;
+    }
+    button {
+      cursor: pointer;
+      background-color: #353742;
+      color: #f9f6f1;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #404350;
     }
   }
   .botton-line {
-    background-color: rgb(194, 111, 111);
+    background-color: rgb(37, 37, 41);
     position: absolute;
     bottom: 0px;
     width: 100%;
     input {
       width: 85%;
-      padding: 2px 4px 2px 4px;
+      padding: 4px 4px 4px 4px;
       font-size: 1.1em;
+      border: solid 1px #f5f6fb;
+      background-color: #f5f6fb;
     }
     button {
-      width: 15%;
+      width: 18%;
+      cursor: pointer;
+      background-color: #33694a;
+      color: #f9f6f1;
+      border: #33694a;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #3b7956;
     }
   }
 }
