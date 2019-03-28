@@ -6,7 +6,7 @@
     <img class="poster-presentation" src="../assets/img/omer/omer1.png" alt="">-->
     <div class="movie-poster olga">
       <div class="zoom">
-        <img src="../assets/img/omer/wonder-woman.jpg">
+        <img @click="direct('5c9c7f63d44e15672c5de7ea')" src="../assets/img/omer/wonder-woman.jpg">
       </div>
       <div class="pop-text">
         <img src="../assets/img/omer/popcorn3.png">
@@ -16,7 +16,7 @@
 
     <div class="movie-poster natalia">
       <div class="zoom">
-        <img src="../assets/img/omer/apollo11.jpg">
+        <img @click="direct('5c9c99cad44e15672c5de832')" src="../assets/img/omer/apollo11.jpg">
       </div>
       <div class="pop-text">
         <img src="../assets/img/omer/screenwriter3.png">
@@ -26,15 +26,35 @@
 
     <div class="movie-poster omer">
       <div class="zoom">
-        <img src="../assets/img/omer/Ish oushmo Ove.jpg">
+        <img @click="direct('5c9c8037d44e15672c5de7eb')" src="../assets/img/omer/Ish oushmo Ove.jpg">
       </div>
       <div class="pop-text">
         <img src="../assets/img/omer/clapper4.png">
         <label>I laughed nonstop from this Ove! and learned a lot about love.</label>
       </div>
+      <div class="glass">
+        <img src="../assets/img/omer/accessories/glass.png">
+      </div>
     </div>
   </div>
 </template>
+
+<script>
+
+export default {
+  name: "homeHeader",
+  data() {
+    return {
+    }
+  },
+  methods:{
+    direct(id) {
+      this.$router.push(`/movies/details/${id}`);
+    }
+  }
+
+}
+</script>
 
 <style scoped lang="scss">
 .movie-posters-container {
@@ -147,6 +167,14 @@
       }
       img {
         width: 94%;
+      }
+    }
+    .glass {
+      top: -434px;
+      left: 69px;
+      transform: rotate(-5deg);
+      img {
+        width: 40%;
       }
     }
   }

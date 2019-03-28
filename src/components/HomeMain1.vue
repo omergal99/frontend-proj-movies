@@ -1,22 +1,22 @@
 <template>
-    <div class="main-div">
-      
-      <div class="poster-wrap">
-        <ul class="poster-list">
-          <li v-for="(movie,idx) in movies" :key="idx">
-            <img src="../assets/img/omer/apollo11.jpg">
-          </li>
-        </ul>
-      </div>
-
-      <ul class="feature-list-grid">
-        <li class="flex" v-for="(feature,idx) in features" :key="idx">
-            <span class="icon"></span>
-            <p>{{feature}}</p>
+  <div class="main-div">
+    <div class="poster-wrap">
+      <ul class="poster-list">
+        <li v-for="(movie,idx) in movies" :key="idx">
+          <img :src="movie">
         </li>
       </ul>
-
     </div>
+
+    <ul class="feature-list-grid">
+      <li class="flex" v-for="(feature,idx) in features" :key="idx">
+        <span class="icon">
+          <img src="../assets/img/icons/new.png">
+        </span>
+        <p>{{feature}}</p>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -25,7 +25,10 @@ export default {
   name: "main1",
   data() {
     return {
-      movies: ['name1', 'name2', 'name3', 'name3'],
+      movies: ['/img/movie-home/‏‏apollo11.jpg',
+        '/img/movie-home/‏‏titanic.jpg',
+        '/img/movie-home/‏‏Ish oushmo Ove.jpg',
+        '/img/movie-home//‏‏wonder-woman.jpg'],
       features: ['Show some love for your favorite filmsShow some love for your favorite filmsShow some love for your favorite films, lists and reviews with a “like”',
         'Write and share reviews, and follow friends and other members to read theirs',
         'Rate each film on a five-star scale (with halves) to record and share your reaction',
@@ -54,12 +57,15 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   grid-gap: 20px;
-}
-.poster-list li {
-  padding: 6px 0px 2px 0px;
+  li {
+    padding: 6px 0px 2px 0px;
+    // img{
+      // cursor: pointer;
+    // }
+  }
 }
 
-.feature-list-grid{
+.feature-list-grid {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -74,7 +80,7 @@ export default {
   width: 100%;
   padding: 20px;
   margin: 0 auto;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   cursor: pointer;
   &:hover {
     background-color: rgb(9, 11, 14);
@@ -93,11 +99,10 @@ export default {
   height: 40px;
   margin: 0;
   top: 5px;
-  background-image: url(../assets/img/icons/feature.png);
-  background-repeat: no-repeat;
-  background-position: -53px -8px;
+  left: -8px;
+  // background-image: url(../assets/img/icons/white-star2.png);
+  // background-repeat: no-repeat;
+  // background-position: -53px -8px;
   flex: 0 0 58px;
 }
-
-
 </style>

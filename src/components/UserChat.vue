@@ -7,7 +7,7 @@
 
     <div class="chat-box" v-if="isUserChatOpen" :class="{ 'min-box': isMinimize }">
       <div @click.stop="minimizeChat" class="top-line flex space-between">
-        <label>Talk with Omer</label>
+        <label>Chat with EveryOne!</label>
         <button @click.stop="toggleUserChat">Close X</button>
       </div>
 
@@ -137,11 +137,12 @@ export default {
   color: #060606;
   position: fixed;
   bottom: 0px;
-  left: 222px;
+  left: 50px;
   background-color: #d6e8f7;
   width: 280px;
   height: 300px;
   transition: height 0.3s;
+  z-index: 5;
   &.min-box {
     height: 30px;
   }
