@@ -3,10 +3,10 @@
     <h2>User Page</h2>
 
     <div class="flex flex-col" v-if="loggedInUser && loggedInUser._id">
-      <label class="margin-bottom6">Hi {{loggedInUser.name}}! You need to logout first</label>
+      <!-- <label class="margin-bottom6">Hi {{loggedInUser.name}}! You need to logout first</label>
       <router-link to="/login">
         <button class="logout-btn" @click="logoutUser">Logout</button>
-      </router-link>
+      </router-link> -->
     </div>
 
     <div v-else>

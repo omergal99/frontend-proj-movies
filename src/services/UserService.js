@@ -11,14 +11,14 @@ export default {
     login,
     addFollowUser,
     getLoggedInUser,
-    logout
+    logout,
+    USER_STORAGE
 }
 
 const USER_STORAGE = 'user connected';
-var loggedInUser = JSON.parse(localStorage.getItem(USER_STORAGE))
 
 function getLoggedInUser() {
-    return loggedInUser;
+    return JSON.parse(localStorage.getItem(USER_STORAGE));
 }
 
 function getById(userId) {
@@ -27,14 +27,12 @@ function getById(userId) {
         .then(resolveData)
 }
 
-
 function logout() {
     return HttpService.get(`${USER_URL}/logout`)
         .then(res => {
             console.log('Loged out success');
             console.log('RES IS ', res);
-            localStorage.removeItem(USER_ON)
-            loggedInUser = null
+            localStorage.removeItem(USER_STORAGE)
         })
 }
 
@@ -43,8 +41,7 @@ function singup(newUser) {
     // return new Promise((resolve, reject) => {
     return HttpService.post(`${USER_URL}/singup`, newUser)
         .then(res => {
-            loggedInUser = res.data;
-            localStorage.setItem(USER_STORAGE, JSON.stringify(loggedInUser));
+            localStorage.setItem(USER_STORAGE, JSON.stringify(res.data));
             let newUser = res.data
             resolve(newUser)
         })
@@ -63,8 +60,7 @@ function login(userNamePass) {
 
     var prmAns = prmAnsRes.then(res => {
         console.log('Result- Data:', res.data);
-        loggedInUser = res.data;
-        localStorage.setItem(USER_STORAGE, JSON.stringify(loggedInUser));
+        localStorage.setItem(USER_STORAGE, JSON.stringify(res.data));
         return res.data;
     })
 

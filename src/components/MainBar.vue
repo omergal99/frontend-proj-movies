@@ -2,7 +2,7 @@
     <header class="header-wrap">
 
       <div v-if="loggedInUser" class="hello flex wrap space-between">
-          <span class="user-name">Hello {{loggedInUser.name}}! </span>
+          <span class="user-name">Hello {{loggedInUser.name}} </span>
 
         <div class="login-logout">
           <router-link to="/login">
@@ -23,7 +23,6 @@
         <router-link to="/"><span class="link">Home</span></router-link>
         <span class="line">&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;</span>
         <router-link to="/movies"><span class="link">Movies</span></router-link>
-        
       </div>
     </header>
 </template>
@@ -35,10 +34,12 @@ export default {
   name: "mainBar",
   mounted() {
     if (!this.$store.state.usersModule.currUser) {
-
       var guestUser = UserService.getGuestUser();
       this.$store.dispatch({ type: "usersModule/loadUser", user: guestUser });
     }
+  },
+  created() {
+    var isUserInStrg = UserService.getLoggedInUser();
   },
   computed: {
     loggedInUser() {
@@ -51,6 +52,7 @@ export default {
   },
   methods: {
     logoutUser() {
+      localStorage.removeItem(UserService.USER_STORAGE);
       this.$store.dispatch({ type: "usersModule/logoutUser" });
     }
   }

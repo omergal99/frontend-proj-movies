@@ -9,7 +9,6 @@ const usersModule = {
     },
     mutations: {
         setCurrUser(state, payload) {
-
             state.currUser = payload.user;
         },
         cleanCurrUser(state, payload) {

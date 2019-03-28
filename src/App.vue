@@ -1,12 +1,10 @@
 <template>
   <div id="app">
-    <div class="header-wrap">
-      <header>
-        <main-bar/>
-      </header>
-    </div>
+
+    <main-bar/>
 
     <router-view/>
+    
   </div>
 </template>
 

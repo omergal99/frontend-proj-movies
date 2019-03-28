@@ -1,14 +1,14 @@
 <template>
   <div class="main-second flex space-center">
     <div class="head-text">
-      <p>Our Mission</p>
+      <p>The place for</p>
       <p>Reliable and Quality Reviews</p>
       <label>Choose your next movie</label><br>
       <label>Make your decisions based on reliable reviews</label>
     </div>
 
     <div class="bc-img">
-      <img src="../assets/img/omer/people.png">
+      <img src="../assets/img/omer/people3.png">
     </div>
   </div>
 </template>
