@@ -1,13 +1,10 @@
 <template>
-  
   <section class="details-section container-movies">
-
     <div v-if="!currMovie">
       <img src="../assets/img/banana3.gif">
       <img src="../assets/img/banana1.gif">
       <img src="../assets/img/banana2.gif">
     </div>
-
 
     <div v-if="currMovie" class="movie-details flex">
       <div class="movie-img">
@@ -36,21 +33,30 @@
             <td>{{currMovie.details.description}}</td>
           </tr>
         </table>
+
+        <label>rate the movie</label>
+        <StarRating :show-rating="false" v-model="selectedRate" :increment="0.5" :star-size="30"></StarRating>
+        {{selectedRate}}
       </div>
-      
     </div>
 
     <review-list :directAndId="detailsForShowReviews"></review-list>
-
   </section>
 </template>
 
 <script>
 import ReviewList from "./ReviewList.vue";
-import axios from "axios";
+//import axios from "axios";
+import StarRating from "../components/RatingStars.vue";
 
 export default {
   name: "movieDetails",
+  data() {
+    return {
+      selectedRate: 0
+    };
+  },
+
   created() {
     const movieId = this.$route.params.movieId;
     this.$store.dispatch({ type: "moviesModule/loadMovie", movieId });
@@ -62,34 +68,58 @@ export default {
     currMovie() {
       return this.$store.state.moviesModule.currMovie;
     },
+
     detailsForShowReviews() {
       if (this.currMovie) {
         var directAndId = {
           direct: "movie",
-          id: this.currMovie._id,
+          id: this.currMovie._id
         };
         return directAndId;
-      }else{
-        return {err: 'problem in MovieDetails page'}
+      } else {
+        return { err: "problem in MovieDetails page" };
       }
-    }
+    },
+
+    // updateStarRating(selectedRate){
+    //   console.log('jopa')
+    //   var rateDetails={
+    //     movieId: this.currMovie._id,
+    //     rate: this.selectedRate
+    //     }
+    // this.$store.dispatch({ type: "moviesModule/updateStarRate", rateDetails })
+    // }
+
   },
+
+  watch: {
+    selectedRate: function(selectedRate) {
+        var rateDetails={
+        movieId: this.currMovie._id,
+        rate: this.selectedRate
+        }
+        console.log('jopa',rateDetails )
+    this.$store.dispatch({ type: "moviesModule/updateStarRate", rateDetails })
+      }
+    },
+  
+
   methods: {},
   components: {
-    ReviewList
+    ReviewList,
+    StarRating
   }
 };
 </script>
 
 <style scoped>
-
 .movie-details {
   width: fit-content;
   margin-top: 40px;
   margin-bottom: 40px;
 }
-.movie-img img{
-  width: 250px;;
+.movie-img img {
+  width: 250px;
   border-radius: 4px;
   margin-right: 26px;
 }
@@ -101,7 +131,7 @@ export default {
   padding: 5px;
   border: 1px solid #c4b7a6;
   border-radius: 3px;
-} 
+}
 .details-table td:first-child {
   font-weight: bold;
 }

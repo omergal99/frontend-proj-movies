@@ -4,6 +4,8 @@
        <img :src="movie.details.movieImg">
     </div>
     <div class="movie-name">{{movie.details.name}}</div>
+    <div class="movie-rating"> 5 stars </div>
+    
   </section>
 </template>
 

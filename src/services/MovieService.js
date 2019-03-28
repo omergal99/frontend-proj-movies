@@ -9,7 +9,8 @@ export default {
     getById,
     remove,
     add,
-    update
+    update,
+    updateRate
 }
 
 const MOVIES_KEY = 'movieeee';
@@ -49,6 +50,19 @@ function remove(movieId) {
     return _saveMoviesToFile();
 }
 
+function updateRate(rateDetails){
+    console.log('rateDetails',rateDetails);
+    
+    return new Promise((resolve, reject) => {
+        HttpService.put(MOVIE_URL, rateDetails)
+            .then(res => {
+                let updatedMovie = res
+                console.log('updated movie:', updatedMovie)
+                resolve(updatedMovie)
+            })
+            .catch(err => err)
+    })
+}
 function _makeId(length = 3) {
     var txt = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
