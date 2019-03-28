@@ -62,7 +62,6 @@ export default {
     }
   },
   created(){
-    console.log('hhhhh', this.currUser)
   }
   
 };
@@ -73,6 +72,9 @@ export default {
 section{
   padding: 10px;
   float: left;
+}
+.div-reviews{
+  padding: 10px;
 }
 .btn{
   height: fit-content;

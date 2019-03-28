@@ -138,5 +138,77 @@
             "actors": ["Michael J. Fox", "Christopher Lloyd", "Lea Thompson", "Crispin Glover"],
             "director": ["Robert Zemeckis"]
         }
+    },
+    {
+        "rank": 9.4,
+        "details":{
+            "name": "Wonder Woman",
+            "year": "2017",
+            "category": ["science fiction"],
+            "description": "Wonder Woman, the Amazon princess Diana sets out to stop World War I, believing the conflict was started by the longtime enemy of the Amazons, Ares, after American pilot and spy Steve Trevor crash-lands on their island Themyscira and informs her about it.",         
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/e/ed/Wonder_Woman_%282017_film%29.jpg",
+            "actors": ["Gal Gadot", "Chris Pine", "Robin Wright", "Danny Huston"],
+            "director": ["Patty Jenkins"]
+        }
+    },
+    {
+        "rank": 9.4,
+        "details":{
+            "name": "A Man Called Ove",
+            "year": "2015",
+            "category": ["drama"],
+            "description": "Swedish comedy-drama film. The film was written and directed by Hannes Holm, and is based on author Fredrik Backman's 2012 book of the same name. In the leading role as Ove is Rolf Lassgard. The film was nominated for six awards, winning two, at the 51st Guldbagge Awards in 2016. It was nominated for the Best Foreign Language Film and Best Makeup and Hairstyling categories at the 89th Academy Awards.",         
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/0/00/A_Man_Called_Ove.png",
+            "actors": ["Rolf Lassgard", "Bahar Pars", "Filip Berg", "Ida Engvoll"],
+            "director": ["Hannes Holm"]
+        }
+    },
+    {
+        "rank": 8.3,
+        "details":{
+            "name": "Gladiator",
+            "year": "2000",
+            "category": ["action","drama"],
+            "description": "Crowe portrays Hispano-Roman general Maximus Decimus Meridius, who is betrayed when Commodus, the ambitious son of Emperor Marcus Aurelius, murders his father and seizes the throne. Reduced to slavery, Maximus rises through the ranks of the gladiatorial arena to avenge the murders of his family and his emperor.",         
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/f/fb/Gladiator_%282000_film_poster%29.png",
+            "actors": ["Russell Crowe", "Joaquin Phoenix", "Connie Nielsen"],
+            "director": ["Ridley Scott"]
+        }
+    },
+    {
+        "rank": 8.7,
+        "details":{
+            "name": "Leon: The Professional",
+            "year": "1994",
+            "category": ["action"],
+            "description": "Leon (Reno), a professional hitman, reluctantly takes in 12-year-old Mathilda (Portman), after her family is murdered by corrupt Drug Enforcement Administration agent Norman Stansfield (Oldman). Léon and Mathilda form an unusual relationship, as she becomes his protegee and learns the hitman's trade.",         
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/0/03/Leon-poster.jpg",
+            "actors": ["Jean Reno", "Gary Oldman", "Natalie Portman"],
+            "director": ["Luc Besson"]
+        }
+    },
+    {
+        "rank": 8.1,
+        "details":{
+            "name": "Jaws",
+            "year": "1975",
+            "category": ["action"],
+            "description": "A giant man-eating great white shark attacks beachgoers on Amity Island, a fictional New England summer resort town, prompting police chief Martin Brody (Roy Scheider) to hunt it with the help of a marine biologist (Richard Dreyfuss) and a professional shark hunter (Robert Shaw).",         
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/e/eb/JAWS_Movie_poster.jpg",
+            "actors": ["Roy Scheider", "Robert Shaw", "Richard Dreyfuss"],
+            "director": ["Steven Spielberg"]
+        }
+    },
+    {
+        "rank": 8.1,
+        "details":{
+            "name": "Apollo 11",
+            "year": "2019 ",
+            "category": "documentary",
+            "description": "The movie focuses on the 1969 Apollo 11 mission, the first spaceflight to land men on the Moon. The film consists solely of archival footage, including 70 mm film that was previously unreleased to the public, and does not feature narration or interviews.",         
+            "movieImg": "https://upload.wikimedia.org/wikipedia/en/2/29/Apollo_11_%282019_film%29.png",
+            "actors": ["", "", ""],
+            "director": ["Todd Douglas Miller"]
+        }
     }
 ]

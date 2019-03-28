@@ -32,7 +32,7 @@ const reviewsModule = {
         },
 
         removeReview(state, { reviewId }) {
-            console.log('heeeeer')
+            // console.log('heeeeer')
             const idx = state.currReviews.findIndex(review => review.reviewId === reviewId);
             state.currReviews.splice(idx, 1);
         },
@@ -73,13 +73,13 @@ const reviewsModule = {
         addReview(context, { newReview }) {
             return ReviewService.add(newReview)
                 .then((addedReview) => {
-                    console.log('addedReview', addedReview)
+                    // console.log('addedReview', addedReview)
                     context.commit({ type: 'addReview', addedReview })
                 })
         },
 
         updateReviewTxt(context, { reviewToEdit }) {
-            console.log('natliaaaaaa',reviewToEdit )
+            // console.log('natliaaaaaa',reviewToEdit )
             return ReviewService.update(reviewToEdit)
                 .then((savedReview) => {
                     context.commit({ type: ' updateReview', savedReview })

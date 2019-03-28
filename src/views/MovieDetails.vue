@@ -25,11 +25,23 @@
           </tr>
           <tr>
             <td>Actors</td>
-            <td>{{currMovie.details.actors}}</td>
+            <td>
+              <span v-for="actor in currMovie.details.actors" :key="actor._id">{{actor}}
+              <span v-if="actor !== currMovie.details.actors[currMovie.details.actors.length-1]"> 
+                ,
+              </span>
+            </span>
+            </td>
           </tr>
           <tr>
             <td>Director</td>
-            <td>{{currMovie.details.director}}</td>
+            <td>
+              <span v-for="director in currMovie.details.director" :key="director._id">{{director}}
+              <span v-if="director !== currMovie.details.director[currMovie.details.director.length-1]"> 
+                ,
+              </span>
+              </span>
+            </td>
           </tr>
           <tr>
             <td>Description</td>

@@ -3,7 +3,10 @@
     <div class="movie-poster">
        <img :src="movie.details.movieImg">
     </div>
-    <div class="movie-name">{{movie.details.name}}</div>
+    <div class="movie-details">
+      <div class="movie-name">{{movie.details.name}}</div>
+      <div class="movie-year">({{movie.details.year}})</div>
+    </div>
   </section>
 </template>
 
@@ -24,8 +27,11 @@ export default {
     justify-content: space-between;
     height: 100%;
   }
-  .movie-name{
-    margin: 10px auto;
+  .movie-details{
+    margin-top: 10px;
+  }
+  .movie-name, .movie-year{
+    // margin: 10px auto;
     width: 134px;
     overflow-wrap: break-word;
     overflow: hidden;

@@ -21,20 +21,16 @@
       
 
       <div class="btns">
-        <!-- CHAT WITH USER -->
+        <!-- chat with user -->
 				<div class="chat-link">
         	<user-chat/>
 				</div>
 
-        <!-- follow button -->
-        <div class="follow" v-if="isSelfProfile">
-          <button @click="followUser" class="btn-follow" title="Follow User">
-            Follow User! <i class="fas fa-user-plus"></i>
-          </button>
-          <div v-if="isTellLogin">Please login to follow the user...</div>
+        <!-- follow user -->
+        <div class="follow-link">
+          <follow-user></follow-user>
         </div>
-				<div v-if="isAlreadyFollowed">The user is already followed by {{followedBy}}</div>
-				<div v-if="isFollowed">The user is followed by {{followedByList}}</div>
+
       </div>
     </div>
 
@@ -46,10 +42,10 @@
 </template>
 
 <script>
-// import axios from "axios";
-// import UserReviews from "../components/UserReviews.vue";
+
 import ReviewList from './ReviewList.vue';
 import UserChat from '../components/UserChat.vue';
+import FollowUser from './FollowUser.vue'
 
 export default {
   name: 'UserDetails',
@@ -81,89 +77,20 @@ export default {
       } else {
         return { err: 'problem in UserDetails page' }
       }
-    },
-    followedBy() {
-      if (this.$store.state.usersModule.currUser) {
-        var followedBy = this.$store.state.usersModule.currUser.name;
-        console.log('followedBy',followedBy)
-        return followedBy
-      }
-    },
-    isFollowed() {
-      var viewUserFollowedBy = this.$store.state.usersModule.viewUser.follow.followedBy
-      viewUserFollowedBy = JSON.parse(JSON.stringify(viewUserFollowedBy))
-      if (viewUserFollowedBy.toString() !== '') {
-        return true
-      }
-      return false
-    },
-    followedByList() {
-      var viewUserFollowedBy = this.$store.state.usersModule.viewUser.follow.followedBy
-      console.log('viewUserFollowedBy',viewUserFollowedBy)
-      if (viewUserFollowedBy) {
-        return viewUserFollowedBy
-      }
-    },
+    },   
     currUser() {
       return this.$store.state.usersModule.currUser;
     },
-    isSelfProfile() {
-      if (this.currUser.name === this.viewUser.name) {
-        return false
-      } else {
-        return true
-      }
-    }
+    
 
   },
   methods: {
-    followUser() {
-      //can't follow if not logged in
-      var loggedInUser = this.currUser
-      if (loggedInUser.name === 'Guest') {
-        this.isTellLogin = !this.isTellLogin
-        setTimeout(() => {
-          this.isTellLogin = !this.isTellLogin;
-        }, 2000)   // 2 secs to show "Please login to follow the user..."
-        return
-      }
-
-      // check if already follow
-      var ifAlreadyFollowed = this.ifAlreadyFollowed()
-      if (ifAlreadyFollowed) return
-
-      // send to backend
-      var followedUser = this.$route.params.userId;
-      loggedInUser = loggedInUser._id
-
-      var users = { loggedInUser, followedUser }
-      this.$store.dispatch({ type: "usersModule/addFollower", users })
-    },
-    ifAlreadyFollowed() {
-      var viewUserFollowedBy = this.$store.state.usersModule.viewUser.follow.followedBy
-      var currUserId = this.$store.state.usersModule.currUser._id
-
-      if (viewUserFollowedBy) {
-        viewUserFollowedBy = JSON.parse(JSON.stringify(viewUserFollowedBy))
-        currUserId = JSON.parse(JSON.stringify(currUserId))
-
-        var followed = viewUserFollowedBy.some((by) => {
-          return by === currUserId
-        })
-
-        if (followed) {
-          this.isAlreadyFollowed = true
-          setTimeout(() => {
-            this.isAlreadyFollowed = false;
-          }, 3000)   // 3 secs to show "The user is already followed by ..."
-          return true
-        }
-      }
-    },
+    
   },
   components: {
     ReviewList,
-    UserChat
+    UserChat,
+    FollowUser
   }
 
 };
@@ -196,20 +123,4 @@ export default {
   background-color: #e6e2d3;
 }
 
-.btn-follow {
-  color: white;
-	padding: 10px;
-	margin-bottom: 40px;
-  border: none;
-  border-radius: 3px;
-  outline: none;
-  font-family: cursive, arial, serif, sans-serif;
-  background-color: #1a1818;
-  cursor: pointer;
-  transition: 0.3s;
-  &:hover {
-    color: #3481b4;
-	}
-
-}
 </style>

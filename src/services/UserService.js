@@ -122,7 +122,7 @@ function isNameNotInUse(name) {
 }
 
 function addFollowUser(users) {
-    const userId = users.followedUser
+    const userId = users.followedUser._id
     return HttpService.put(`${USER_URL}/details/${userId}`, users)
 
 }

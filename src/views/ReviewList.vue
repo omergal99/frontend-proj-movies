@@ -32,9 +32,9 @@
 
           <!-- reviews of the movie -->
           <div v-if="directAndId.direct === 'movie'" class="review-details flex flex-col align-center">
-            <router-link :to="'/user/details/' + currReview.user.userId" class="review-details-link">
-              <img :src="currReview.user.userImg">
-              {{currReview.user.userName}}
+            <router-link :to="'/user/details/' + currReview.user.userId" class="review-details-link flex flex-col">
+              <img class="img" :src="currReview.user.userImg">
+              <span class="name">{{currReview.user.userName}}</span>
             </router-link>
           
             <div class="likes-btn flex">
@@ -52,9 +52,9 @@
 
           <!-- reviews of the user -->
           <div v-if="directAndId.direct === 'user'" class="review-details flex flex-col align-center">
-            <router-link :to="'/movies/details/' + currReview.movie.movieId" class="review-details-link">
-              <img :src="currReview.movie.movieImg">
-              <div>{{currReview.movie.movieName}}</div>
+            <router-link :to="'/movies/details/' + currReview.movie.movieId" class="review-details-link flex flex-col">
+              <img class="img" :src="currReview.movie.movieImg">
+              <span class="name">{{currReview.movie.movieName}}</span>
             </router-link>
           </div>
         
@@ -275,11 +275,17 @@ h3 {
 }
 
 .review-details{
-  width:25%;
+  padding: 5px;
   border-right: 0.3px solid #ced0d2;;
 }
 .review-details-link{
   margin: 10px;
+}
+.name{
+  margin-top: 10px;
+}
+.img{
+  width: 200px;
 }
 
 .likes-btn>*{
