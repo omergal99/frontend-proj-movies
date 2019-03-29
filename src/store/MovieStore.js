@@ -17,16 +17,19 @@ const moviesModule = {
         }) {
             state.currMovie = currMovie;
         },
-        updateMovieRate(state, {
-            rateDetails
-        }) {
+        updateMovieRate(state, {rateDetails}) {
             var movieIdx = state.movies.findIndex(movie => {
                 return movie._id === rateDetails.movieId
             })
             state.movies[movieIdx].rank.push(rateDetails.rate)
+            state.movies[movieIdx].avgRank=((state.movies[movieIdx].rank.reduce((acc, rank) => acc + rank, 0))/ state.movies[movieIdx].rank.length).toFixed(1)
         },
     },
     getters: {},
+    // cartTotal(state) {
+    //     return state.cartItems.reduce((acc, item) => acc + item.price, 0)
+    // },
+
     actions: {
         loadMovies(context, {
             filter
