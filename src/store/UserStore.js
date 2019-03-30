@@ -34,9 +34,7 @@ const usersModule = {
 
     },
     actions: {
-        doLogin(context, {
-            user
-        }) {
+        doLogin(context, { user }) {
             return UserService.login(user)
                 .then(serverUser => {
                     context.commit({
@@ -46,26 +44,23 @@ const usersModule = {
                     return serverUser;
                 })
         },
-        loadUser(context, {
-            user
-        }) {
+        loadUser(context, { user }) {
             return context.commit({
                 type: 'setCurrUser',
                 user
             })
         },
-        addUser(context, {
-            newUser
-        }) {
+        addUser(context, { newUser }) {
             console.log('heeeeer', newUser)
             return UserService.singup(newUser)
                 .then(addedUser => {
-                    // console.log("addedUser",addedUser)
-                    context.commit({
-                        type: 'setCurrUser',
-                        user: addedUser
-                    })
-                    return 'success registration'
+                    if (addedUser) {
+                        console.log("addedUser", addedUser)
+                        context.commit({ type: 'setCurrUser', user: addedUser })
+                    }else{
+                        console.log('name is not available')
+                    }
+                    return addedUser;
                 })
         },
         logoutUser(context) {
@@ -76,11 +71,9 @@ const usersModule = {
                 guest
             })
         },
-        loadViewUser(context, {
-            userId
-        }) {
+        loadViewUser(context, { userId }) {
             // console.log('state.currUser', context.state.currUser)
-            //  console.log('state.viewUser', userId)
+            // console.log('state.viewUser', userId)
             return UserService.getById(userId)
                 .then(user => {
                     // console.log('uuuuuuuser', user)

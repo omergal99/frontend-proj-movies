@@ -4,7 +4,7 @@
       <HomeMain2/>
     </section>
 
-    <section class="main-first container">
+    <section class="main-first">
       <HomeMain1/>
     </section>
 

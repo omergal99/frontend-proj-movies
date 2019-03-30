@@ -38,30 +38,24 @@ function logout() {
 
 function singup(newUser) {
     console.log('signup', newUser)
-    // return new Promise((resolve, reject) => {
     return HttpService.post(`${USER_URL}/singup`, newUser)
         .then(res => {
             localStorage.setItem(USER_STORAGE, JSON.stringify(res.data));
             let newUser = res.data
-            resolve(newUser)
+            return newUser
         })
-        .catch(err => err)
-    // })
 }
 
 function login(userNamePass) {
     var prmAnsRes = HttpService.put(`${USER_URL}/login`, userNamePass)
-    prmAnsRes.catch(err => {
-        console.log('Service Cought an Error - ', err);
-    })
-    prmAnsRes.finally(() => {
-        console.log('Done handling res');
-    })
-
     var prmAns = prmAnsRes.then(res => {
-        console.log('Result- Data:', res.data);
-        localStorage.setItem(USER_STORAGE, JSON.stringify(res.data));
-        return res.data;
+        if (res.data) {
+            console.log('Result- Data:', res.data);
+            localStorage.setItem(USER_STORAGE, JSON.stringify(res.data));
+            return res.data;
+        } else {
+            return getGuestUser();
+        }
     })
 
     console.log('Done Sending the AJAX Request');

@@ -79,6 +79,7 @@ export default {
 
 h3 {
   margin: 25px 0;
+  color: white;
 }
 
 .filter-input,
