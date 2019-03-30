@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     emitRemoveReview() {
+      console.log('this review',this.review )
       this.$emit("onRemoveReview", this.review);
     },
     emitSaveReview(){

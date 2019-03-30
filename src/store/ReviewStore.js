@@ -37,11 +37,10 @@ const reviewsModule = {
 
         },
 
-        removeReview(state, {
-            reviewId
-        }) {
-            // console.log('heeeeer')
-            const idx = state.currReviews.findIndex(review => review.reviewId === reviewId);
+        removeReview(state, {reviewId}) {
+             //console.log('heeeeer',state.currReviews)
+            const idx = state.currReviews.findIndex(review => {
+               return review._id === reviewId});
             state.currReviews.splice(idx, 1);
         },
 
