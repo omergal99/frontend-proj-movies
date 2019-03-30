@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="review-container">
     <div class="div-reviews">{{txt}}</div>
 
     <input type="text" class="div-reviews" v-if="isEditOpen" v-model="txt">
@@ -71,7 +71,10 @@ export default {
 
 section{
   padding: 10px;
-  float: left;
+  /* float: left; */
+}
+.review-container{
+  text-align: left;
 }
 .div-reviews{
   padding: 10px;

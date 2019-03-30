@@ -9,7 +9,6 @@
 
             <div v-if="isAlreadyFollowed">You already follow this user</div>
             <div v-if="isFollowed">The user is followed by {{followedByList}}</div>
-            {{isFollowed}}
     </section>
 </template>
 
@@ -41,19 +40,19 @@ export default {
         },
         isFollowed() {
             if(this.viewUser){
-                console.log('viewUser', this.viewUser.follow.followedBy)
-                var followedUser = JSON.parse(JSON.stringify(this.viewUser.follow.followedBy))
-                console.log(this.viewUser.name, ' is followed by user', followedUser)
-                // if(this.viewUser.follow !== "") {
+                var viewUserFollowedBy = JSON.parse(JSON.stringify(this.viewUser.follow.followedBy))
+                // console.log(this.viewUser.name, 'is followed by user', viewUserFollowedBy)
 
-                //     return true
-                // }
-                // return false
+                if(viewUserFollowedBy.length > 0) {
+
+                    return true
+                }
+                return false
 
             }
         },
         followedByList(){
-            console.log('viewUser', this.viewUser.follow)
+            // console.log('viewUser', this.viewUser.follow)
             return this.viewUser.follow.followedBy
         }
     },
@@ -81,11 +80,11 @@ export default {
         },
         checkIfAlreadyFollow(loggedInUser, followedUser){
             if (loggedInUser && followedUser) {
-                var loggedInUser = JSON.parse(JSON.stringify(loggedInUser.name))
-                var followedUser = JSON.parse(JSON.stringify(followedUser.follow.followedBy))
+                var loggedInUserName = JSON.parse(JSON.stringify(loggedInUser.name))
+                var followedUserList = JSON.parse(JSON.stringify(followedUser.follow.followedBy))
 
-                for(var i=0; i<followedUser.length; i++){
-                    if (loggedInUser === followedUser[i]){
+                for(var i=0; i<followedUserList.length; i++){
+                    if (loggedInUserName === followedUserList[i]){
                         // console.log('loggedInUser === followedUser[i]',loggedInUser)
                         this.isAlreadyFollowed = true
                         console.log('already')
@@ -105,7 +104,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+section{
+    color: white;
+}
 .btn-follow {
     color: white;
     padding: 10px;

@@ -1,8 +1,9 @@
 <template>
-    <header class="header-wrap">
+  <section>
+    <header class="header-wrap container-movies">
 
       <div v-if="loggedInUser" class="hello flex wrap space-between">
-          <span class="user-name">Hello {{loggedInUser.name}}! </span>
+        <span class="user-name">Hello {{loggedInUser.name}}! </span>
 
         <div class="login-logout">
           <router-link to="/login">
@@ -26,6 +27,7 @@
         
       </div>
     </header>
+  </section>
 </template>
 
 <script>
@@ -58,15 +60,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header-wrap{
+section{
   background-color: #1a1818;
   height: fit-content;
+
+}
+.header-wrap{
 }
 .login-logout{
-  margin: 25px 50px 0 0;
+  margin: 25px 0 0 0;
 }
 .user-name{
-  margin: 25px 0 0 50px;
+  margin: 25px 0 0 0;
 }
 .log, .user-name, .link{
   color: #dbd5d5;

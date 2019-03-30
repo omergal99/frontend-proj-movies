@@ -33,7 +33,7 @@
           <!-- reviews of the movie -->
           <div v-if="directAndId.direct === 'movie'" class="review-details flex flex-col align-center">
             <router-link :to="'/user/details/' + currReview.user.userId" class="review-details-link flex flex-col">
-              <img class="img" :src="currReview.user.userImg">
+              <img class="user-img" :src="currReview.user.userImg">    
               <span class="name">{{currReview.user.userName}}</span>
             </router-link>
           
@@ -105,7 +105,8 @@ export default {
         content: {
           txt: ""
         }
-      }
+      },
+      // imgUrl: "url(this.currReview.user.userImg)"
     };
   },
   created() {},
@@ -194,8 +195,7 @@ export default {
     },
     currUser() {
       return this.$store.state.usersModule.currUser;
-		},
-
+    }
   },
 
   watch: {
@@ -219,9 +219,11 @@ export default {
 .reviews-title{
   text-align: left;
 }
+
 .btn-add-review{
   margin-bottom: 15px;
 }
+
 .btn-add-review, .btn-send-review, .btn-edit-review{
   color: white;
   padding: 15px;
@@ -233,6 +235,7 @@ export default {
   background-color: #1a1818;
   transition: 0.3s;
 }
+
 .btn-edit-review{
   height: fit-content;
   padding: 5px 8px;
@@ -241,13 +244,16 @@ export default {
   background-color: #2d2f31;
   transition: 0.3s;
 }
+
 .btn-add-review:hover, .btn-send-review:hover, .btn-edit-review:hover {
   background-color: #3481b4;
 }
+
 .textarea-add-review, .btn-send-review{
   margin: 10px; 
   padding: 8px;
 }
+
 .btn-send-review{
   width: fit-content;
   padding: 15px;
@@ -263,9 +269,14 @@ h3 {
   display: flex;
   flex-direction: column;
 }
+
 .list-section li{
   width: 100%;
 }
+/* .list-section li:hover{
+  transform: none;
+} */
+
 .movie-review{
   display: flex;
   border: 2px solid #2d2f31;;
@@ -274,18 +285,25 @@ h3 {
   margin-bottom: 20px;
 }
 
+
 .review-details{
   padding: 5px;
   border-right: 0.3px solid #ced0d2;;
 }
+
 .review-details-link{
   margin: 10px;
 }
+
 .name{
   margin-top: 10px;
 }
-.img{
-  width: 200px;
+
+.user-img{
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
 
 .likes-btn>*{
@@ -297,9 +315,11 @@ h3 {
   max-width: 50px;
   border-radius: 3px;
 }
+
 .likes-btn>*:hover{
   background-color: #3481b4;
 }
+
 .review-preview{
   width: 100%;
 }
