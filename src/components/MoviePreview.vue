@@ -6,7 +6,7 @@
     <div class="movie-details">
       <div class="movie-name">{{movie.details.name}}</div>
       <div class="movie-year">({{movie.details.year}})</div>
-      <div class="movie-rating"> 5 stars </div>
+      <div class="movie-rating"><i class="fas fa-star"></i> {{movie.avgRank}}/5</div>
     </div>
     
   </section>
@@ -32,7 +32,7 @@ export default {
   .movie-details{
     margin-top: 10px;
   }
-  .movie-name, .movie-year{
+  .movie-name, .movie-year,.movie-rating{
     // margin: 10px auto;
     width: 134px;
     overflow-wrap: break-word;
