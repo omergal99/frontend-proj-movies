@@ -42,6 +42,8 @@ export default {
   margin: 0 auto;
   list-style: none;
   border-radius: 4px;
+//background-size: cover;
+//object-fit: cover;
   text-decoration: none;
   &:hover img {
     transform: scale(1.05);
