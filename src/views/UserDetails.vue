@@ -13,8 +13,16 @@
             <td>{{viewUser.name}}</td>
           </tr>
           <tr>
-            <td>Rating</td>
-            <td>{{viewUser.rating}}</td>
+            <td>Reviews</td>
+            <td>{{numOfReviews}}</td>
+          </tr>
+          <tr>
+            <td>Likes on reviews</td>
+            <td>{{numOfLikes}}</td>
+          </tr>
+          <tr>
+            <td>Dislikes on reviews</td>
+            <td>{{numOfDislikes}}</td>
           </tr>
         </table>
       </div>
@@ -40,27 +48,27 @@
 </template>
 
 <script>
-
-import ReviewList from './ReviewList.vue';
-import UserChat from '../components/UserChat.vue';
-import FollowUser from './FollowUser.vue'
+import ReviewList from "./ReviewList.vue";
+import UserChat from "../components/UserChat.vue";
+import FollowUser from "./FollowUser.vue";
 
 export default {
-  name: 'UserDetails',
+  name: "UserDetails",
   data() {
     return {
       isTellLogin: false,
       isAlreadyFollowed: false,
-      isUserChatOpen: false,
+      isUserChatOpen: false
     };
   },
   created() {
     const userId = this.$route.params.userId;
-    this.$store.dispatch({ type: 'usersModule/loadViewUser', userId });
+    this.$store.dispatch({ type: "usersModule/loadViewUser", userId });
   },
   destroyed() {
     this.$store.commit({ type: "usersModule/cleanViewUser" });
   },
+
   computed: {
     viewUser() {
       return this.$store.state.usersModule.viewUser;
@@ -68,17 +76,29 @@ export default {
     detailsForShowReviews() {
       if (this.viewUser) {
         var directAndId = {
-          direct: 'user',
-          id: this.viewUser._id,
+          direct: "user",
+          id: this.viewUser._id
         };
         return directAndId;
       } else {
-        return { err: 'problem in UserDetails page' }
+        return { err: "problem in UserDetails page" };
       }
     },
     currUser() {
       return this.$store.state.usersModule.currUser;
     },
+
+    numOfReviews() {
+      return this.$store.getters["reviewsModule/numOfReviews"];
+    },
+
+    numOfLikes() {
+      return this.$store.getters["reviewsModule/numOfLikes"];
+    },
+    
+    numOfDislikes() {
+      return this.$store.getters["reviewsModule/numOfDislikes"];
+    }
   },
   components: {
     ReviewList,

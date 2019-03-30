@@ -26,8 +26,8 @@ const usersModule = {
         }) {
             state.currUser.follow.followAfter.push(users.loggedInUser.name)
             state.viewUser.follow.followedBy.push(users.followedUser.name)
-            console.log('currUser', state.currUser.follow.followAfter)
-            console.log('viewUser', state.viewUser.follow.followedBy)
+            //console.log('currUser', state.currUser.follow.followAfter)
+            //console.log('viewUser', state.viewUser.follow.followedBy)
         }
     },
     getters: {

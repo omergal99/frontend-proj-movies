@@ -5,8 +5,8 @@ const reviewsModule = {
     namespaced: true,
     state: {
         currReviews: [],
-
     },
+
     mutations: {
         setReviews(state, payload) {
             state.currReviews = payload.serverReviews;
@@ -34,24 +34,32 @@ const reviewsModule = {
             } else {
                 state.currReviews[reviewIdx].rate.countDislike.push(rateDetails.userId)
             }
-
         },
-
-        removeReview(state, {reviewId}) {
-             //console.log('heeeeer',state.currReviews)
+        removeReview(state, { reviewId }) {
             const idx = state.currReviews.findIndex(review => {
-               return review._id === reviewId});
+                return review._id === reviewId
+            });
             state.currReviews.splice(idx, 1);
         },
-
-
     },
+
     getters: {
         reviews(state) {
             return state.currReviews.sort((r1, r2) => {
                 return r2.rate.countLike.length - r1.rate.countLike.length
             })
+        },
+        numOfReviews(state) {
+            return state.currReviews.length
+        },
+        numOfLikes(state) {
+            return state.currReviews.reduce((acc,rev)=>acc+rev.rate.countLike.length,0)
+                  },
+
+        numOfDislikes(state) {
+            return state.currReviews.reduce((acc,rev)=>acc+rev.rate.countDislike.length,0)
         }
+
 
     },
     actions: {
@@ -92,7 +100,6 @@ const reviewsModule = {
         }) {
             return ReviewService.add(newReview)
                 .then((addedReview) => {
-                    // console.log('addedReview', addedReview)
                     context.commit({
                         type: 'addReview',
                         addedReview
@@ -103,7 +110,6 @@ const reviewsModule = {
         updateReviewTxt(context, {
             reviewToEdit
         }) {
-            // console.log('natliaaaaaa',reviewToEdit )
             return ReviewService.update(reviewToEdit)
                 .then((savedReview) => {
                     context.commit({

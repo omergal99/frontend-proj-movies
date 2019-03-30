@@ -153,7 +153,7 @@ export default {
   },
   computed: {
     reviewsToShow() {
-      return this.$store.getters['reviewsModule/reviews'];
+      return this.$store.getters['reviewsModule/reviews'] ;
     },
     currMovie() {
       return this.$store.state.moviesModule.currMovie;
