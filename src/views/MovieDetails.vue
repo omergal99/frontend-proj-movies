@@ -1,53 +1,28 @@
 <template>
   <section class="details-section container-movies">
-
-    <!-- <div v-if="!currMovie">
-      <img src="../assets/img/banana3.gif">
-      <img src="../assets/img/banana1.gif">
-      <img src="../assets/img/banana2.gif">
-    </div> -->
-
     <div v-if="currMovie" class="movie-details flex">
       <div class="movie-img">
         <img :src="currMovie.details.movieImg">
       </div>
-      <div class="movie-table">
-        <table class="details-table">
-          <tr>
-            <td>Name</td>
-            <td>{{currMovie.details.name}}</td>
-          </tr>
-          <tr>
-            <td>Year</td>
-            <td>{{currMovie.details.year}}</td>
-          </tr>
-          <tr>
-            <td>Actors</td>
-            <td>
-              <span v-for="actor in currMovie.details.actors" :key="actor._id">{{actor}}
-              <span v-if="actor !== currMovie.details.actors[currMovie.details.actors.length-1]"> 
-                ,
-              </span>
-            </span>
-            </td>
-          </tr>
-          <tr>
-            <td>Director</td>
-            <td>
-              <span v-for="director in currMovie.details.director" :key="director._id">{{director}}
-              <span v-if="director !== currMovie.details.director[currMovie.details.director.length-1]"> 
-                ,
-              </span>
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>Description</td>
-            <td>{{currMovie.details.description}}</td>
-          </tr>
-        </table>
+      <!-- <div class="movie-table"> -->
+      <div class="movie-info">
+        <h1>{{currMovie.details.name}}</h1>
 
-        <label>rate the movie</label>
+        <p>{{currMovie.details.year}}'s movie, directed by 
+
+          <span v-for="director in currMovie.details.director" :key="director._id">{{director}}
+            <span v-if="director !== currMovie.details.director[currMovie.details.director.length-1]">,</span>
+          </span>, starred by
+          <span v-for="actor in currMovie.details.actors" :key="actor._id"> {{actor}}
+            <span v-show="actor !== currMovie.details.actors[currMovie.details.actors.length-1]">,</span>
+          </span>
+
+        </p>
+        <p>
+          {{currMovie.details.description}}
+        </p>
+
+        <label>Rate the movie:</label>
         <StarRating :show-rating="false" v-model="selectedRate" :increment="0.5" :star-size="30"></StarRating>
         {{selectedRate}}
       </div>
@@ -72,7 +47,6 @@ export default {
       selectedRate: 0
     };
   },
-
   created() {
     const movieId = this.$route.params.movieId;
     this.$store.dispatch({ type: "moviesModule/loadMovie", movieId });
@@ -84,7 +58,6 @@ export default {
     currMovie() {
       return this.$store.state.moviesModule.currMovie;
     },
-
     detailsForShowReviews() {
       if (this.currMovie) {
         var directAndId = {
@@ -96,22 +69,17 @@ export default {
         return { err: "problem in MovieDetails page" };
       }
     },
-
-    
   },
-
   watch: {
-    selectedRate: function(selectedRate) {
-        var rateDetails={
+    selectedRate: function (selectedRate) {
+      var rateDetails = {
         movieId: this.currMovie._id,
         rate: this.selectedRate
-        }
-        console.log('jopa',rateDetails )
-    this.$store.dispatch({ type: "moviesModule/updateStarRate", rateDetails })
       }
-    },
-  
-
+      console.log('jopa', rateDetails)
+      this.$store.dispatch({ type: "moviesModule/updateStarRate", rateDetails })
+    }
+  },
   methods: {},
   components: {
     ReviewList,
@@ -122,6 +90,12 @@ export default {
 </script>
 
 <style scoped>
+.movie-info{
+  text-align: left;
+  color: white;
+  font-size: 17px;
+  }
+
 .movie-details {
   width: fit-content;
   margin-top: 40px;
@@ -132,30 +106,10 @@ export default {
   border-radius: 4px;
   margin-right: 26px;
 }
-.movie-table {
-  color: rgb(31, 31, 31);
+label{
+  display: block;
+  margin-top: 25px;
+  font-size: 19px;
 }
 
-.details-table td {
-  padding: 5px;
-  border: 1px solid #c4b7a6;
-  border-radius: 3px;
-}
-.details-table td:first-child {
-  font-weight: bold;
-}
-.details-table td:first-child {
-  background-color: #dac292;
-}
-.details-table td:not(:first-child) {
-  background-color: #e6e2d3;
-}
 </style>
-
-
-
-// axios.get(`http://www.omdbapi.com/?apikey=b672deef&i=${imdbId}`)
-//           .then((res) => {
-//               console.log(res.data)
-//           })
-//           .catch(console.log('error api'))

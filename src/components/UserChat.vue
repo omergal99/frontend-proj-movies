@@ -99,7 +99,7 @@ export default {
 }
 .btn-chat {
   color: white;
-  padding: 10px;
+  padding: 7px;
   cursor: pointer;
   border: none;
   border-radius: 3px;

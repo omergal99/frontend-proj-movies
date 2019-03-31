@@ -1,5 +1,25 @@
 <template>
   <div class="review-container">
+    <router-link
+    v-if="direct === 'user'"
+      :to="'/movies/details/' + review.movie.movieId"
+      class="review-details-link flex flex-col">
+      <span class="movie-name">{{review.movie.movieName}}</span>
+    </router-link>
+ 
+
+    <div class="likes-btn flex" v-if="direct === 'movie'">
+      <button @click="clickedLike(review._id,currUser)">
+        <i class="fas fa-thumbs-up"></i>
+        <span>{{review.rate.countLike.length}}</span>
+      </button>
+
+      <button @click="clickedDislike(review._id,currUser)">
+        <i class="fas fa-thumbs-down"></i>
+        <span>{{review.rate.countDislike.length}}</span>
+      </button>
+    </div>
+    
     <div class="div-reviews">{{txt}}</div>
 
     <input type="text" class="div-reviews" v-if="isEditOpen" v-model="txt">
@@ -34,7 +54,8 @@ export default {
   name: "reviewPreview",
   props: {
     review: Object,
-   currUser: Object,
+    currUser: Object,
+    direct: String
   },
   data() {
     return {
@@ -45,6 +66,7 @@ export default {
   },
   methods: {
     emitRemoveReview() {
+      console.log('this review',this.review )
       this.$emit("onRemoveReview", this.review);
     },
     emitSaveReview(){
@@ -69,15 +91,24 @@ export default {
 
 <style scoped>
 
-section{
-  padding: 10px;
-  /* float: left; */
-}
 .review-container{
   text-align: left;
+  color: #1a1818;
+  padding: 10px;
 }
 .div-reviews{
-  padding: 10px;
+}
+.likes-btn > * {
+  padding: 5px;
+  margin: 2px;
+  color: #2d2f31;
+  border: none;
+  background-color: #dac292;
+  max-width: 50px;
+  border-radius: 3px;
+}
+.likes-btn > *:hover {
+  background-color: #3481b4;
 }
 .btn{
   height: fit-content;
@@ -91,7 +122,6 @@ section{
   border: none;
   border-radius: 3px;
   outline: none;
-  font-family: cursive, arial, serif, sans-serif;
   transition: 0.3s;
 }
 .btn:hover {

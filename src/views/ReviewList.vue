@@ -1,90 +1,67 @@
 <template>
   <section class="list-section">
-
-		<!-- add review button -->
+    <!-- add review button -->
     <div class="new-review" v-if="directAndId.direct === 'movie'">
-				<button class="btn-add-review" @click="toggleOpenNewReview">
-          Add Your Review
-        </button>
-				<div v-if="isAddOpen">
-					<form class="flex flex-col" @submit.prevent="onAddReview">
-						<textarea class="textarea-add-review" v-model="newReview.content.txt" rows="6" cols="50"></textarea>
-						<button class="btn-send-review" type="submit">Send Review</button>
-					</form>
-				</div>
-		</div>
-
+      <button class="btn-add-review" @click="toggleOpenNewReview">Add Your Review</button>
+      <div v-if="isAddOpen">
+        <form class="flex flex-col" @submit.prevent="onAddReview">
+          <textarea class="textarea-add-review" v-model="newReview.content.txt" rows="6" cols="50"></textarea>
+          <button class="btn-send-review" type="submit">Send Review</button>
+        </form>
+      </div>
+    </div>
 
     <h3 v-if="directAndId.direct === 'movie'">{{currMovie.details.name}} Reaviews</h3>
     <h3 v-if="directAndId.direct === 'user'" class="reviews-title">Reviews</h3>
 
-    <!-- Loader -->
-    <!-- <div v-if="!reviewsToShow">
-      <img src="../assets/img/banana3.gif">
-      <img src="../assets/img/banana1.gif">
-      <img src="../assets/img/banana2.gif">
-    </div> -->
-
-         
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
         <div class="movie-review">
-
           <!-- reviews of the movie -->
           <div v-if="directAndId.direct === 'movie'" class="review-details flex flex-col align-center">
             <router-link :to="'/user/details/' + currReview.user.userId" class="review-details-link flex flex-col">
               <img class="user-img" :src="currReview.user.userImg">    
-              <span class="name">{{currReview.user.userName}}</span>
+              <span class="user-name">{{currReview.user.userName}}</span>
             </router-link>
-          
-            <div class="likes-btn flex">
+
+            <!-- <div class="likes-btn flex">
               <button @click="clickedLike(currReview._id,currUser)">
                 <i class="fas fa-thumbs-up"></i>
                 <span>{{currReview.rate.countLike.length}}</span>
               </button>
-              
+
               <button @click="clickedDislike(currReview._id,currUser)">
-                <i class="fas fa-thumbs-down"></i> 
+                <i class="fas fa-thumbs-down"></i>
                 <span>{{currReview.rate.countDislike.length}}</span>
               </button>
-            </div>
-          </div>
+            </div>  -->
+          </div> 
 
           <!-- reviews of the user -->
-          <div v-if="directAndId.direct === 'user'" class="review-details flex flex-col align-center">
-            <router-link :to="'/movies/details/' + currReview.movie.movieId" class="review-details-link flex flex-col">
-              <img class="img" :src="currReview.movie.movieImg">
-              <span class="name">{{currReview.movie.movieName}}</span>
+          <div
+            v-if="directAndId.direct === 'user'"
+            class="review-details flex flex-col align-center">
+            <router-link
+              :to="'/movies/details/' + currReview.movie.movieId"
+              class="review-details-link flex flex-col">
+              <img class="movie-img" :src="currReview.movie.movieImg">
+              <!-- <span class="movie-name">{{currReview.movie.movieName}}</span> -->
             </router-link>
           </div>
-        
-        <div>
-           <review-preview
-          :review="currReview" 
-          v-if="currUser" :currUser="currUser"
-          @onRemoveReview="removeReview"
-          @onEditReview="editReview"></review-preview>
-        </div>
 
-        <!-- <div class="review">
-          <div class="div-btn">
-            <button v-if="currUser._id===currReview.user.userId" @click="toggleEditReview(currReview)">Edit (Admin)</button>
+          <div>
+            <review-preview
+              v-if="currUser"
+              :review="currReview"
+              :currUser="currUser"
+              :direct="directAndId.direct"
+              @onRemoveReview="removeReview"
+              @onEditReview="editReview">
+            </review-preview>
           </div>
-        </div> -->
-          <!-- <div class="review-preview" >
-              <button 
-                class="btn-edit-review"
-                v-if="currUser._id===currReview.user.userId" 
-                @click="toggleEditReview(currReview)">
-                <i class="fas fa-pencil-alt"></i>
-              </button>           
-              <review-preview :review="currReview" @onRemoveReview="removeReview"></review-preview>
-          </div> -->
-
         </div>
       </li>
     </ul>
-
   </section>
 </template>
 
@@ -99,7 +76,7 @@ export default {
   },
   data() {
     return {
-			isAddOpen: false,
+      isAddOpen: false,
       isSendReview: false,
       newReview: {
         content: {
@@ -109,7 +86,7 @@ export default {
       // imgUrl: "url(this.currReview.user.userImg)"
     };
   },
-  created() {},
+  created() { },
   destroyed() {
     this.$store.commit({
       type: "reviewsModule/setReviews",
@@ -118,18 +95,9 @@ export default {
   },
 
   methods: {
-		toggleOpenNewReview() {
+    toggleOpenNewReview() {
       this.isAddOpen = !this.isAddOpen;
     },
-    
-    // toggleEditReview(currReview) {
-    //   console.log(currUser._id,)
-    //   currReview.content.isEdit = !currReview.content.isEdit;
-    //   this.$store.dispatch({
-    //     type: "reviewsModule/updateReview",
-    //     updatedReview: currReview
-    //   });
-    // },
     onAddReview() {
       this.newReview.user = {
         userId: this.currUser._id,
@@ -152,54 +120,44 @@ export default {
     },
 
     clickedLike(reviewId, logedInUser) {
-      var rateDetails={
-         reviewId :reviewId,
-         updateUser: logedInUser._id,
-         rateDitection : "like"
-      }
-     this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
-    },
-    // toggleEditReview(currReview) {
-    //   currReview.content.isEdit = !currReview.content.isEdit;
-		// 	this.$store.dispatch({ type: "reviewsModule/updateReview", updatedReview: currReview });
-		// },
-    clickedDislike(reviewId,logedInUser) {
-      var rateDetails={
-         reviewId :reviewId,
-         updateUser: logedInUser._id,
-         rateDitection : "disLike"
+      var rateDetails = {
+        reviewId: reviewId,
+        updateUser: logedInUser._id,
+        rateDitection: "like"
       }
       this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
-      
-   },
-
+    },
+    clickedDislike(reviewId, logedInUser) {
+      var rateDetails = {
+        reviewId: reviewId,
+        updateUser: logedInUser._id,
+        rateDitection: "disLike"
+      }
+      this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
+    },
     removeReview(reviewToRemove) {
       var reviewId = reviewToRemove._id;
-      console.log(reviewId)
-      this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId});
+      // console.log(reviewId)
+      this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId });
     },
-
-    editReview(reviewToEdit){
-      console.log('Natalia rev',reviewToEdit )
-     //var reviewId = reviewToEdit.reviewId;
-      this.$store.dispatch({ type: "reviewsModule/updateReviewTxt", reviewToEdit});
+    editReview(reviewToEdit) {
+      // console.log('Natalia rev', reviewToEdit)
+      this.$store.dispatch({ type: "reviewsModule/updateReviewTxt", reviewToEdit });
     }
   },
   computed: {
-		
     reviewsToShow() {
-      return this.$store.getters['reviewsModule/reviews'];
+      return this.$store.getters['reviewsModule/reviews'] ;
     },
     currMovie() {
       return this.$store.state.moviesModule.currMovie;
     },
     currUser() {
       return this.$store.state.usersModule.currUser;
-    }
+    },
   },
-
   watch: {
-    directAndId: function(directAndId) {
+    directAndId: function (directAndId) {
       if (directAndId) {
         this.$store.dispatch({
           type: "reviewsModule/loadReviews",
@@ -208,7 +166,7 @@ export default {
       }
     }
   },
-  mounted() {},
+  mounted() { },
   components: {
     ReviewPreview
   }
@@ -216,8 +174,10 @@ export default {
 </script>
 
 <style scoped>
-.reviews-title{
+.reviews-title {
   text-align: left;
+  margin-top: 30;
+  margin-bottom: 20px;
 }
 
 .btn-add-review{
@@ -231,7 +191,7 @@ export default {
   border: none;
   border-radius: 3px;
   outline: none;
-  font-family: cursive, arial, serif, sans-serif;
+  /* font-family: cursive, arial, serif, sans-serif; */
   background-color: #1a1818;
   transition: 0.3s;
 }
@@ -269,44 +229,39 @@ h3 {
   display: flex;
   flex-direction: column;
 }
-
-.list-section li{
+.list-section li {
   width: 100%;
 }
-/* .list-section li:hover{
-  transform: none;
-} */
-
-.movie-review{
+.movie-review {
   display: flex;
-  border: 2px solid #2d2f31;;
+  border: 2px solid #2d2f31;
   background-color: #e6e2d3;
   border-radius: 4px;
   margin-bottom: 20px;
 }
-
-
-.review-details{
-  padding: 5px;
-  border-right: 0.3px solid #ced0d2;;
+ 
+.review-details {
+  /* padding: 5px; */
+  border-right: 0.3px solid #ced0d2;
+  width: 100px;
 }
 
 .review-details-link{
   margin: 10px;
 }
 
-.name{
+.user-name, .movie-name{
   margin-top: 10px;
 }
 
 .user-img{
   object-fit: cover;
-  width: 150px;
-  height: 150px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 
-.likes-btn>*{
+/* .likes-btn > * {
   padding: 5px;
   margin: 2px;
   color: #2d2f31;
@@ -315,13 +270,10 @@ h3 {
   max-width: 50px;
   border-radius: 3px;
 }
-
-.likes-btn>*:hover{
+.likes-btn > *:hover {
   background-color: #3481b4;
-}
-
-.review-preview{
+} */
+.review-preview {
   width: 100%;
 }
-
 </style>

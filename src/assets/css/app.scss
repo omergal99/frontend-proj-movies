@@ -1,33 +1,8 @@
 @import './vars';
 @import './base';
+@import './fonts';
+@import './media';
 @import './helpers';
 @import './transition';
 @import './layout';
-
-
-@font-face {
-    font-family: merienda;
-    src: url('../fonts/Merienda/Merienda-Regular.ttf');
-}
-
-@font-face {
-    font-family: quando;
-    src: url('../fonts/Quando/Quando-Regular.ttf');
-}
-
-
-/***************** Base *****************/
-
-
-
-/************************** Tablet and Desktop **************************/
-
-@media (min-width: 500px) {
-    // Tablet
-
-}
-
-@media (min-width: 1030px) {
-    // Desktop
-}
 
