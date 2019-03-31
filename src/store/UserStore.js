@@ -9,10 +9,14 @@ const usersModule = {
     },
     mutations: {
         setCurrUser(state, payload) {
+            console.log('olderrrrrrrrrr login', state.currUser)
             state.currUser = payload.user;
+            console.log('newwwwwwwwwwww login', state.currUser)
         },
         cleanCurrUser(state, payload) {
+            console.log('olderrrrrrrrrr', state.currUser)
             state.currUser = payload.guest;
+            console.log('newwwwwwwwwwww', state.currUser)
         },
         setViewUser(state, payload) {
             // console.log('payload.user',payload.user)
@@ -37,18 +41,13 @@ const usersModule = {
         doLogin(context, { user }) {
             return UserService.login(user)
                 .then(serverUser => {
-                    context.commit({
-                        type: 'setCurrUser',
-                        user: serverUser
-                    })
+                    // TODO: Delete password and is admin when login
+                    context.commit({ type: 'setCurrUser', user: serverUser })
                     return serverUser;
                 })
         },
         loadUser(context, { user }) {
-            return context.commit({
-                type: 'setCurrUser',
-                user
-            })
+            return context.commit({ type: 'setCurrUser', user })
         },
         addUser(context, { newUser }) {
             console.log('heeeeer', newUser)
@@ -57,7 +56,7 @@ const usersModule = {
                     if (addedUser) {
                         console.log("addedUser", addedUser)
                         context.commit({ type: 'setCurrUser', user: addedUser })
-                    }else{
+                    } else {
                         console.log('name is not available')
                     }
                     return addedUser;
@@ -66,10 +65,7 @@ const usersModule = {
         logoutUser(context) {
             UserService.logout()
             var guest = UserService.getGuestUser();
-            return context.commit({
-                type: 'cleanCurrUser',
-                guest
-            })
+            return context.commit({type: 'cleanCurrUser',guest})
         },
         loadViewUser(context, { userId }) {
             // console.log('state.currUser', context.state.currUser)

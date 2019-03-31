@@ -43,6 +43,7 @@
 
 <script>
 import UserService from '../services/UserService.js';
+import SocketService from '../services/SocketService.js';
 
 export default {
   name: 'user',
@@ -63,8 +64,7 @@ export default {
   },
   methods: {
     onLogin() {
-      this.$store
-        .dispatch({ type: 'usersModule/doLogin', user: this.user })
+      this.$store.dispatch({ type: 'usersModule/doLogin', user: this.user })
         .then(user => {
           if (user && user._id) {
             this.$router.go(-1);
@@ -84,9 +84,6 @@ export default {
             }
           })
       }
-    },
-    logoutUser() {
-      this.$store.dispatch({ type: 'usersModule/logoutUser' });
     },
     goBack() {
       this.$router.go(-1);

@@ -58,6 +58,11 @@ function createEmptyMsg(txt = '') {
     return { txt, processed: false, from: nickName };
 }
 
+const disconnect = () => {
+    // alert('dissconnecting socket')
+    socket.emit('dissconnect user')
+}
+
 function on(eventName, cb) {
     socket.on(eventName, cb)
 }
@@ -72,7 +77,8 @@ export default {
     nickName,
     createEmptyMsg,
     on,
-    emit
+    emit,
+    disconnect
 }
 
 

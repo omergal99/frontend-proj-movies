@@ -3,7 +3,10 @@
     <div class="head-text">
       <!-- <p>The place for</p> -->
       <!-- <p>Reliable and Quality Reviews</p> -->
-      <p>where Movies and People meet</p>
+      <p>Where 
+        <span class="strip-font">Movies</span> & 
+        <span class="strip-font">People</span> meet
+      </p>
       <label>Choose your next movie</label>
       <br>
       <!-- <label>Make your decisions based on reliable reviews</label> -->
@@ -19,6 +22,7 @@
 </template>
 
 <style scoped lang="scss">
+
 .main-second {
   flex-direction: column;
   max-width: 900px;
@@ -36,6 +40,9 @@
       font-family: merienda, cursive, arial, serif, sans-serif;
       font-weight: bold;
       color: #220428;
+      .strip-font{
+        font-family: acFilmstrip,merienda, cursive, arial, serif, sans-serif;
+      }
     }
     label {
       font-size: 1.2em;
@@ -73,7 +80,7 @@
       }
     }
     .head-text {
-      width: 60%;
+      width: 65%;
       height: auto;
       padding-left: 10px;
       padding-right: 10px;
