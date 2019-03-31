@@ -94,10 +94,7 @@ export default {
   },
   created() { },
   destroyed() {
-    this.$store.commit({
-      type: "reviewsModule/setReviews",
-      serverReviews: []
-    });
+    this.$store.commit({type: "reviewsModule/setReviews",serverReviews: []});
   },
 
   methods: {
@@ -165,10 +162,7 @@ export default {
   watch: {
     directAndId: function (directAndId) {
       if (directAndId) {
-        this.$store.dispatch({
-          type: "reviewsModule/loadReviews",
-          directAndId
-        });
+        this.$store.dispatch({type: "reviewsModule/loadReviews",directAndId});
       }
     }
   },

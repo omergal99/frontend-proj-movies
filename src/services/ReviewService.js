@@ -11,12 +11,12 @@ export default {
     add,
     update,
     updateRate
-
 }
 
 function query(directAndId) {
     var direct = directAndId.direct;
     var id = directAndId.id;
+    // for home - we can put in the ${id} 4 id and get all reviews for this 4 movies?
     return HttpService.get(`${REVIEW_URL}/${direct}/${id}`)
         .then(resolveData)
         .catch(() => [])

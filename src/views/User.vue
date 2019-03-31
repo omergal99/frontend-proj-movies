@@ -101,7 +101,7 @@ export default {
       return this.$store.state.usersModule.currUser;
     },
     title() {
-      return (this.isInLogin) ? 'Register' : 'Login'
+      return (this.isInLogin) ? 'Login' : 'Register'
     },
     textLogReg() {
       if (this.isInLogin) {

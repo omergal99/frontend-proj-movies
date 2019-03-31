@@ -9,70 +9,81 @@
       <!-- <label>Make your decisions based on reliable reviews</label> -->
       <label>Based on reliable & quality reviews</label>
     </div>
-
-    <div class="bc-img">
-      <img src="../assets/img/omer/people3.png">
+    <div class="container">
+      <div class="bc-img">
+        <img src="../assets/img/omer/home/boy-cinema3.png">
+        <!-- <img src="../assets/img/omer/home/brown-strip.jpg"> -->
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.head-text {
-  width: 100vw;
-  background-color: #80808040;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  p {
-    margin: 10px 0 10px 0;
-    font-size: 2.2em;
-    font-family: merienda, cursive, arial, serif, sans-serif;
-    font-weight: bold;
-    color: #220428;
-  }
-  label {
-    font-size: 1.2em;
-    font-family: Arial, serif, sans-serif, Helvetica;
-  }
-}
 .main-second {
   flex-direction: column;
   max-width: 900px;
-  height: 75vh;
   margin: auto 0;
-  .bc-img {
-    text-align: center;
-    margin: auto 0;
-    img {
-      padding: 10px;
-      width: 80vw;
-      max-width: 280px;
+  .head-text {
+    width: 100%;
+    height: auto;
+    background-color: #ffffff59;
+    border-radius: 2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    p {
+      margin: 0 0 0 0;
+      font-size: 2.2em;
+      font-family: merienda, cursive, arial, serif, sans-serif;
+      font-weight: bold;
+      color: #220428;
     }
+    label {
+      font-size: 1.2em;
+      font-family: Arial, serif, sans-serif, Helvetica;
+    }
+  }
+  .bc-img {
+    padding: 22px;
+    img {
+      border-radius: 4px;
+      width: 80%;
+      max-width: 360px;
+    }
+    // &::before {
+    //   content: "";
+    //   position: absolute;
+    //   display: block;
+    //   width: 100%;
+    //   height: 80%;
+    //   top: 0px;
+    //   background-image: url("../assets/img/omer/home/only-boy.png");
+    //   background-size: contain;
+    //   background-repeat: no-repeat;
+    // }
   }
 }
 @media (min-width: 720px) {
-  .head-text {
-    width: 50vw;
-    padding-left: 10px;
-    padding-right: 10px;
-    // padding-top: 10vh;
-    margin: auto 0 auto 10px;
-    p {
-      font-size: 2.8em;
-    }
-    label {
-      font-size: 1.4em;
-    }
-  }
   .main-second {
     flex-direction: row;
     margin: 0 auto;
     .bc-img {
-      text-align: right;
-      width: 50vw;
-      text-align: center;
       img {
-        max-width: 420px;
         width: 100%;
+        max-width: 440px;
+      }
+    }
+    .head-text {
+      width: 60%;
+      height: auto;
+      padding-left: 10px;
+      padding-right: 10px;
+      // padding-top: 10vh;
+      margin: auto 0 auto 10px;
+      p {
+        font-size: 2.8em;
+      }
+      label {
+        font-size: 1.4em;
       }
     }
   }

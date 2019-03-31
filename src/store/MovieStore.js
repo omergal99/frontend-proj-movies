@@ -25,7 +25,14 @@ const moviesModule = {
             state.movies[movieIdx].avgRank=((state.movies[movieIdx].rank.reduce((acc, rank) => acc + rank, 0))/ state.movies[movieIdx].rank.length).toFixed(1)
         },
     },
-    getters: {},
+    getters: {
+        fourMovies(state) {
+            var movies = state.movies.sort((m1, m2) => {
+                return m2.details.year - m1.details.year;
+            })
+            return movies.splice(0,4);
+        }
+    },
     // cartTotal(state) {
     //     return state.cartItems.reduce((acc, item) => acc + item.price, 0)
     // },

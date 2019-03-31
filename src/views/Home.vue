@@ -53,4 +53,5 @@ export default {
 //    body {
 //      background: $clr2;
 //    }
+
 </style>
