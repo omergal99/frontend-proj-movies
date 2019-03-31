@@ -99,12 +99,11 @@ export default {
 }
 .btn-chat {
   color: white;
-  padding: 10px;
+  padding: 7px;
   cursor: pointer;
   border: none;
   border-radius: 3px;
   outline: none;
-  font-family: cursive, arial, serif, sans-serif;
   background-color: #1a1818;
   transition: 0.3s;
   margin-right: 3px;

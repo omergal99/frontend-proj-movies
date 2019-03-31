@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <header class="header-wrap">
     <div v-if="loggedInUser" class="login-logout flex wrap space-between">
       <router-link to="/">
         <span class="logo logo1">Movies&Reviews</span>
@@ -43,7 +43,7 @@
         <span class="link">Movies</span>
       </router-link>
     </div> -->
-  </section>
+  </header>
 </template>
 
 <script>
@@ -84,6 +84,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.header-wrap{
+  background-color: #1a1818;
+  height: fit-content;
+}
+
 .logo {
   font-size: 1.2em;
   color: #3481b4;
@@ -138,16 +143,34 @@ export default {
     margin-left: 25px;
   }
 }
+
+// #nav{
+//   margin: 3px 0 15px 0;
+//   // background-color: #1a1818;
+// }
+// a{
+//   color: white;
+//   &:hover {
+//       color: #3481b4;
+//     }
+// }
+// .link{
+//   font-weight: 600;
+// }
+// .line{
+//   color: #dbd5d5;
+//   font-size: 1.3em;
+// }
 @media (min-width: 720px) {
   .logo {
-  font-size: 2em;
-}
-.login-logout {
-  .profile,
-  .login,
-  .logout {
-    font-size: 1.3em;
+    font-size: 2em;
   }
-}
+  .login-logout {
+    .profile,
+    .login,
+    .logout {
+      font-size: 1.3em;
+    }
+  }
 }
 </style>

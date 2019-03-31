@@ -20,10 +20,15 @@ function getUrl(entityName) {
     : `//localhost:3003/${entityName}`
 }
 
+function getNoCredAxios(){
+    return Axios
+}
+
 export default {
     get,
     post,
     put,
     delete : remove,
-    getUrl
+    getUrl,
+    getNoCredAxios
 }

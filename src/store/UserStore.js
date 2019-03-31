@@ -25,14 +25,13 @@ const usersModule = {
         cleanViewUser(state) {
             state.viewUser = null;
         },
-        setFollower(state, {
-            users
-        }) {
-            state.currUser.follow.followAfter.push(users.loggedInUser.name)
-            state.viewUser.follow.followedBy.push(users.followedUser.name)
-            //console.log('currUser', state.currUser.follow.followAfter)
-            //console.log('viewUser', state.viewUser.follow.followedBy)
+        setFollower(state, {users}){
+            state.currUser.follow.followAfter.push(users.followedUser.name)
+            state.viewUser.follow.followedBy.push(users.loggedInUser.name)
+            console.log('currUser follow after',state.currUser.follow.followAfter)
+            console.log('viewUser followed by',state.viewUser.follow.followedBy)
         }
+
     },
     getters: {
 
@@ -50,7 +49,7 @@ const usersModule = {
             return context.commit({ type: 'setCurrUser', user })
         },
         addUser(context, { newUser }) {
-            console.log('heeeeer', newUser)
+            //console.log('heeeeer', newUser)
             return UserService.singup(newUser)
                 .then(addedUser => {
                     if (addedUser) {
@@ -68,26 +67,24 @@ const usersModule = {
             return context.commit({type: 'cleanCurrUser',guest})
         },
         loadViewUser(context, { userId }) {
-            // console.log('state.currUser', context.state.currUser)
-            // console.log('state.viewUser', userId)
             return UserService.getById(userId)
                 .then(user => {
-                    // console.log('uuuuuuuser', user)
-                    return context.commit({
-                        type: 'setViewUser',
-                        user
-                    })
+                    return context.commit({ type: 'setViewUser', user })
                 })
         },
-        addFollower(context, {
-            users
-        }) {
+        addFollower(context, { users }) {
             UserService.addFollowUser(users);
-            return context.commit({
-                type: 'setFollower',
-                users
-            })
+            return context.commit({ type: 'setFollower', users })
         },
+        uploadImg(context, { fileAndUser }) {
+            console.log('i am here')
+            return UserService.uploadImg(fileAndUser )
+                .then((res) => {
+                    console.log(res)
+                    return context.commit({ type: 'addImg', selectedImg })
+                })
+        }
+
 
     }
 }

@@ -174,7 +174,7 @@ p {
     border: none;
     color: white;
     border-radius: 4px;
-    font-family: cursive, arial, serif, sans-serif;
+    // font-family: cursive, arial, serif, sans-serif;
     background-color: #005780;
     font-size: 1.1em;
     padding: 4px 4px;
@@ -195,7 +195,7 @@ p {
   border: none;
   font-size: 1.1em;
   color: rgb(15, 15, 15);
-  font-family: cursive, arial, serif, sans-serif;
+  // font-family: cursive, arial, serif, sans-serif;
 
   &::placeholder {
     color: rgba(29, 29, 29, 0.7);

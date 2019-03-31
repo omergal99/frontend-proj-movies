@@ -1,33 +1,51 @@
 <template>
-  <div>
-    <div class="rate" v-if="currUser._id===review.user.userId">
-      <div class="rate">
-        <i class="fas fa-thumbs-up"></i>
-        <span>{{review.rate.countLike.length}}</span>
-      </div>
-      <div>
-        <i class="fas fa-thumbs-down"></i>
-        <span>{{review.rate.countDislike.length}}</span>
-      </div>
+  <div class="review-container" >
+    <div class="flex space-between">
+      <router-link
+        v-if="direct === 'user'"
+        :to="'/movies/details/' + review.movie.movieId"
+        class="review-details-link flex flex-col">
+        <span class="movie-name">{{review.movie.movieName}}</span>
+      </router-link>
+  
+    <div class="likes flex" v-if="direct === 'user'">
+      <i class="fas fa-thumbs-up"></i><span class="numOfLikes">{{review.rate.countLike.length}} &nbsp;</span>
+      <i class="fas fa-thumbs-down"></i><span class="numOfDislikes">{{review.rate.countDislike.length}}</span>
+    <a title="share" href="https://www.facebook.com/sharer/sharer.php?u=">
+        &nbsp;&nbsp;<i class="fab fa-facebook-square"></i>
+      </a>
     </div>
 
-    <div class="div-reviews">{{txt}}</div>
+  </div>
 
+    <div v-if="currUser._id===review.user.userId" class="flex space-end">
+      <button v-if="!isEditOpen" class="btn" @click="toggleEditReview(review)"><i class="fas fa-pencil-alt"></i></button>
+      <button v-if="isEditOpen" class="btn" @click="emitSaveReview"><i class="far fa-save"></i></button>
+      <button v-if="isEditOpen" class="btn" d @click="cancelEditReview(review)"><i class="far fa-window-close"></i></button>
+      <button @click="emitRemoveReview" class="btn"><i class="far fa-trash-alt"></i></button>
+    </div>
     <input type="text" class="div-reviews" v-if="isEditOpen" v-model="txt">
-    <div v-if="currUser._id===review.user.userId">
-      <button v-if="!isEditOpen" class="btn" @click="toggleEditReview(review)">
-        <i class="fas fa-pencil-alt"></i>
-      </button>
-      <button v-if="isEditOpen" class="btn" @click="emitSaveReview">
-        <i class="far fa-save"></i>
-      </button>
-      <button v-if="isEditOpen" class="btn" d @click="cancelEditReview(review)">
-        <i class="far fa-window-close"></i>
-      </button>
-      <button @click="emitRemoveReview" class="btn">
-        <i class="far fa-trash-alt"></i>
-      </button>
+ 
+
+
+      <div class="div-reviews">{{txt}}</div>
+    
+      
+
+    
+
+    <div class="likes-btn flex" v-if="direct === 'movie'">
+      <a title="share" href="https://www.facebook.com/sharer/sharer.php?u=">
+      <i class="fab fa-facebook-square facebook-logo"></i>
+    </a>
+      <button @click="clickedLike(review._id,currUser)"><i class="fas fa-thumbs-up"></i><span>{{review.rate.countLike.length}}</span></button>
+      <button @click="clickedDislike(review._id,currUser)"><i class="fas fa-thumbs-down"></i><span>{{review.rate.countDislike.length}}</span></button>
     </div>
+   
+    <!-- <a title="share" href="https://www.facebook.com/sharer/sharer.php?u=">
+      <i class="fab fa-facebook-square facebook-logo"></i>
+    </a> -->
+   
   </div>
 </template>
 
@@ -36,7 +54,8 @@ export default {
   name: "reviewPreview",
   props: {
     review: Object,
-    currUser: Object
+    currUser: Object,
+    direct: String
   },
   data() {
     return {
@@ -62,25 +81,61 @@ export default {
     cancelEditReview(review) {
       this.isEditOpen = !this.isEditOpen;
       this.txt = this.tempTxt;
-    }
+    },
+    clickedLike(reviewId, logedInUser) {
+      var rateDetails = {
+        reviewId: reviewId,
+        updateUser: logedInUser._id,
+        rateDitection: "like"
+      }
+      this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
+    },
+    clickedDislike(reviewId, logedInUser) {
+      var rateDetails = {
+        reviewId: reviewId,
+        updateUser: logedInUser._id,
+        rateDitection: "disLike"
+      }
+      this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
+    },
   },
   created() {}
 };
 </script>
 
 <style scoped>
-section {
+
+.review-container{
+  text-align: left;
+  color: #1a1818;
   padding: 10px;
-  float: left;
+  width: 100%;
+}
+a{
+  color: #1a1818;
+  font-size: 20px;
 }
 .div-reviews {
-  padding: 10px;
+  margin-top: 10px;
+}
+.facebook-logo{
+
+}
+.likes-btn > * {
+  padding: 5px;
+  margin: 2px;
+  color: #2d2f31;
+  border: none;
+  background-color: #dac292;
+  /* max-width: 50px; */
+  border-radius: 3px;
+}
+.likes-btn > *:hover {
+  background-color: #3481b4;
 }
 .btn {
-  height: fit-content;
   padding: 5px 8px;
   margin: 5px 5px 0 0;
-  float: right;
   background-color: #2d2f31;
   transition: 0.3s;
   color: white;
@@ -88,16 +143,20 @@ section {
   border: none;
   border-radius: 3px;
   outline: none;
-  font-family: cursive, arial, serif, sans-serif;
   transition: 0.3s;
 }
 .btn:hover {
   background-color: #3481b4;
 }
-.rate{
-    float: right;
-    display:flex;
-    padding: 5px;
-    
+.rate {
+  float: right;
+  display: flex;
+  padding: 5px;
 }
+
+ul .share-social {
+  list-style: none;
+  display: flex;
+}
+
 </style>

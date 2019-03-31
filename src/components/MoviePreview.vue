@@ -1,5 +1,6 @@
 <template>
   <section class="movie">
+    
     <div class="movie-poster">
       <img :src="movie.details.movieImg">
     </div>
