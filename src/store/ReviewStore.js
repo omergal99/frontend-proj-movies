@@ -5,27 +5,21 @@ const reviewsModule = {
     namespaced: true,
     state: {
         currReviews: [],
+        fourReviews: []
     },
 
     mutations: {
         setReviews(state, payload) {
             state.currReviews = payload.serverReviews;
-            // console.log('state.currReviews', state.currReviews)
         },
-        addReview(state, {
-            addedReview
-        }) {
+        addReview(state, { addedReview }) {
             state.currReviews.unshift(addedReview)
         },
-        updateReview(state, {
-            savedReview
-        }) {
+        updateReview(state, { savedReview }) {
             const idx = state.currReviews.findIndex(currReview => currReview.reviewId === savedReview.reviewId);
             state.currReviews.splice(idx, 1, savedReview)
         },
-        updateReviewRate(state, {
-            rateDetails
-        }) {
+        updateReviewRate(state, { rateDetails }) {
             var reviewIdx = state.currReviews.findIndex(currReview => {
                 return currReview._id === rateDetails.reviewId
             })
@@ -41,6 +35,9 @@ const reviewsModule = {
             });
             state.currReviews.splice(idx, 1);
         },
+        fourReviewsAdd(state, { reviews }) {
+            state.fourReviews.push(reviews)
+        },
     },
 
     getters: {
@@ -53,81 +50,56 @@ const reviewsModule = {
             return state.currReviews.length
         },
         numOfLikes(state) {
-            return state.currReviews.reduce((acc,rev)=>acc+rev.rate.countLike.length,0)
-                  },
+            return state.currReviews.reduce((acc, rev) => acc + rev.rate.countLike.length, 0)
+        },
 
         numOfDislikes(state) {
-            return state.currReviews.reduce((acc,rev)=>acc+rev.rate.countDislike.length,0)
+            return state.currReviews.reduce((acc, rev) => acc + rev.rate.countDislike.length, 0)
         }
 
 
     },
     actions: {
-        loadReviews(context, {
-            directAndId
-        }) {
+        loadReviews(context, { directAndId }) {
             return ReviewService.query(directAndId)
                 .then(serverReviews => {
-                    context.commit({
-                        type: 'setReviews',
-                        serverReviews
-                    })
-                })
-                // .catch(storageReviews => {
-                //     context.commit({ type: 'setMovies', serverReviews: storageReviews })
-                // })
-                .finally(() => {
-                    // console.log('FINISH ****loadReviews****');
+                    context.commit({ type: 'setReviews', serverReviews })
                 })
         },
 
+        loadFourReviews(context, { id }) {
+            var directAndId = { direct: "movie", id }
+            return ReviewService.query(directAndId)
+                .then(serverReviews => {
+                    context.commit({ type: 'fourReviewsAdd', reviews: serverReviews })
+                })
+        },
 
-        updateRate(context, {
-            rateDetails
-        }) {
+        updateRate(context, { rateDetails }) {
             return ReviewService.updateRate(rateDetails)
                 .then(() => {
-                    context.commit({
-                        type: 'updateReviewRate',
-                        rateDetails
-                    })
-
+                    context.commit({ type: 'updateReviewRate', rateDetails })
                 })
         },
 
-        addReview(context, {
-            newReview
-        }) {
+        addReview(context, { newReview }) {
             return ReviewService.add(newReview)
                 .then((addedReview) => {
-                    context.commit({
-                        type: 'addReview',
-                        addedReview
-                    })
+                    context.commit({ type: 'addReview', addedReview })
                 })
         },
 
-        updateReviewTxt(context, {
-            reviewToEdit
-        }) {
+        updateReviewTxt(context, { reviewToEdit }) {
             return ReviewService.update(reviewToEdit)
                 .then((savedReview) => {
-                    context.commit({
-                        type: ' updateReview',
-                        savedReview
-                    })
+                    context.commit({ type: ' updateReview', savedReview })
                 })
         },
 
-        removeReview(context, {
-            reviewId
-        }) {
+        removeReview(context, { reviewId }) {
             return ReviewService.remove(reviewId)
                 .then(() => {
-                    context.commit({
-                        type: 'removeReview',
-                        reviewId
-                    })
+                    context.commit({ type: 'removeReview', reviewId })
                 })
         }
 

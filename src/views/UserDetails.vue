@@ -1,51 +1,62 @@
 <template>
   <section class="user-profile container-movies flex column">
     <!-- left column with user details -->
-    <div class="user-details" v-if="viewUser">
-      <div class="user-img">
-        <img :src="viewUser.userImg">
-      </div>
-      <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
-      <button @click="$refs.fileInput.click()">Add your picture</button>
-      <!-- <button @click="onUpload">upload</button> -->
+    <!-- <div class="user-details" v-if="viewUser"> -->
+     
 
-      <div class="table-container flex full">
-        <table class="details-table">
-          <tr>
-            <td>Name</td>
-            <td>{{viewUser.name}}</td>
-          </tr>
-          <tr>
-            <td>Reviews</td>
-            <td>{{numOfReviews}}</td>
-          </tr>
-          <tr>
-            <td>Likes on reviews</td>
-            <td>{{numOfLikes}}</td>
-          </tr>
-          <tr>
-            <td>Dislikes on reviews</td>
-            <td>{{numOfDislikes}}</td>
-          </tr>
-        </table>
-      </div>
+      
+    <div class="user-container" v-if="viewUser">
 
-      <div class="btns">
-        <!-- chat with user -->
-        <div class="chat-link">
-          <user-chat/>
-        </div>
-
-        <!-- follow user -->
+      <div class="btns flex space-between">
         <div class="follow-link">
           <follow-user></follow-user>
         </div>
+        <div class="chat-link">
+          <user-chat/>
+        </div>
+      </div>
+    
+      <div class="user-img">
+        <img :src="viewUser.userImg">
+      </div>
+
+      <div>
+      <input style="display: none" type="file" @change="onfileSelected" ref="fileInput" >  
+      <button class="add-img" @click="$refs.fileInput.click()">Add your picture</button>  
+
+      </div>
+
+      
+      <!-- <button @click="onUpload">upload</button> -->
+
+
+      <div class="user-details ">
+        <h2>{{viewUser.name}}</h2>
+        <div class="user-data flex space-between ">
+          <div class="reviews flex flex-col align-center">
+            <span>{{numOfReviews}}</span>
+            <span>Reviews</span>
+          </div>
+          <div class="likes flex flex-col align-center">
+            <span>{{numOfLikes}}</span>
+            <span>Likes</span>
+          </div>
+          <div class="dislikes flex flex-col align-center">
+            <span>{{numOfDislikes}}</span>
+            <span>Dislikes</span>
+          </div>
+        </div>
+
+        <!-- <div @emitList="followedByList"></div>
+        {{followedByList}} -->
+    
+
       </div>
     </div>
 
     <!-- right column with user reviews -->
-    <div class="user-reviews full">
-      <review-list :directAndId="detailsForShowReviews"></review-list>
+    <div class="user-reviews full" >
+      <review-list  :directAndId="detailsForShowReviews"></review-list>
     </div>
   </section>
 </template>
@@ -115,8 +126,15 @@ export default {
 
     numOfDislikes() {
       return this.$store.getters["reviewsModule/numOfDislikes"];
+    },
+    followedByList(){
+      // followedByList = JSON.parse(JSON.stringify(followedByList))
+      // console.log('ev:', ev)
+      // console.log('followedByList:', this.followedByList)
+      // return followedByList;
     }
   },
+
   components: {
     ReviewList,
     UserChat,
@@ -126,28 +144,39 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.user-details {
+.user-profile{
+  color: white;
+  text-align: left;
+}
+
+.user-container {
   flex: 0 0 270px;
   margin-top: 30px;
   margin-right: 26px;
 }
+.user-img{
+  width: 150px;
+  margin: 0 auto;
+}
 .user-img img {
   border-radius: 3px;
+  // width: 150px;
+  
 }
-.details-table {
-  margin: 26px 0;
-  flex-grow: 1;
+.add-img{
+  color: white;
+  padding: 7px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  // font-family: cursive, arial, serif, sans-serif;
+  background-color: #1a1818;
+  transition: 0.3s;
+  margin-right: 3px;
+  &:hover {
+    color: #3481b4;
+  }
 }
-.details-table td {
-  border: 1px solid #c4b7a6;
-  padding: 4px 2px;
-  border-radius: 2px;
-}
-.details-table td:first-child {
-  background-color: #dac292;
-  font-weight: bold;
-}
-.details-table td:not(:first-child) {
-  background-color: #e6e2d3;
-}
+
 </style>

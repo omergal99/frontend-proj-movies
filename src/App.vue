@@ -3,7 +3,9 @@
 
     <main-bar/>
 
-    <router-view/>
+    <div class="pages">
+      <router-view/>
+    </div>
     
   </div>
 </template>
@@ -19,4 +21,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.pages{
+  padding-top: 68px;
+}
 </style>

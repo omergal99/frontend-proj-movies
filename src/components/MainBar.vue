@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <header class="header-wrap">
     <div v-if="loggedInUser" class="login-logout flex wrap space-between">
       <router-link to="/">
         <span class="logo logo1">Movies&Reviews</span>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">
         <span class="link">Home</span>
       </router-link>
@@ -42,8 +42,8 @@
       <router-link to="/movies">
         <span class="link">Movies</span>
       </router-link>
-    </div>
-  </section>
+    </div> -->
+  </header>
 </template>
 
 <script>
@@ -80,8 +80,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.header-wrap{
+  background-color: #1a1818;
+  height: fit-content;
+}
+
 .logo {
-  font-size: 2em;
+  font-size: 1.2em;
   color: #3481b4;
   // font-family: merienda,badScript, cursive, Arial, Helvetica, sans-serif, serif;
   // font-family: undeveloped, movieFilmstrip,
@@ -113,15 +118,18 @@ export default {
 }
 
 .login-logout {
-  height: fit-content;
+  position: fixed;
+    z-index: 20;
+    width: 100%;
+  // height: fit-content;
   background-color: #1a1818;
-  padding: 12px 25px 10px 25px;
+  padding: 4px 25px 0px 25px;
   .profile,
   .login,
   .logout {
     cursor: pointer;
     color: #dbd5d5;
-    font-size: 1.3em;
+    font-size: .9em;
     &:hover {
       color: #3481b4;
     }
@@ -129,6 +137,36 @@ export default {
   .logout,
   .login {
     margin-left: 25px;
+  }
+}
+
+// #nav{
+//   margin: 3px 0 15px 0;
+//   // background-color: #1a1818;
+// }
+// a{
+//   color: white;
+//   &:hover {
+//       color: #3481b4;
+//     }
+// }
+// .link{
+//   font-weight: 600;
+// }
+// .line{
+//   color: #dbd5d5;
+//   font-size: 1.3em;
+// }
+@media (min-width: 720px) {
+  .logo {
+    font-size: 2em;
+  }
+  .login-logout {
+    .profile,
+    .login,
+    .logout {
+      font-size: 1.3em;
+    }
   }
 }
 </style>
