@@ -36,24 +36,14 @@
 
         <!-- <div @emitList="followedByList"></div>
         {{followedByList}} -->
-      
-
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <label for="avatar">Choose a profile picture:</label>
-
-        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
-        <button @click="onAddImage()">submit</button>
+    
 
       </div>
     </div>
 
     <!-- right column with user reviews -->
-    <div class="user-reviews full">
-      <review-list :directAndId="detailsForShowReviews"></review-list>
+    <div class="user-reviews full" >
+      <review-list  :directAndId="detailsForShowReviews"></review-list>
     </div>
   </section>
 </template>
@@ -118,9 +108,7 @@ export default {
     }
   },
   methods: {
-    onAddImage(a){
-      console.log('hello',a)
-    }
+  
   },
   components: {
     ReviewList,
@@ -141,8 +129,14 @@ export default {
   margin-top: 30px;
   margin-right: 26px;
 }
+.user-img{
+  width: 150px;
+  margin: 0 auto;
+}
 .user-img img {
   border-radius: 3px;
+  // width: 150px;
+  
 }
 
 </style>

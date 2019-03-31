@@ -42,8 +42,9 @@ export default {
   }
 
   .movie-poster {
-    overflow: hidden;
-    margin: 0 auto;
+  
+  width:100%;
+  object-fit: cover
 
     img{
       transition: transform .4s;
