@@ -28,6 +28,19 @@
         <i class="far fa-trash-alt"></i>
       </button>
     </div>
+    <ul class="share-social">
+      <li>
+        <a title="share" href="https://www.facebook.com/sharer/sharer.php?u=">
+          <i class="fab fa-facebook-square facebook-logo"></i>
+        </a>
+      </li>
+      <!-- <li >
+                <a href="https://www.linkedin.com/in/"><i class="fab fa-linkedin linkedin-logo"></i></a>
+              </li>
+              <li>
+                <a href="https://github.com/"><i class="fab fa-github github-logo"></i></a>
+      </li>-->
+    </ul>
   </div>
 </template>
 
@@ -94,10 +107,14 @@ section {
 .btn:hover {
   background-color: #3481b4;
 }
-.rate{
-    float: right;
-    display:flex;
-    padding: 5px;
-    
+.rate {
+  float: right;
+  display: flex;
+  padding: 5px;
+}
+
+ul .share-social {
+  list-style: none;
+  display: flex;
 }
 </style>

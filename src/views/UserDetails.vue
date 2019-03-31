@@ -5,6 +5,9 @@
       <div class="user-img">
         <img :src="viewUser.userImg">
       </div>
+      <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
+      <button @click="$refs.fileInput.click()">Add your picture</button>
+      <!-- <button @click="onUpload">upload</button> -->
 
       <div class="table-container flex full">
         <table class="details-table">
@@ -52,13 +55,16 @@ import ReviewList from "./ReviewList.vue";
 import UserChat from "../components/UserChat.vue";
 import FollowUser from "./FollowUser.vue";
 
+//import userService from '../services/UserService.js'
+
 export default {
   name: "UserDetails",
   data() {
     return {
       isTellLogin: false,
       isAlreadyFollowed: false,
-      isUserChatOpen: false
+      isUserChatOpen: false,
+      selectedFile: null
     };
   },
   created() {
@@ -67,6 +73,17 @@ export default {
   },
   destroyed() {
     this.$store.commit({ type: "usersModule/cleanViewUser" });
+  },
+
+  methods: {
+    onfileSelected(event) {
+      this.selectedFile = event.target.files[0];
+       var fileAndUser={
+      selectedImg: this.selectedFile,
+      user: this.viewUser._id
+    }
+       this.$store.dispatch({ type: "usersModule/uploadImg",fileAndUser })  
+    }
   },
 
   computed: {
@@ -95,7 +112,7 @@ export default {
     numOfLikes() {
       return this.$store.getters["reviewsModule/numOfLikes"];
     },
-    
+
     numOfDislikes() {
       return this.$store.getters["reviewsModule/numOfDislikes"];
     }
