@@ -7,6 +7,7 @@ const reviewsModule = {
         currReviews: [],
         fourReviews: []
     },
+
     mutations: {
         setReviews(state, payload) {
             state.currReviews = payload.serverReviews;
@@ -29,20 +30,33 @@ const reviewsModule = {
             }
         },
         removeReview(state, { reviewId }) {
-            // console.log('heeeeer')
-            const idx = state.currReviews.findIndex(review => review.reviewId === reviewId);
+            const idx = state.currReviews.findIndex(review => {
+                return review._id === reviewId
+            });
             state.currReviews.splice(idx, 1);
         },
         fourReviewsAdd(state, { reviews }) {
             state.fourReviews.push(reviews)
         },
     },
+
     getters: {
         reviews(state) {
             return state.currReviews.sort((r1, r2) => {
                 return r2.rate.countLike.length - r1.rate.countLike.length
             })
+        },
+        numOfReviews(state) {
+            return state.currReviews.length
+        },
+        numOfLikes(state) {
+            return state.currReviews.reduce((acc, rev) => acc + rev.rate.countLike.length, 0)
+        },
+
+        numOfDislikes(state) {
+            return state.currReviews.reduce((acc, rev) => acc + rev.rate.countDislike.length, 0)
         }
+
 
     },
     actions: {
@@ -71,13 +85,11 @@ const reviewsModule = {
         addReview(context, { newReview }) {
             return ReviewService.add(newReview)
                 .then((addedReview) => {
-                    // console.log('addedReview', addedReview)
                     context.commit({ type: 'addReview', addedReview })
                 })
         },
 
         updateReviewTxt(context, { reviewToEdit }) {
-            // console.log('natliaaaaaa',reviewToEdit )
             return ReviewService.update(reviewToEdit)
                 .then((savedReview) => {
                     context.commit({ type: ' updateReview', savedReview })

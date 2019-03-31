@@ -13,7 +13,7 @@
 
         <form class="form-login flex flex-col" @submit.prevent="onLogin">
           <input required autofocus class type="text" placeholder="User name" v-model="user.name">
-          <input required class type="text" placeholder="Password" v-model="user.pass">
+          <input required class type="password" placeholder="Password" v-model="user.pass">
           <button class type="submit">Login</button>
         </form>
 
@@ -25,7 +25,7 @@
 
         <form class="form-register flex flex-col" @submit.prevent="onRegister">
           <input class type="text" required placeholder="New user name" v-model="newUser.name">
-          <input class type="text" required placeholder="Password" v-model="newUser.pass">
+          <input class type="password" required placeholder="Password" v-model="newUser.pass">
           <button class type="submit">Register</button>
         </form>
 

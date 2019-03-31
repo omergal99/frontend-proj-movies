@@ -1,32 +1,34 @@
 <template>
   <div>
+    <div class="rate" v-if="currUser._id===review.user.userId">
+      <div class="rate">
+        <i class="fas fa-thumbs-up"></i>
+        <span>{{review.rate.countLike.length}}</span>
+      </div>
+      <div>
+        <i class="fas fa-thumbs-down"></i>
+        <span>{{review.rate.countDislike.length}}</span>
+      </div>
+    </div>
+
     <div class="div-reviews">{{txt}}</div>
 
     <input type="text" class="div-reviews" v-if="isEditOpen" v-model="txt">
     <div v-if="currUser._id===review.user.userId">
-      <button v-if="!isEditOpen" 
-        class="btn" 
-        @click="toggleEditReview(review)">
+      <button v-if="!isEditOpen" class="btn" @click="toggleEditReview(review)">
         <i class="fas fa-pencil-alt"></i>
       </button>
-      <button v-if="isEditOpen" 
-        class="btn"
-        @click="emitSaveReview">
+      <button v-if="isEditOpen" class="btn" @click="emitSaveReview">
         <i class="far fa-save"></i>
       </button>
-      <button v-if="isEditOpen" 
-        class="btn"
-        @click="cancelEditReview(review)">
+      <button v-if="isEditOpen" class="btn" d @click="cancelEditReview(review)">
         <i class="far fa-window-close"></i>
       </button>
-      <button @click="emitRemoveReview"
-        class="btn">
+      <button @click="emitRemoveReview" class="btn">
         <i class="far fa-trash-alt"></i>
       </button>
     </div>
   </div>
-
-    
 </template>
 
 <script>
@@ -34,7 +36,7 @@ export default {
   name: "reviewPreview",
   props: {
     review: Object,
-   currUser: Object,
+    currUser: Object
   },
   data() {
     return {
@@ -45,11 +47,12 @@ export default {
   },
   methods: {
     emitRemoveReview() {
+      console.log("this review", this.review);
       this.$emit("onRemoveReview", this.review);
     },
-    emitSaveReview(){
+    emitSaveReview() {
       this.isEditOpen = !this.isEditOpen;
-      this.review.content.txt=this.txt
+      this.review.content.txt = this.txt;
       this.$emit("onEditReview", this.review);
     },
     toggleEditReview(currReview) {
@@ -61,22 +64,19 @@ export default {
       this.txt = this.tempTxt;
     }
   },
-  created(){
-  }
-  
+  created() {}
 };
 </script>
 
 <style scoped>
-
-section{
+section {
   padding: 10px;
   float: left;
 }
-.div-reviews{
+.div-reviews {
   padding: 10px;
 }
-.btn{
+.btn {
   height: fit-content;
   padding: 5px 8px;
   margin: 5px 5px 0 0;
@@ -93,5 +93,11 @@ section{
 }
 .btn:hover {
   background-color: #3481b4;
+}
+.rate{
+    float: right;
+    display:flex;
+    padding: 5px;
+    
 }
 </style>
