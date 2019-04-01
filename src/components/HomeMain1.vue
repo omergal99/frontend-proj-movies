@@ -17,8 +17,8 @@
           <div class="users">
             <li
               class="flex space-between align-center"
-              v-for="(review,idx2) in reviews[idx]"
-              :key="idx2"
+              v-for="(review,idx) in showReviews(movie._id)"
+              :key="idx"
             >
               <div class="user-img-wrap">
                 <img @click="userLink(review.user.userId)" :src="review.user.userImg">
@@ -79,12 +79,29 @@ export default {
           this.$store.dispatch({ type: "reviewsModule/loadFourReviews", id: movie._id });
         })
       }
+
       return this.$store.state.reviewsModule.fourReviews;
-      // TODO: getters after data will have more then 1 review!!
       // return this.$store.getters['reviewsModule/fourReviews'];
     }
   },
   methods: {
+    showReviews(movieId) {
+      var toSend = [];
+      this.reviews.forEach(reviewsForMovie => {
+        if (reviewsForMovie[0].movie.movieId === movieId) {
+          toSend = reviewsForMovie;
+        }
+      })
+      toSend.sort((r1, r2) => {
+        return r2.rate.countLike.length - r1.rate.countLike.length
+      })
+      return toSend.slice(0,2);
+
+      // var toSendSorted = toSend.sort((r1, r2) => {
+      //   return r2.rate.countLike.length - r1.rate.countLike.length
+      // })
+      // return toSendSorted.slice(0,2);
+    },
     limitWords(str) {
       return str.substring(0, 45) + '...';
     },

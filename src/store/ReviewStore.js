@@ -55,9 +55,16 @@ const reviewsModule = {
 
         numOfDislikes(state) {
             return state.currReviews.reduce((acc, rev) => acc + rev.rate.countDislike.length, 0)
+        },
+        fourReviews(state){
+            if(state.fourReviews){
+                return state.fourReviews.forEach(reviewsOfOneMovie=>{
+                    reviewsOfOneMovie.sort((r1, r2) => {
+                        return r2.rate.countLike.length - r1.rate.countLike.length
+                    })
+                })
+            }
         }
-
-
     },
     actions: {
         loadReviews(context, { directAndId }) {
