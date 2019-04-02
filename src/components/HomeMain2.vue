@@ -1,54 +1,42 @@
 <template>
   <main>
     <div class="movies-container">
-      <ul class="movie-list" v-if="fourMovies.length">
-        <li v-for="(movie,idx) in fourMovies" :key="idx">
+      <ul class="movie-list" v-if="fourUsers.length">
+        <li v-for="(user,idx) in fourUsers" :key="idx">
+
           <div class="poster">
-            <router-link :to="'/movies/details/' + movie._id">
-              <img :src="movie.details.movieImg">
+            <router-link :to="'/user/details/' + user._id">
+              <img :src="user.userImg">
             </router-link>
           </div>
 
           <div class="details flex space-even">
-            <label>Rank ({{arrayAvg(movie.rank)}})</label>
+            <!-- <label>Rank ({{arrayAvg(movie.rank)}}<i class="fas fa-star"></i>)</label> -->
             <label>Views (74,841)</label>
           </div>
 
-          <div class="users">
-            <li
-              class="flex space-between align-center"
-              v-for="(review,idx2) in reviews[idx]"
-              :key="idx2"
-            >
+          <!-- <div class="users">
+            <li class="flex space-between align-center"
+              v-for="(review,idx) in showReviews(movie._id)" :key="idx">
               <div class="user-img-wrap">
                 <img @click="userLink(review.user.userId)" :src="review.user.userImg">
               </div>
               <p class="text">
                 {{limitWords(review.content.txt)}}
-                <span
-                  @click="userLink(review.user.userId)"
-                >Read more</span>
+                <span @click="userLink(review.user.userId)">Read more</span>
               </p>
               <p class="likes">LIKES ({{review.rate.countLike.length}})</p>
             </li>
-          </div>
+          </div> -->
         </li>
       </ul>
       <div class="galery-link">
         <router-link to="/movies">
-          <label>See all Movies</label>
+          <label>See 10 Top Users</label>
         </router-link>
       </div>
     </div>
 
-    <ul class="feature-list-grid">
-      <li class="flex" v-for="(feature,idx) in features" :key="idx">
-        <span class="icon">
-          <img src="../assets/img/icons/new.png">
-        </span>
-        <p>{{feature}}</p>
-      </li>
-    </ul>
   </main>
 </template>
 
@@ -58,33 +46,36 @@ export default {
   name: "main1",
   data() {
     return {
-      features: ['Show some love for your friends and other members to read theirs favorite filmsShow some love for your favorite films, lists and reviews with a “like”',
-        'Write and share reviews, and follow friends and other members to read theirs',
-        'Rate each film on a five-star scale (with halves) to record and share your reaction',
-        'Compile and share lists of films on any topic and keep a watchlist of films to see'],
-    };
+    }
   },
   created() {
-    if (!this.$store.state.moviesModule.movies.length) {
-      this.$store.dispatch({ type: 'moviesModule/loadMovies' });
+    if (!this.$store.state.usersModule.users.length) {
+      this.$store.dispatch({ type: 'usersModule/loadUsers' });
     }
   },
   computed: {
-    fourMovies() {
-      return this.$store.getters['moviesModule/fourMovies'];
+    fourUsers() {
+      return this.$store.getters['usersModule/fourUsers'];
     },
-    reviews() {
-      if (!this.$store.state.reviewsModule.fourReviews.length) {
-        this.fourMovies.forEach(movie => {
-          this.$store.dispatch({ type: "reviewsModule/loadFourReviews", id: movie._id });
-        })
-      }
-      return this.$store.state.reviewsModule.fourReviews;
-      // TODO: getters after data will have more then 1 review!!
-      // return this.$store.getters['reviewsModule/fourReviews'];
-    }
+    // reviews() {
+    //   if (!this.$store.state.reviewsModule.fourReviews.length) {
+    //     this.fourMovies.forEach(movie => {
+    //       this.$store.dispatch({ type: "reviewsModule/loadFourReviews", id: movie._id });
+    //     })
+    //   }
+    //   return this.$store.state.reviewsModule.fourReviews;
+    // }
   },
   methods: {
+    showReviews(movieId) {
+      var toSend = [];
+      this.reviews.forEach(reviewsForMovie => {
+        if (reviewsForMovie[0].movie.movieId === movieId) {
+          toSend = reviewsForMovie;
+        }
+      })
+      return toSend;
+    },
     limitWords(str) {
       return str.substring(0, 45) + '...';
     },
@@ -233,17 +224,4 @@ main {
   }
 }
 
-.icon {
-  position: relative;
-  float: left;
-  width: 52px;
-  height: 40px;
-  margin: 0;
-  top: 5px;
-  left: -8px;
-  // background-image: url(../assets/img/icons/white-star2.png);
-  // background-repeat: no-repeat;
-  // background-position: -53px -8px;
-  flex: 0 0 58px;
-}
 </style>

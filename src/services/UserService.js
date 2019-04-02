@@ -14,10 +14,18 @@ export default {
     getLoggedInUser,
     logout,
     uploadImg,
-    USER_STORAGE
+    USER_STORAGE,
+    query
 }
 
 const USER_STORAGE = 'user connected';
+
+function query(filterBy) {
+    var queryStr = '';
+    return HttpService.get(`${USER_URL}${queryStr}`)
+        .then(resolveData)
+        .catch((err) => err)
+}
 
 function getLoggedInUser() {
     return JSON.parse(localStorage.getItem(USER_STORAGE));

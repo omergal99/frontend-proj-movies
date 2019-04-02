@@ -58,7 +58,7 @@ export default {
 
 <style scoped lang="scss">
 .movie-posters-container {
-  padding-top: 150px;
+  padding-top: 168px;
   flex-direction: column;
 }
 

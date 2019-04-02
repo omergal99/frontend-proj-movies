@@ -17,12 +17,12 @@ const moviesModule = {
         }) {
             state.currMovie = currMovie;
         },
-        updateMovieRate(state, {rateDetails}) {
+        updateMovieRate(state, { rateDetails }) {
             var movieIdx = state.movies.findIndex(movie => {
                 return movie._id === rateDetails.movieId
             })
             state.movies[movieIdx].rank.push(rateDetails.rate)
-            state.movies[movieIdx].avgRank=((state.movies[movieIdx].rank.reduce((acc, rank) => acc + rank, 0))/ state.movies[movieIdx].rank.length).toFixed(1)
+            state.movies[movieIdx].avgRank = ((state.movies[movieIdx].rank.reduce((acc, rank) => acc + rank, 0)) / state.movies[movieIdx].rank.length).toFixed(1)
         },
     },
     getters: {
@@ -30,7 +30,7 @@ const moviesModule = {
             var movies = state.movies.sort((m1, m2) => {
                 return m2.details.year - m1.details.year;
             })
-            return movies.splice(0,4);
+            return movies.splice(0, 4);
         }
     },
     // cartTotal(state) {
@@ -38,15 +38,10 @@ const moviesModule = {
     // },
 
     actions: {
-        loadMovies(context, {
-            filter
-        }) {
+        loadMovies(context, { filter }) {
             return MovieService.query(filter)
                 .then(serverMovies => {
-                    context.commit({
-                        type: 'setMovies',
-                        serverMovies
-                    })
+                    context.commit({ type: 'setMovies', serverMovies })
                 })
                 // .catch(storageMovies => {
                 //     context.commit({ type: 'setMovies', serverMovies: storageMovies })
@@ -55,29 +50,18 @@ const moviesModule = {
                     console.log('FINISH ****loadMovies****');
                 })
         },
-        loadMovie(context, {
-            movieId
-        }) {
+        loadMovie(context, { movieId }) {
             return MovieService.getById(movieId)
                 .then(serverMovie => {
-                    context.commit({
-                        type: 'setMovie',
-                        currMovie: serverMovie
-                    })
+                    context.commit({ type: 'setMovie', currMovie: serverMovie })
                 })
         },
 
-        updateStarRate(context, {
-            rateDetails
-        }) {
+        updateStarRate(context, { rateDetails }) {
             return MovieService.updateRate(rateDetails)
                 .then(() => {
                     console.log('heeer')
-                    context.commit({
-                        type: 'updateMovieRate',
-                        rateDetails
-                    })
-
+                    context.commit({ type: 'updateMovieRate', rateDetails })
                 })
         }
 
