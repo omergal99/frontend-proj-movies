@@ -24,6 +24,7 @@
 
         <label>Rate the movie:</label>
         <StarRating :show-rating="false" v-model="selectedRate" :increment="0.5" :star-size="30"></StarRating>
+      
       </div>
     </div>
 
@@ -75,7 +76,7 @@ export default {
         movieId: this.currMovie._id,
         rate: this.selectedRate
       }
-      console.log('jopa', rateDetails)
+     
       this.$store.dispatch({ type: "moviesModule/updateStarRate", rateDetails })
     }
   },

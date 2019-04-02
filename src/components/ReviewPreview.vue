@@ -11,7 +11,11 @@
     <div class="likes flex" v-if="direct === 'user'">
       <i class="fas fa-thumbs-up"></i><span class="numOfLikes">{{review.rate.countLike.length}} &nbsp;</span>
       <i class="fas fa-thumbs-down"></i><span class="numOfDislikes">{{review.rate.countDislike.length}}</span>
+    <a title="share" href="https://www.facebook.com/sharer/sharer.php?u=">
+        &nbsp;&nbsp;<i class="fab fa-facebook-square"></i>
+      </a>
     </div>
+
   </div>
 
     <div v-if="currUser._id===review.user.userId" class="flex space-end">
@@ -34,11 +38,17 @@
       
       
     <div class="likes-btn flex" v-if="direct === 'movie'">
+      <a title="share" href="https://www.facebook.com/sharer/sharer.php?u=">
+      <i class="fab fa-facebook-square facebook-logo"></i>
+    </a>
       <button @click="clickedLike(review._id,currUser)"><i class="fas fa-thumbs-up"></i><span>{{review.rate.countLike.length}}</span></button>
       <button @click="clickedDislike(review._id,currUser)"><i class="fas fa-thumbs-down"></i><span>{{review.rate.countDislike.length}}</span></button>
     </div>
-
-     
+   
+    <!-- <a title="share" href="https://www.facebook.com/sharer/sharer.php?u=">
+      <i class="fab fa-facebook-square facebook-logo"></i>
+    </a> -->
+   
   </div>
 </template>
 
@@ -127,9 +137,6 @@ a{
   color: #1a1818;
   font-size: 20px;
 }
-.div-reviews {
- 
-}
 .full-review{
   margin: 10px 0;
   /* font-weight: 500; */
@@ -139,6 +146,7 @@ a{
 .full-review:hover{
   color: #3481b4;
 }
+
 .likes-btn > * {
   width: 50px;
   padding: 5px;
@@ -168,11 +176,15 @@ a{
 .btn:hover {
   background-color: #3481b4;
 }
-.rate{
-    float: right;
-    display:flex;
-    padding: 5px;
-    
+.rate {
+  float: right;
+  display: flex;
+  padding: 5px;
+}
+
+ul .share-social {
+  list-style: none;
+  display: flex;
 }
 
 </style>

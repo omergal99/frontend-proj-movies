@@ -10,6 +10,7 @@ const msgs = [];
 var nickName = 'Check123';
 
 function init(topic, user){
+	// alert(user + 'on init')
 	socket.emit('roomRequested', {user, topic});
 
 	socket.on('userConnected', user => {
@@ -17,6 +18,7 @@ function init(topic, user){
 	});
 
 	socket.on('msg-recived', msg => {
+		// alert('GOT NEW MSG')
 		// console.log('Got new msg', msg);
 		msgs.push(msg);
 	});

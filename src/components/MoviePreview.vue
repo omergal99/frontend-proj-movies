@@ -1,7 +1,7 @@
 <template>
   <section class="movie">
     <div class="movie-poster">
-      <img class="movie-poster-img-animate" :src="movie.details.movieImg">
+      <img :src="movie.details.movieImg">
     </div>
     <div class="movie-details">
       <div class="movie-name">{{movie.details.name}}</div>
@@ -46,13 +46,11 @@ export default {
 .movie-poster {
   width: 100%;
   object-fit: cover;
-  // .movie-poster-img-animate {
-  //   transition: transform 0.4s;
-  //   width: 100%;
-  //   height: 100%;
-  //   object-fit: cover;
-  // }
+  img {
+    transition: transform 0.4s;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
-
-
 </style>

@@ -1,6 +1,8 @@
 <template>
   <section class="user-profile container-movies flex">
     <!-- left column with user details -->
+    <!-- <div class="user-details" v-if="viewUser"> -->
+
     <div class="user-container" v-if="viewUser">
       <div class="btns flex space-between">
         <div class="follow-link">
@@ -17,27 +19,33 @@
         <img :src="viewUser.userImg">
       </div>
 
-      <div class="user-details">
-        <h2>{{viewUser.name}}</h2>
-        <div class="user-data flex space-between">
-          <div class="reviews flex flex-col align-center">
-            <span>{{numOfReviews}}</span>
-            <span>Reviews</span>
+      <div v-if="currUser._id===viewUser._id">
+        <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
+        <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
+      </div>
+
+        <!-- <button @click="onUpload">upload</button> -->
+        <div class="user-details">
+          <h2>{{viewUser.name}}</h2>
+          <div class="user-data flex space-between">
+            <div class="reviews flex flex-col align-center">
+              <span>{{numOfReviews}}</span>
+              <span>Reviews</span>
+            </div>
+            <div class="likes flex flex-col align-center">
+              <span>{{numOfLikes}}</span>
+              <span>Likes</span>
+            </div>
+            <div class="dislikes flex flex-col align-center">
+              <span>{{numOfDislikes}}</span>
+              <span>Dislikes</span>
+            </div>
           </div>
-          <div class="likes flex flex-col align-center">
-            <span>{{numOfLikes}}</span>
-            <span>Likes</span>
-          </div>
-          <div class="dislikes flex flex-col align-center">
-            <span>{{numOfDislikes}}</span>
-            <span>Dislikes</span>
-          </div>
+
+          {{ viewUser.name}} is followed by: 
+          <div v-if="followedByList" v-for="user in followedByList" :key="user._id">{{user}}</div>
         </div>
 
-        {{ viewUser.name}} is followed by: 
-        <div v-if="followedByList" v-for="user in followedByList" :key="user._id">{{user}}</div>
-       
-      </div>
     </div>
 
     <!-- right column with user reviews -->
@@ -59,21 +67,51 @@ export default {
       followedByList: null,
       isTellLogin: false,
       isAlreadyFollowed: false,
-      isUserChatOpen: false
+      isUserChatOpen: false,
+      selectedFile: null
     };
   },
   created() {
-    const userId = this.$route.params.userId;
-    this.$store.dispatch({ type: "usersModule/loadViewUser", userId });
+    this.loadUser();
   },
   destroyed() {
     this.$store.commit({ type: "usersModule/cleanViewUser" });
+  },
+
+  methods: {
+    onfileSelected(event) {
+      this.selectedFile = event.target.files[0];
+      var fileAndUser = {
+        selectedImg: this.selectedFile,
+        user: this.viewUser._id
+      };
+      this.$store.dispatch({ type: "usersModule/uploadImg", fileAndUser });
+    },
+
+    loadUser() {
+      var userId = this.$route.params.userId;
+      this.$store.dispatch({ type: "usersModule/loadViewUser", userId });
+    },
+    updateFollowList(list) {
+      this.followedByList = list;
+     
+    }
+  },
+  watch: {
+    userId: function() {
+      this.loadUser();
+    }
   },
 
   computed: {
     viewUser() {
       return this.$store.state.usersModule.viewUser;
     },
+
+    userId() {
+      return this.$route.params.userId;
+    },
+
     detailsForShowReviews() {
       if (this.viewUser) {
         var directAndId = {
@@ -101,12 +139,7 @@ export default {
       return this.$store.getters["reviewsModule/numOfDislikes"];
     },
   },
-  methods: {
-    updateFollowList(list) {
-      this.followedByList = list;
-     
-    }
-  },
+  
   components: {
     ReviewList,
     UserChat,
@@ -138,6 +171,21 @@ export default {
 @media (max-width: 720px) {
   .user-profile{
     flex-direction: column;
+  .add-img {
+    color: white;
+    padding: 7px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    // font-family: cursive, arial, serif, sans-serif;
+    background-color: #1a1818;
+    transition: 0.3s;
+    margin-right: 3px;
+    &:hover {
+      color: #3481b4;
+      }
+    }
   }
 }
 </style>

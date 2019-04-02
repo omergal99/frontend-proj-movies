@@ -46,6 +46,6 @@ export default new Router({
       name: 'UserDetails',
       component: UserDetails
      
-    }
+    }    
   ]
 })

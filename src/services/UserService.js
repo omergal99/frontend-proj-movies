@@ -1,7 +1,8 @@
 import HttpService from './HttpService';
-
+import socketService from '../services/SocketService'
 const USER_URL = HttpService.getUrl('user');
-
+const UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dwlinsb9c/image/upload'
+var UPLOAD_PRESET = 'ults0zzo'
 const resolveData = res => res.data;
 
 export default {
@@ -12,6 +13,7 @@ export default {
     addFollowUser,
     getLoggedInUser,
     logout,
+    uploadImg,
     USER_STORAGE
 }
 
@@ -28,6 +30,8 @@ function getById(userId) {
 }
 
 function logout() {
+    // alert('logging out')
+    socketService.disconnect()
     return HttpService.get(`${USER_URL}/logout`)
         .then(res => {
             console.log('Loged out success');
@@ -47,6 +51,8 @@ function singup(newUser) {
 }
 
 function login(userNamePass) {
+    // alert('logging IN')
+    socketService.disconnect()
     var prmAnsRes = HttpService.put(`${USER_URL}/login`, userNamePass)
     var prmAns = prmAnsRes.then(res => {
         if (res.data) {
@@ -67,11 +73,36 @@ function addFollowUser(users) {
     return HttpService.put(`${USER_URL}/details/${userId}`, users)
 }
 
+function uploadImg(fileAndUser ) {
+    //console.log('testing!!!')
+    // var UPLOAD_PRESET = 'ults0zzo'
+    var formData = new FormData();
+    formData.append('file',fileAndUser.selectedImg)
+    formData.append('upload_preset', UPLOAD_PRESET)
+    var headers = { 'Content-Type': 'application/x-www-form-urlencoded'}
+    var axios = HttpService.getNoCredAxios()
+    return axios.post(UPLOAD_URL, formData,{ headers})
+     .then(res=> {
+        var imgUrl=res.data.secure_url
+        //console.log('imgUrl',imgUrl)
+        var userAndImg={
+            userId:fileAndUser.user,
+            img:imgUrl
+        }
+        console.log("front",userAndImg)
+        return HttpService.put(`${USER_URL}/${userAndImg.userId}`, userAndImg)
+    })
+    .catch ((err)=>console.log(err))
+
+}
+
+
+
 function getGuestUser() {
     return {
         name: 'Guest',
         email: '',
-        userId: '',
+        _id: '',
         userImg: '',
         dateCreated: 0,
         rating: 0,

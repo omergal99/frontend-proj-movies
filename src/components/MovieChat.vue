@@ -44,16 +44,21 @@ export default {
       nickName: 'omererrerer123124124523',
     };
   },
+   mounted() {
+    // const movieId = this.$route.params.movieId;
+    // var user = (this.currUser) ? this.currUser.name : 'Guest';
+    // SocketRoomService.init(movieId, user);
+  },
   created() {
     this.newMsg = SocketRoomService.createEmptyMsg();
-    this.newMsg.from = (this.currUser) ? this.currUser.name : 'Guest-3';
+    this.newMsg.from = (this.currUser) && this.currUser.name !==' Guest'
+    ? this.currUser.name : 'Guest-' + Math.floor(Math.random()*10);
 
-    this.msgs = SocketRoomService.getMsgs();
+    this.msgs = SocketRoomService.getMsgs();// 
 
     const movieId = this.$route.params.movieId;
-    var user = (this.newMsg.from) ? this.newMsg.from : 'Guest';
+    var user = (this.currUser) ? this.currUser.name : 'Guest';
     SocketRoomService.init(movieId, user);
-
     SocketRoomService.on('userConnected', (user) => {
       this.showInfoMsg(`${user} Just joined the room`)
     })
@@ -67,6 +72,13 @@ export default {
       return this.$store.state.moviesModule.currMovie;
     },
   },
+  // watch: {
+  //   'currUser.name': function(curr,prev) {
+  //     console.log('prev',prev)
+  //     console.log('curr',curr)
+  //     alert('user CHANGED')
+  //   }
+  // },
   methods: {
     send() {
       // SocketRoomService.emit('post-msg', this.newMsg);
@@ -90,6 +102,7 @@ export default {
       return (msg.from !== this.nickName) ? 'received' : 'sent';
     },
   },
+
 }
 </script>
 

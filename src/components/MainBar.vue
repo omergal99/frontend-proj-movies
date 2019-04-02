@@ -20,7 +20,7 @@
         <span class="profile" v-if="!loggedInUser._id">Hello Guest</span>
 
         <router-link to="/login">
-          <span class="login" v-if="!loggedInUser._id">Login</span>
+          <span class="login" v-if="!loggedInUser._id" >Login</span>
         </router-link>
 
         <!-- SOMEONE LOGIN -->
@@ -48,11 +48,14 @@
 
 <script>
 import UserService from "../services/UserService.js";
+import SocketService from '../services/SocketService.js';
+
 
 export default {
   name: "mainBar",
   mounted() {
-    if (!this.$store.state.usersModule.currUser) {
+    if (!this.$store.state.usersModule.currUser && !UserService.getLoggedInUser()) {
+    console.log('3333333333333333333')
       var guestUser = UserService.getGuestUser();
       this.$store.dispatch({ type: "usersModule/loadUser", user: guestUser });
     }
@@ -60,7 +63,8 @@ export default {
   created() {
     var isUserInStrg = UserService.getLoggedInUser();
     if (isUserInStrg) {
-      this.$store.dispatch({ type: "usersModule/loadUser", user: isUserInStrg });
+    console.log('2222222222222')
+    this.$store.dispatch({ type: "usersModule/loadUser", user: isUserInStrg });
     }
   },
   computed: {
