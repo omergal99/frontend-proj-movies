@@ -9,8 +9,6 @@
     </div>
 
     <div v-if="isAlreadyFollowed">You already follow this user</div>
-    
-    <!-- <div v-if="isFollowed" >The user is followed by {{followedByList}}</div> -->
 
   </section>
 </template>
@@ -26,11 +24,8 @@ export default {
   },
   created() {
     if(this.viewUser){
-      var viewUserFollowedBy = JSON.parse(JSON.stringify(this.viewUser.follow.followedBy))
-      if(viewUserFollowedBy.length > 0) {
-        console.log('this.followedByList',this.followedByList)
-        this.$emit('emitList', this.followedByList)
-      }
+      this.$emit('viewUserFollowedBy', this.viewUserFollowedBy)  // following
+      this.$emit('viewUserFollowAfter', this.viewUserFollowAfter)  // followers
     }
   },
   computed: {
@@ -47,24 +42,12 @@ export default {
             return true
         }
     },
-    // isFollowed() {
-    //     if(this.viewUser){
-    //         var viewUserFollowedBy = JSON.parse(JSON.stringify(this.viewUser.follow.followedBy))
-    //         if(viewUserFollowedBy.length > 0) {
-    //           console.log('this.followedByList',this.followedByList)
-    //           this.$emit('emitList', this.followedByList)
-    //             return true
-    //         }
-    //         return false
-    //     }
-    // },
     followedByList(){
         return this.viewUser.follow.followedBy
     },
-    // followedByList() {
-    //   console.log('viewUser', this.viewUser.follow)
-    //   return this.viewUser.follow.followedBy
-    // }
+    viewUserFollowedBy(){
+      return this.viewUser.follow.followedBy;
+    }
   },
   methods: {
     onFollowUser() {

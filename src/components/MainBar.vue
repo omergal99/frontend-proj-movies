@@ -63,7 +63,7 @@ export default {
   created() {
     var isUserInStrg = UserService.getLoggedInUser();
     if (isUserInStrg) {
-    console.log('2222222222222')
+    // console.log('2222222222222')
     this.$store.dispatch({ type: "usersModule/loadUser", user: isUserInStrg });
     }
   },

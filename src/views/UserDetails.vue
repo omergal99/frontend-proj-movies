@@ -1,7 +1,6 @@
 <template>
   <section class="user-profile container-movies">
-    <!-- left column with user details -->
-    <!-- <div class="user-details" v-if="viewUser"> -->
+    <!-- USER DETAILS -->
 
     <div class="user-container flex" v-if="viewUser">
       <div class="user">
@@ -12,13 +11,14 @@
         </div>
       </div>
 
+      <!-- change image button -->
       <div v-if="currUser._id===viewUser._id">
         <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
         <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
       </div>
 
       <div class="details-container flex flex-col">
-        <!-- <button @click="onUpload">upload</button> -->
+        <!-- number of reviews/likes/dislikes/following/followers -->
         <div class="user-data flex space-between">
           <div class="reviews flex flex-col align-center">
             <span>{{numOfReviews}}</span>
@@ -33,26 +33,26 @@
             <span>Dislikes</span>
           </div>
           <div class="followers flex flex-col align-center">
-            <!-- <span :v-if="followedByList" v-for="user in followedByList" :key="user._id">{{user}}</span> -->
-            <!-- TO FIX!!!!!!!!!!!!!!!!!! -->
-            <span :v-if="followedByList">0</span>
+            <span v-if="followers">{{followers}}</span>
+            <span v-else>0</span>
             <span>Followers</span>
           </div>
           <div class="following flex flex-col align-center">
-            <!-- TO FIX!!!!!!!!!!!!!!!!!! -->
-            <span>1</span>
+            <span v-if="following">{{following}}</span>
+            <span v-else>0</span>
             <span>Following</span>
           </div>
         </div>
 
+        <!-- chat and follow button -->
         <div class="flex space-between">
           <user-chat/>
-          <follow-user @emitList="updateFollowList"></follow-user>
+          <follow-user @viewUserFollowedBy="viewUserFollowedBy" @viewUserFollowAfter="viewUserFollowAfter"></follow-user>
         </div>
       </div>
     </div>
 
-    <!-- right column with user reviews -->
+    <!--  user reviews -->
     <div class="user-reviews full">
       <review-list :directAndId="detailsForShowReviews"></review-list>
     </div>
@@ -68,7 +68,8 @@ export default {
   name: "UserDetails",
   data() {
     return {
-      followedByList: null,
+      followers: null,    
+      following: null,
       isTellLogin: false,
       isAlreadyFollowed: false,
       isUserChatOpen: false,
@@ -96,9 +97,13 @@ export default {
       var userId = this.$route.params.userId;
       this.$store.dispatch({ type: "usersModule/loadViewUser", userId });
     },
-    updateFollowList(list) {
-      this.followedByList = list;
-
+    viewUserFollowedBy(list) {
+      if( !list ) return
+      this.following = list.length;
+    },
+    viewUserFollowAfter(list) {
+      if( !list ) return
+      this.followers = list.length;
     }
   },
   watch: {
@@ -106,7 +111,6 @@ export default {
       this.loadUser();
     }
   },
-
   computed: {
     viewUser() {
       return this.$store.state.usersModule.viewUser;
@@ -127,6 +131,7 @@ export default {
         return { err: "problem in UserDetails page" };
       }
     },
+
     currUser() {
       return this.$store.state.usersModule.currUser;
     },

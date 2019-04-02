@@ -9,14 +9,14 @@ const usersModule = {
     },
     mutations: {
         setCurrUser(state, payload) {
-            console.log('olderrrrrrrrrr login', state.currUser)
+            // console.log('olderrrrrrrrrr login', state.currUser)
             state.currUser = payload.user;
-            console.log('newwwwwwwwwwww login', state.currUser)
+            // console.log('newwwwwwwwwwww login', state.currUser)
         },
         cleanCurrUser(state, payload) {
-            console.log('olderrrrrrrrrr', state.currUser)
+            // console.log('olderrrrrrrrrr', state.currUser)
             state.currUser = payload.guest;
-            console.log('newwwwwwwwwwww', state.currUser)
+            // console.log('newwwwwwwwwwww', state.currUser)
         },
         setViewUser(state, payload) {
             // console.log('payload.user',payload.user)
