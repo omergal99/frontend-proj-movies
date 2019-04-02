@@ -116,9 +116,9 @@ export default {
   z-index: 15;
   background-color: #323251;
 }
-.chat-user-container {
-  padding: 10px;
-}
+// .chat-user-container {
+//   // padding: 10px;
+// }
 
 .btn-chat {
   color: white;
@@ -182,7 +182,7 @@ export default {
       color: #f7f7f7;
       top: 2px;
       position: relative;
-      margin: auto;
+      margin: auto 0;
     }
     button {
       cursor: pointer;

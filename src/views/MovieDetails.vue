@@ -6,32 +6,32 @@
       </div>
       <!-- <div class="movie-table"> -->
       <div class="movie-info">
-        <h1>{{currMovie.details.name}}</h1>
+        <div class="flex wrap space-between">
 
-        <p>{{currMovie.details.year}}'s movie, directed by 
+          <h1>{{currMovie.details.name}} ({{currMovie.details.year}})</h1>
+          <!-- CHAT IN CURRENT MOVIE -->
+          <movie-chat/>
+        </div>
+
+        <label>Rate the movie:</label>
+        <StarRating :show-rating="false" v-model="selectedRate" :increment="0.5" :star-size="30"></StarRating>
+        
+        <p><span style="text-decoration: underline;">Directed by:</span>&nbsp;
 
           <span v-for="director in currMovie.details.director" :key="director._id">{{director}}
             <span v-if="director !== currMovie.details.director[currMovie.details.director.length-1]">,</span>
-          </span>, starred by
+          </span><br/><span style="text-decoration: underline;">Starred by:</span>&nbsp;
           <span v-for="actor in currMovie.details.actors" :key="actor._id"> {{actor}}
             <span v-show="actor !== currMovie.details.actors[currMovie.details.actors.length-1]">,</span>
           </span>
 
         </p>
-        <p>
-          {{currMovie.details.description}}
-        </p>
-
-        <label>Rate the movie:</label>
-        <StarRating :show-rating="false" v-model="selectedRate" :increment="0.5" :star-size="30"></StarRating>
-      
+        <p>{{currMovie.details.description}}</p>
       </div>
     </div>
 
-    <!-- CHAT IN CURRENT MOVIE -->
-    <movie-chat/>
-
     <review-list :directAndId="detailsForShowReviews"></review-list>
+
   </section>
 </template>
 
@@ -89,7 +89,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+h1{
+  margin-top: 0;    margin-bottom: 10px;
+}
 .movie-info{
   text-align: left;
   color: white;
@@ -98,17 +101,17 @@ export default {
 
 .movie-details {
   width: fit-content;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 30px;
+  margin-bottom: 0px;
 }
 .movie-img img {
-  width: 250px;
+  width: 190px;
   border-radius: 4px;
   margin-right: 26px;
 }
 label{
   display: block;
-  margin-top: 25px;
+  margin-top: 0px;
   font-size: 19px;
 }
 

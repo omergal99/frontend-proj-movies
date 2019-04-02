@@ -12,7 +12,7 @@
     
     <!-- <div v-if="isFollowed" >The user is followed by {{followedByList}}</div> -->
 
-    </section>
+  </section>
 </template>
 
 <script>
@@ -124,14 +124,15 @@ section{
   color: white;
   padding: 7px;
   cursor: pointer;
-  border: none;
+  border: 1px solid white;
   border-radius: 3px;
   outline: none;
-  background-color: #1a1818;
+  background-color: #1a181800;
   transition: 0.3s;
   margin-right: 3px;
   &:hover {
     color: #3481b4;
+    background-color: #1a1818;
   }
 }
 </style>
