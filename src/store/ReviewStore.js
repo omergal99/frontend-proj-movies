@@ -99,6 +99,18 @@ const reviewsModule = {
                     context.commit({ type: 'addReview', addedReview })
                 })
         },
+        // addReview(context, { newReview }) {
+        //     context.commit({ type: 'addReview', addedReview })
+        //     ReviewService.add(newReview)
+        //     .then((addedReview) => {
+        //         console.log('okkkk',addedReview);
+        //     })
+        //     .catch((err)=>{
+        //         console.log('problem',err);
+        //         context.commit({ type: 'deleteRecent', addedReview })
+        //     })
+        //     return newReview;
+        // },
 
         updateReviewTxt(context, { reviewToEdit }) {
             return ReviewService.update(reviewToEdit)
