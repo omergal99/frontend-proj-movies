@@ -24,7 +24,6 @@
 
         <label>Rate the movie:</label>
         <StarRating :show-rating="false" v-model="selectedRate" :increment="0.5" :star-size="30"></StarRating>
-        {{selectedRate}}
       </div>
     </div>
 
@@ -110,6 +109,15 @@ label{
   display: block;
   margin-top: 25px;
   font-size: 19px;
+}
+
+@media (max-width: 720px) {
+  .movie-details{
+    flex-direction: column;
+  }
+  .movie-img img {
+    margin: 0;
+  }
 }
 
 </style>

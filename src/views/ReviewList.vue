@@ -1,6 +1,6 @@
 <template>
   <section class="list-section">
-    <!-- add review button -->
+    <!-- add-review button -->
     <div class="new-review" v-if="directAndId.direct === 'movie'">
       <button class="btn-add-review" @click="toggleOpenNewReview">Add Your Review</button>
       <div v-if="isAddOpen">

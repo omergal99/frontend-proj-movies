@@ -24,19 +24,21 @@
  
 
 
-      <div class="div-reviews">{{txt}}</div>
-    
+    <!-- show less than 300 symbols -->
+    <div class="div-reviews" v-if="notFullReview">{{txt}}
+      <div @click.stop="toggleFullReview" v-if="txt.length > 298" class="full-review">Read Full Review</div>
+    </div>
+    <div class="div-reviews" v-else>{{fullTxt}} 
+      <div @click.stop="toggleFullReview" class="full-review">... Read Less</div>
+    </div>
       
-
-    
-
+      
     <div class="likes-btn flex" v-if="direct === 'movie'">
       <button @click="clickedLike(review._id,currUser)"><i class="fas fa-thumbs-up"></i><span>{{review.rate.countLike.length}}</span></button>
       <button @click="clickedDislike(review._id,currUser)"><i class="fas fa-thumbs-down"></i><span>{{review.rate.countDislike.length}}</span></button>
     </div>
 
      
-    
   </div>
 </template>
 
@@ -51,9 +53,25 @@ export default {
   data() {
     return {
       isEditOpen: false,
-      txt: this.review.content.txt,
-      tempTxt: null
+      tempTxt: null,
+      notFullReview: true
     };
+  },
+  computed: {
+    txt(){
+
+      var txt = this.review.content.txt;
+      if (txt.length > 300) {
+        return txt.substring(0,299)
+      } else {
+          return txt
+      }
+    },
+    fullTxt(){
+      
+      var txt = this.review.content.txt;
+      return txt;
+    }
   },
   methods: {
     emitRemoveReview() {
@@ -89,6 +107,9 @@ export default {
       }
       this.$store.dispatch({ type: "reviewsModule/updateRate", rateDetails })
     },
+    toggleFullReview(){
+      this.notFullReview = !this.notFullReview;
+    }
   },
   created() {}
 };
@@ -107,9 +128,19 @@ a{
   font-size: 20px;
 }
 .div-reviews {
-  margin-top: 10px;
+ 
+}
+.full-review{
+  margin: 10px 0;
+  /* font-weight: 500; */
+  font-size: 1.2em;
+
+}
+.full-review:hover{
+  color: #3481b4;
 }
 .likes-btn > * {
+  width: 50px;
   padding: 5px;
   margin: 2px;
   color: #2d2f31;
@@ -117,6 +148,7 @@ a{
   background-color: #dac292;
   /* max-width: 50px; */
   border-radius: 3px;
+  cursor: pointer;
 }
 .likes-btn > *:hover {
   background-color: #3481b4;
