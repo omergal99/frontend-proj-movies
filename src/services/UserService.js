@@ -1,5 +1,5 @@
 import HttpService from './HttpService';
-
+import socketService from '../services/SocketService'
 const USER_URL = HttpService.getUrl('user');
 const UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dwlinsb9c/image/upload'
 var UPLOAD_PRESET = 'ults0zzo'
@@ -30,6 +30,8 @@ function getById(userId) {
 }
 
 function logout() {
+    // alert('logging out')
+    socketService.disconnect()
     return HttpService.get(`${USER_URL}/logout`)
         .then(res => {
             console.log('Loged out success');
@@ -49,6 +51,8 @@ function singup(newUser) {
 }
 
 function login(userNamePass) {
+    // alert('logging IN')
+    socketService.disconnect()
     var prmAnsRes = HttpService.put(`${USER_URL}/login`, userNamePass)
     var prmAns = prmAnsRes.then(res => {
         if (res.data) {
@@ -98,7 +102,7 @@ function getGuestUser() {
     return {
         name: 'Guest',
         email: '',
-        userId: '',
+        _id: '',
         userImg: '',
         dateCreated: 0,
         rating: 0,

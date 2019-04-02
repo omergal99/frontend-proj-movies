@@ -32,7 +32,7 @@ function add(newReview) {
         .then(resolveData)
         .catch(() => {
             return { _id: 'asafasf', namee: 'asfsaf' }
-            // TODO: roll back
+            // TODO: rollback
         })
 }
 

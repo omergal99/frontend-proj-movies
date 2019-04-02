@@ -17,19 +17,19 @@
           <div class="users">
             <li
               class="flex space-between align-center"
-              v-for="(review,idx2) in reviews[idx]"
-              :key="idx2"
+              v-for="(review,idx) in showReviews(movie._id)"
+              :key="idx"
             >
               <div class="user-img-wrap">
                 <img @click="userLink(review.user.userId)" :src="review.user.userImg">
               </div>
-                <p class="text">
-                  {{limitWords(review.content.txt)}}
-                  <span
-                    @click="userLink(review.user.userId)"
-                  >Read more</span>
-                </p>
-                <p class="likes">LIKES ({{review.rate.countLike.length}})</p>
+              <p class="text">
+                {{limitWords(review.content.txt)}}
+                <span
+                  @click="userLink(review.user.userId)"
+                >Read more</span>
+              </p>
+              <p class="likes">LIKES ({{review.rate.countLike.length}})</p>
             </li>
           </div>
         </li>
@@ -79,12 +79,25 @@ export default {
           this.$store.dispatch({ type: "reviewsModule/loadFourReviews", id: movie._id });
         })
       }
+
       return this.$store.state.reviewsModule.fourReviews;
-      // TODO: getters after data will have more then 1 review!!
       // return this.$store.getters['reviewsModule/fourReviews'];
     }
   },
   methods: {
+    showReviews(movieId) {
+      var toSend = [];
+      this.reviews.forEach(reviewsForMovie => {
+        if (reviewsForMovie[0].movie.movieId === movieId) {
+          toSend = reviewsForMovie;
+        }
+      })
+      // toSend.sort((r1, r2) => {
+      //   return r2.rate.countLike.length - r1.rate.countLike.length
+      // })
+      // return toSend.slice(0,2);
+      return toSend;
+    },
     limitWords(str) {
       return str.substring(0, 45) + '...';
     },
@@ -132,7 +145,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   grid-gap: 20px;
-  color: white;
+  color: #dbd5d5;
   > li {
     border-radius: 4px;
     padding: 6px 2px 2px 2px;
@@ -147,6 +160,11 @@ main {
         // object-fit: cover;
         object-fit: contain;
         object-position: center;
+        transition: transform 0.4s;
+        // border-radius: 0px 55px 0px 55px;
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
     .details {
@@ -170,24 +188,32 @@ main {
             width: 100%;
             height: 100%;
             object-fit: cover;
-          }
-        }
-          .text {
-            padding-left: 4px;
-            text-align: left;
-            margin: 0;
-            font-size: 0.6em;
-            span {
-              cursor: pointer;
-              font-weight: bold;
+            border: 2px solid #3481b400;
+            &:hover {
+              border: 2px solid #3481b4;
             }
           }
-          .likes {
-            text-align: center;
-            margin: 0;
-            font-size: 0.6em;
-            padding-left: 4px;
+        }
+        .text {
+          padding-left: 4px;
+          text-align: left;
+          margin: 0;
+          font-size: 0.6em;
+          span {
+            cursor: pointer;
+            font-weight: bold;
+            color: #dbd5d5;
+            &:hover {
+              color: #3481b4;
+            }
           }
+        }
+        .likes {
+          text-align: center;
+          margin: 0;
+          font-size: 0.6em;
+          padding-left: 4px;
+        }
       }
     }
   }

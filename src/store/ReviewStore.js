@@ -36,7 +36,11 @@ const reviewsModule = {
             state.currReviews.splice(idx, 1);
         },
         fourReviewsAdd(state, { reviews }) {
-            state.fourReviews.push(reviews)
+            reviews.sort((r1, r2) => {
+                return r2.rate.countLike.length - r1.rate.countLike.length
+            })
+
+            state.fourReviews.push(reviews.slice(0,2))
         },
     },
 
@@ -55,9 +59,16 @@ const reviewsModule = {
 
         numOfDislikes(state) {
             return state.currReviews.reduce((acc, rev) => acc + rev.rate.countDislike.length, 0)
+        },
+        fourReviews(state){
+            if(state.fourReviews){
+                return state.fourReviews.forEach(reviewsOfOneMovie=>{
+                    reviewsOfOneMovie.sort((r1, r2) => {
+                        return r2.rate.countLike.length - r1.rate.countLike.length
+                    })
+                })
+            }
         }
-
-
     },
     actions: {
         loadReviews(context, { directAndId }) {
@@ -88,6 +99,18 @@ const reviewsModule = {
                     context.commit({ type: 'addReview', addedReview })
                 })
         },
+        // addReview(context, { newReview }) {
+        //     context.commit({ type: 'addReview', addedReview })
+        //     ReviewService.add(newReview)
+        //     .then((addedReview) => {
+        //         console.log('okkkk',addedReview);
+        //     })
+        //     .catch((err)=>{
+        //         console.log('problem',err);
+        //         context.commit({ type: 'deleteRecent', addedReview })
+        //     })
+        //     return newReview;
+        // },
 
         updateReviewTxt(context, { reviewToEdit }) {
             return ReviewService.update(reviewToEdit)

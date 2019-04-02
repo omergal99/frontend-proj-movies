@@ -23,11 +23,26 @@ function query(filterBy) {
         .catch((err) => err)
 }
 
-function getById(movieId) {
-    return HttpService.get(`${MOVIE_URL}/${movieId}`)
-        .then(resolveData)
-}
+// function getById(movieId) {
+//     return HttpService.get(`${MOVIE_URL}/${movieId}`)
+//         .then(resolveData)
+// }
+// --------------------------
+// function getById(movieId) {
+//     return HttpService.get(`${MOVIE_URL}/${movieId}`)
+//         .then(res => res.data)
+// }
 
+async function getById(movieId) {
+    try {
+        let res = await HttpService.get(`${MOVIE_URL}/${movieId}`);
+        return res.data;
+    }
+    catch (err) {
+        console.log(err, 'We have an error in server - in: MovieService-getByID')
+    }
+}
+// ----------------------------------
 function add(movie) {
     movie.movieId = _makeId()
     movies.unshift(movie)
@@ -48,9 +63,9 @@ function remove(movieId) {
     return _saveMoviesToFile();
 }
 
-function updateRate(rateDetails){
-    console.log('rateDetails',rateDetails);
-    
+function updateRate(rateDetails) {
+    console.log('rateDetails', rateDetails);
+
     return new Promise((resolve, reject) => {
         HttpService.put(MOVIE_URL, rateDetails)
             .then(res => {

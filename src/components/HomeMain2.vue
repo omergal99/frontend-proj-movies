@@ -1,91 +1,249 @@
 <template>
-  <div class="main-second flex space-center">
-    <div class="head-text">
-      <!-- <p>The place for</p> -->
-      <!-- <p>Reliable and Quality Reviews</p> -->
-      <p>Where Movies and People Meet</p>
-      <label>Choose your next movie</label>
-      <br>
-      <!-- <label>Make your decisions based on reliable reviews</label> -->
-      <label>Based on reliable & quality reviews</label>
-    </div>
-    <div class="container">
-      <div class="bc-img">
-        <img src="../assets/img/omer/home/boy-cinema3.png">
-        <!-- <img src="../assets/img/omer/home/brown-strip.jpg"> -->
+  <main>
+    <div class="movies-container">
+      <ul class="movie-list" v-if="fourMovies.length">
+        <li v-for="(movie,idx) in fourMovies" :key="idx">
+          <div class="poster">
+            <router-link :to="'/movies/details/' + movie._id">
+              <img :src="movie.details.movieImg">
+            </router-link>
+          </div>
+
+          <div class="details flex space-even">
+            <label>Rank ({{arrayAvg(movie.rank)}})</label>
+            <label>Views (74,841)</label>
+          </div>
+
+          <div class="users">
+            <li
+              class="flex space-between align-center"
+              v-for="(review,idx2) in reviews[idx]"
+              :key="idx2"
+            >
+              <div class="user-img-wrap">
+                <img @click="userLink(review.user.userId)" :src="review.user.userImg">
+              </div>
+              <p class="text">
+                {{limitWords(review.content.txt)}}
+                <span
+                  @click="userLink(review.user.userId)"
+                >Read more</span>
+              </p>
+              <p class="likes">LIKES ({{review.rate.countLike.length}})</p>
+            </li>
+          </div>
+        </li>
+      </ul>
+      <div class="galery-link">
+        <router-link to="/movies">
+          <label>See all Movies</label>
+        </router-link>
       </div>
     </div>
-  </div>
+
+    <ul class="feature-list-grid">
+      <li class="flex" v-for="(feature,idx) in features" :key="idx">
+        <span class="icon">
+          <img src="../assets/img/icons/new.png">
+        </span>
+        <p>{{feature}}</p>
+      </li>
+    </ul>
+  </main>
 </template>
 
+<script>
+
+export default {
+  name: "main1",
+  data() {
+    return {
+      features: ['Show some love for your friends and other members to read theirs favorite filmsShow some love for your favorite films, lists and reviews with a “like”',
+        'Write and share reviews, and follow friends and other members to read theirs',
+        'Rate each film on a five-star scale (with halves) to record and share your reaction',
+        'Compile and share lists of films on any topic and keep a watchlist of films to see'],
+    };
+  },
+  created() {
+    if (!this.$store.state.moviesModule.movies.length) {
+      this.$store.dispatch({ type: 'moviesModule/loadMovies' });
+    }
+  },
+  computed: {
+    fourMovies() {
+      return this.$store.getters['moviesModule/fourMovies'];
+    },
+    reviews() {
+      if (!this.$store.state.reviewsModule.fourReviews.length) {
+        this.fourMovies.forEach(movie => {
+          this.$store.dispatch({ type: "reviewsModule/loadFourReviews", id: movie._id });
+        })
+      }
+      return this.$store.state.reviewsModule.fourReviews;
+      // TODO: getters after data will have more then 1 review!!
+      // return this.$store.getters['reviewsModule/fourReviews'];
+    }
+  },
+  methods: {
+    limitWords(str) {
+      return str.substring(0, 45) + '...';
+    },
+    userLink(userId) {
+      this.$router.push(`/user/details/${userId}`);
+    },
+    arrayAvg(likes) {
+      var sum = 0;
+      likes.forEach(like => sum += like);
+      var avg = sum / likes.length;
+      return avg.toFixed(2);
+    }
+  },
+}
+</script>
+
 <style scoped lang="scss">
-.main-second {
-  flex-direction: column;
-  max-width: 900px;
-  margin: auto 0;
-  .head-text {
-    width: 100%;
-    height: auto;
-    background-color: #ffffff59;
-    border-radius: 2px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    p {
-      margin: 0 0 0 0;
-      font-size: 2.2em;
-      font-family: merienda, cursive, arial, serif, sans-serif;
-      font-weight: bold;
-      color: #220428;
-    }
+main {
+  height: 100%;
+  padding-top: 6vh;
+  max-width: 940px;
+  margin: 0 auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.movies-container {
+  padding: 0px 0px 25px 0px;
+  .galery-link {
+    padding: 8px 8px 0 0;
+    text-align: right;
     label {
-      font-size: 1.2em;
-      font-family: Arial, serif, sans-serif, Helvetica;
+      cursor: pointer;
+      text-decoration: underline;
+      color: #dbd5d5;
+      &:hover {
+        color: #3481b4;
+      }
     }
-  }
-  .bc-img {
-    padding: 22px;
-    img {
-      border-radius: 4px;
-      width: 80%;
-      max-width: 360px;
-    }
-    // &::before {
-    //   content: "";
-    //   position: absolute;
-    //   display: block;
-    //   width: 100%;
-    //   height: 80%;
-    //   top: 0px;
-    //   background-image: url("../assets/img/omer/home/only-boy.png");
-    //   background-size: contain;
-    //   background-repeat: no-repeat;
-    // }
   }
 }
-@media (min-width: 720px) {
-  .main-second {
-    flex-direction: row;
-    margin: 0 auto;
-    .bc-img {
+.movie-list {
+  padding: 0;
+  list-style-type: none;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-gap: 20px;
+  color: #dbd5d5;
+  > li {
+    border-radius: 4px;
+    padding: 6px 2px 2px 2px;
+    background-color: #151416;
+    .poster {
+      height: 200px;
+      overflow: hidden;
+      margin: 0 auto;
       img {
         width: 100%;
-        max-width: 440px;
+        height: 100%;
+        // object-fit: cover;
+        object-fit: contain;
+        object-position: center;
+        transition: transform 0.4s;
+        // border-radius: 0px 55px 0px 55px;
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
-    .head-text {
-      width: 60%;
-      height: auto;
-      padding-left: 10px;
-      padding-right: 10px;
-      // padding-top: 10vh;
-      margin: auto 0 auto 10px;
-      p {
-        font-size: 2.8em;
-      }
-      label {
-        font-size: 1.4em;
+    .details {
+      padding: 6px 2px 2px 2px;
+      font-size: 0.75em;
+    }
+    .users {
+      li {
+        padding: 2px 2px 2px 2px;
+        .user-img-wrap {
+          width: 40px;
+          height: 40px;
+          // height: auto;
+          overflow: hidden;
+          // margin: 0 auto;
+          display: inline-block;
+          flex: 0 0 40px;
+          img {
+            cursor: pointer;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 2px solid #3481b400;
+            &:hover {
+              border: 2px solid #3481b4;
+            }
+          }
+        }
+        .text {
+          padding-left: 4px;
+          text-align: left;
+          margin: 0;
+          font-size: 0.6em;
+          span {
+            cursor: pointer;
+            font-weight: bold;
+            color: #dbd5d5;
+            &:hover {
+              color: #3481b4;
+            }
+          }
+        }
+        .likes {
+          text-align: center;
+          margin: 0;
+          font-size: 0.6em;
+          padding-left: 4px;
+        }
       }
     }
   }
+}
+
+.feature-list-grid {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin: 0 0 2vh 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: 20px;
+  li {
+    border-radius: 6px;
+    background-color: rgb(18, 22, 26);
+    width: 100%;
+    padding: 20px;
+    margin: 0 auto;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    &:hover {
+      background-color: rgb(9, 11, 14);
+    }
+    & p {
+      color: rgb(223, 223, 223);
+      font-size: 0.8em;
+      text-align: left;
+    }
+  }
+}
+
+.icon {
+  position: relative;
+  float: left;
+  width: 52px;
+  height: 40px;
+  margin: 0;
+  top: 5px;
+  left: -8px;
+  // background-image: url(../assets/img/icons/white-star2.png);
+  // background-repeat: no-repeat;
+  // background-position: -53px -8px;
+  flex: 0 0 58px;
 }
 </style>

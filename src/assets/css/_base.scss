@@ -4,8 +4,7 @@
 }
 
 html {
-    // font-family: quando, Arial, serif;
-    font-family: sans-serif;
+    font-family: sans-serif, Arial, serif;
 }
 
 body {
@@ -13,9 +12,7 @@ body {
     margin: auto;
     font-size: 16px;
     height: 100%;
-    // min-height: 100vh;
     background-color: $clr1;
-    // color: white;
 }
 
 img {
