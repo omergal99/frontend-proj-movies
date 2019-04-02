@@ -36,7 +36,11 @@ const reviewsModule = {
             state.currReviews.splice(idx, 1);
         },
         fourReviewsAdd(state, { reviews }) {
-            state.fourReviews.push(reviews)
+            reviews.sort((r1, r2) => {
+                return r2.rate.countLike.length - r1.rate.countLike.length
+            })
+
+            state.fourReviews.push(reviews.slice(0,2))
         },
     },
 

@@ -92,15 +92,11 @@ export default {
           toSend = reviewsForMovie;
         }
       })
-      toSend.sort((r1, r2) => {
-        return r2.rate.countLike.length - r1.rate.countLike.length
-      })
-      return toSend.slice(0,2);
-
-      // var toSendSorted = toSend.sort((r1, r2) => {
+      // toSend.sort((r1, r2) => {
       //   return r2.rate.countLike.length - r1.rate.countLike.length
       // })
-      // return toSendSorted.slice(0,2);
+      // return toSend.slice(0,2);
+      return toSend;
     },
     limitWords(str) {
       return str.substring(0, 45) + '...';
