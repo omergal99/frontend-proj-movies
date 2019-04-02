@@ -25,7 +25,7 @@
       <!-- <button @click="onUpload">upload</button> -->
 
       <div class="user-details">
-        <h2>{{viewUser.name}}{{userId}}</h2>
+        <h2>{{viewUser.name}}</h2>
         <div class="user-data flex space-between">
           <div class="reviews flex flex-col align-center">
             <span>{{numOfReviews}}</span>
