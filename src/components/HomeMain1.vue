@@ -10,8 +10,8 @@
           </div>
 
           <div class="details flex space-even">
-            <label>Rank ({{arrayAvg(movie.rank)}})</label>
-            <label>Views (74,841)</label>
+            <label>Rank ({{arrayAvg(movie.rank)}}<i class="fas fa-star"></i>)</label>
+            <!-- <label>Views (74,841)</label> -->
           </div>
 
           <div class="users">
@@ -58,8 +58,8 @@ export default {
   name: "main1",
   data() {
     return {
-      features: ['Show some love for your friends and other members to read theirs favorite filmsShow some love for your favorite films, lists and reviews with a “like”',
-        'Write and share reviews, and follow friends and other members to read theirs',
+      features: ['Stars to the most rated movies',
+        'Cup for opinion leaders',
         'Rate each film on a five-star scale (with halves) to record and share your reaction',
         'Compile and share lists of films on any topic and keep a watchlist of films to see'],
     };
@@ -252,7 +252,7 @@ main {
   width: 52px;
   height: 40px;
   margin: 0;
-  top: 5px;
+  top: -5px;
   left: -8px;
   // background-image: url(../assets/img/icons/white-star2.png);
   // background-repeat: no-repeat;

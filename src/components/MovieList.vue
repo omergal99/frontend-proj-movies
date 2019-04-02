@@ -1,12 +1,16 @@
 <template>
   <section class="list-section container-movies">
+
     <transition-group name="list" class="movie-list clean-list" tag="ul">
+
       <li class="list-item" v-for="currMovie in movies" :key="currMovie._id">
         <router-link :to="'/movies/details/' + currMovie._id">
           <movie-preview :movie="currMovie"></movie-preview>
         </router-link>
       </li>
+
     </transition-group>
+    
   </section>
 </template>
 
@@ -45,7 +49,7 @@ export default {
 //background-size: cover;
 //object-fit: cover;
   text-decoration: none;
-  &:hover img {
+  .movie-poster img:hover  {
     transform: scale(1.05);
   }
 }

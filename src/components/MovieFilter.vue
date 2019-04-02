@@ -1,8 +1,7 @@
 <template>
   <section>
 
-    <div class="filter-container flex space-center">
-
+    <div class="filter-container flex space-center wrap">
       <select class="filter-category" @change="emitFilter" v-model="filterBy.category">
         <option value>Category</option>
         <option value="action">Action</option>
@@ -25,6 +24,7 @@
       </div>
 
     </div>
+
   </section>
 </template>
 
@@ -60,15 +60,14 @@ export default {
 
 .filter-category, .filter-input{
   color: #1a1818;
-  padding: 10px;
   width: 250px;
   height: 50px;
   border: none;
   font-size: 20px;
-  box-shadow: 0 5px 25px rgb(52, 129, 180);
   outline: none;
   margin: 40px 20px;
-  
+  border-radius: 2px;
+      padding: 4px 8px;  
 }
 .filter-search{
   width: 50px;
@@ -77,14 +76,15 @@ export default {
   padding: 10px;
   border: none;
   outline: none;
-  box-shadow: 0 5px 25px rgb(52, 129, 180);
+  background-color: #1a1818;
   cursor: pointer;
+  border-radius: 2px;
 }
 
 .fa-search{
   color: white;
   font-size: 18px;
-  background-color: #2d2f31;
+  background-color: #1a1818;
 }
 
 </style>

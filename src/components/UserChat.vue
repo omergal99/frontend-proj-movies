@@ -101,20 +101,22 @@ export default {
   color: white;
   padding: 7px;
   cursor: pointer;
-  border: none;
+  border: 1px solid white;
   border-radius: 3px;
   outline: none;
-  background-color: #1a1818;
+  background-color: #1a181800;
   transition: 0.3s;
   margin-right: 3px;
   &:hover {
     color: #3481b4;
+    background-color: #1a1818;
   }
 }
 
 .messages {
   overflow-y: scroll;
-  height: 240px;
+  height: 224px;
+  background-color: #b6c3e4;
   .message {
     padding: 2px 0 0 4px;
     text-align: left;
@@ -142,31 +144,57 @@ export default {
   height: 300px;
   transition: height 0.3s;
   z-index: 5;
+  border-radius: 6px 6px 0 0;
   &.min-box {
-    height: 30px;
+    height: 46px;
   }
   .top-line {
     cursor: pointer;
     padding: 4px 4px 4px 8px;
-    background-color: #cacaca;
+    background-color: #4e4c4c;
+    border-radius: 4px 4px 0 0;
+    min-height: 46px;
     label {
-      color: #0c0c0d;
+      cursor: pointer;
+      color: #f7f7f7;
       top: 2px;
       position: relative;
+      margin: auto 0;
+    }
+    button {
+      cursor: pointer;
+      background-color: #353742;
+      color: #f9f6f1;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #404350;
     }
   }
   .botton-line {
-    background-color: rgb(194, 111, 111);
+    background-color: rgb(37, 37, 41);
     position: absolute;
     bottom: 0px;
     width: 100%;
     input {
       width: 85%;
-      padding: 2px 4px 2px 4px;
+      padding: 4px 4px 4px 4px;
       font-size: 1.1em;
+      border: solid 1px #f5f6fb;
+      background-color: #f5f6fb;
     }
     button {
-      width: 15%;
+      width: 18%;
+      cursor: pointer;
+      background-color: #33694a;
+      color: #f9f6f1;
+      border: #33694a;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #3b7956;
     }
   }
 }

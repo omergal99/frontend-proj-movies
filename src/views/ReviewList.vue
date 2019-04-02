@@ -3,6 +3,7 @@
     <!-- add-review button -->
     <div class="new-review" v-if="directAndId.direct === 'movie'">
       <button class="btn-add-review" @click="toggleOpenNewReview">Add Your Review</button>
+      
       <div v-if="isAddOpen">
         <form class="flex flex-col" @submit.prevent="onAddReview">
           <textarea class="textarea-add-review" v-model="newReview.content.txt" rows="6" cols="50"></textarea>
@@ -11,8 +12,8 @@
       </div>
     </div>
 
-    <h3 v-if="directAndId.direct === 'movie'">{{currMovie.details.name}} Reviews</h3>
-    <h3 v-if="directAndId.direct === 'user'" class="reviews-title">Reviews</h3>
+    <!-- <h3 v-if="directAndId.direct === 'movie'">{{currMovie.details.name}} Reviews</h3> -->
+    <!-- <h3 v-if="directAndId.direct === 'user'" class="reviews-title">Reviews</h3> -->
 
     <ul class="clean-list" v-if="reviewsToShow">
       <li v-for="currReview in reviewsToShow" :key="currReview._id">
@@ -92,10 +93,7 @@ export default {
         movieName: this.currMovie.details.name
       };
       this.newReview.content.isEdit = false;
-      this.$store.dispatch({
-        type: "reviewsModule/addReview",
-        newReview: this.newReview
-      });
+      this.$store.dispatch({type: "reviewsModule/addReview",newReview: this.newReview});
       this.isAddOpen = false;
       this.isSendReview = true;
       this.newReview = { content: { txt: "" } };
@@ -136,7 +134,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .reviews-title {
   text-align: left;
   margin-top: 30;
@@ -144,12 +142,12 @@ export default {
 }
 
 .btn-add-review{
-  margin-bottom: 15px;
+   margin-bottom: 15px;
 }
 
 .btn-add-review, .btn-send-review{
   color: white;
-  padding: 15px;
+  padding: 8px 10px;
   cursor: pointer;
   border: none;
   border-radius: 3px;
@@ -162,15 +160,15 @@ export default {
   background-color: #3481b4;
 }
 
-.textarea-add-review, .btn-send-review{
+.textarea-add-review,{
   margin: 10px; 
-  padding: 8px;
 }
 
 .btn-send-review{
   width: fit-content;
-  padding: 15px;
   margin: 0 auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 h3 {
@@ -193,6 +191,7 @@ h3 {
   background-color: #e6e2d3;
   border-radius: 4px;
   margin-bottom: 20px;
+  
 }
  
 .review-details {
