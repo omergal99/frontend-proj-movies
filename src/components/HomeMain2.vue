@@ -1,9 +1,8 @@
 <template>
   <main>
-    <div class="movies-container">
-      <ul class="movie-list" v-if="fourUsers.length">
+    <div class="users-container">
+      <ul class="user-list" v-if="fourUsers.length">
         <li v-for="(user,idx) in fourUsers" :key="idx">
-
           <div class="poster">
             <router-link :to="'/user/details/' + user._id">
               <img :src="user.userImg">
@@ -11,39 +10,40 @@
           </div>
 
           <div class="details flex space-even">
-            <!-- <label>Rank ({{arrayAvg(movie.rank)}}<i class="fas fa-star"></i>)</label> -->
-            <label>Views (74,841)</label>
+            <label>Gender - {{user.gender}}</label>
+            <!-- <label>Views (74,841)</label> -->
           </div>
 
-          <!-- <div class="users">
-            <li class="flex space-between align-center"
-              v-for="(review,idx) in showReviews(movie._id)" :key="idx">
+          <div class="movies">
+            <li class="flex space-between align-center" 
+              v-for="(review,idx) in showReviews(user._id)" :key="idx">
               <div class="user-img-wrap">
-                <img @click="userLink(review.user.userId)" :src="review.user.userImg">
+                <img @click="movieLink(review.movie.movieId)" :src="review.movie.movieImg">
               </div>
               <p class="text">
                 {{limitWords(review.content.txt)}}
-                <span @click="userLink(review.user.userId)">Read more</span>
+                <span
+                  @click="movieLink(review.movie.movieId)"
+                >Read more</span>
               </p>
               <p class="likes">LIKES ({{review.rate.countLike.length}})</p>
             </li>
-          </div> -->
+          </div>
         </li>
       </ul>
-      <div class="galery-link">
+      <!-- <div class="galery-link">
         <router-link to="/movies">
           <label>See 10 Top Users</label>
         </router-link>
-      </div>
+      </div> -->
     </div>
-
   </main>
 </template>
 
 <script>
 
 export default {
-  name: "main1",
+  name: "main2",
   data() {
     return {
     }
@@ -57,21 +57,21 @@ export default {
     fourUsers() {
       return this.$store.getters['usersModule/fourUsers'];
     },
-    // reviews() {
-    //   if (!this.$store.state.reviewsModule.fourReviews.length) {
-    //     this.fourMovies.forEach(movie => {
-    //       this.$store.dispatch({ type: "reviewsModule/loadFourReviews", id: movie._id });
-    //     })
-    //   }
-    //   return this.$store.state.reviewsModule.fourReviews;
-    // }
+    reviews() {
+      if (!this.$store.state.reviewsModule.fourReviewsUser.length) {
+        this.fourUsers.forEach(user => {
+          this.$store.dispatch({ type: "reviewsModule/loadFourReviewsUser", id: user._id });
+        })
+      }
+      return this.$store.state.reviewsModule.fourReviewsUser;
+    }
   },
   methods: {
-    showReviews(movieId) {
+    showReviews(userId) {
       var toSend = [];
-      this.reviews.forEach(reviewsForMovie => {
-        if (reviewsForMovie[0].movie.movieId === movieId) {
-          toSend = reviewsForMovie;
+      this.reviews.forEach(reviewsForUser => {
+        if (reviewsForUser[0].user.userId === userId) {
+          toSend = reviewsForUser;
         }
       })
       return toSend;
@@ -79,15 +79,9 @@ export default {
     limitWords(str) {
       return str.substring(0, 45) + '...';
     },
-    userLink(userId) {
-      this.$router.push(`/user/details/${userId}`);
+    movieLink(userId) {
+      this.$router.push(`/movies/details/${userId}`);
     },
-    arrayAvg(likes) {
-      var sum = 0;
-      likes.forEach(like => sum += like);
-      var avg = sum / likes.length;
-      return avg.toFixed(2);
-    }
   },
 }
 </script>
@@ -101,7 +95,7 @@ main {
   padding-left: 10px;
   padding-right: 10px;
 }
-.movies-container {
+.users-container {
   padding: 0px 0px 25px 0px;
   .galery-link {
     padding: 8px 8px 0 0;
@@ -116,7 +110,7 @@ main {
     }
   }
 }
-.movie-list {
+.user-list {
   padding: 0;
   list-style-type: none;
   margin: 0 auto;
@@ -129,17 +123,16 @@ main {
     padding: 6px 2px 2px 2px;
     background-color: #151416;
     .poster {
-      height: 200px;
       overflow: hidden;
       margin: 0 auto;
       img {
         width: 100%;
         height: 100%;
-        // object-fit: cover;
-        object-fit: contain;
-        object-position: center;
+        border-radius: 50%;
+        width: 125px;
+        height: 125px;
+        object-fit: cover;
         transition: transform 0.4s;
-        // border-radius: 0px 55px 0px 55px;
         &:hover {
           transform: scale(1.05);
         }
@@ -149,20 +142,18 @@ main {
       padding: 6px 2px 2px 2px;
       font-size: 0.75em;
     }
-    .users {
+    .movies {
       li {
         padding: 2px 2px 2px 2px;
         .user-img-wrap {
-          width: 40px;
-          height: 40px;
-          // height: auto;
-          overflow: hidden;
-          // margin: 0 auto;
-          display: inline-block;
+          // width: 40px;
           flex: 0 0 40px;
+          height: 50px;
+          overflow: hidden;
+          display: inline-block;
           img {
             cursor: pointer;
-            border-radius: 50%;
+            border-radius: 4px;
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -197,6 +188,13 @@ main {
   }
 }
 
+@media (min-width: 500px) {
+  .user-list {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    grid-gap: 20px;
+  }
+}
+
 .feature-list-grid {
   list-style-type: none;
   margin: 0;
@@ -223,5 +221,4 @@ main {
     }
   }
 }
-
 </style>

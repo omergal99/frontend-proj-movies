@@ -48,8 +48,8 @@
 
 <script>
 import UserService from "../services/UserService.js";
-import SocketService from '../services/SocketService.js';
-
+// import SocketService from '../services/SocketService.js';
+// import SocketRoomService from "../services/SocketRoomService.js";
 
 export default {
   name: "mainBar",
@@ -78,6 +78,7 @@ export default {
     logoutUser() {
       localStorage.removeItem(UserService.USER_STORAGE);
       this.$store.dispatch({ type: "usersModule/logoutUser" });
+      // SocketRoomService.disconnect();
     }
   }
 };

@@ -10,7 +10,10 @@
           </div>
 
           <div class="details flex space-even">
-            <label>Rank ({{arrayAvg(movie.rank)}}<i class="fas fa-star"></i>)</label>
+            <label>
+              Rank ({{arrayAvg(movie.rank)}}
+              <i class="fas fa-star"></i>)
+            </label>
             <!-- <label>Views (74,841)</label> -->
           </div>
 
@@ -99,7 +102,7 @@ export default {
       return toSend;
     },
     limitWords(str) {
-      return str.substring(0, 45) + '...';
+      return str.substring(0, 30) + '...';
     },
     userLink(userId) {
       this.$router.push(`/user/details/${userId}`);
@@ -143,15 +146,15 @@ main {
   list-style-type: none;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-gap: 10px;
   color: #dbd5d5;
   > li {
     border-radius: 4px;
     padding: 6px 2px 2px 2px;
     background-color: #151416;
     .poster {
-      height: 200px;
+      height: 140px;
       overflow: hidden;
       margin: 0 auto;
       img {
@@ -214,6 +217,18 @@ main {
           font-size: 0.6em;
           padding-left: 4px;
         }
+      }
+    }
+  }
+}
+
+@media (min-width: 500px) {
+  .movie-list {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    grid-gap: 20px;
+    > li {
+      .poster {
+        height: 200px;
       }
     }
   }

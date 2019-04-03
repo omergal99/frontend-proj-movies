@@ -1,9 +1,5 @@
 <template>
   <div class="movie-posters-container flex flex-col">
-    <!-- <img src="../assets/img/omer/people.png" alt=""> -->
-    <!-- <img class="poster-presentation" src="../assets/img/omer/omer1.png" alt="">
-    <img class="poster-presentation" src="../assets/img/omer/omer1.png" alt="">
-    <img class="poster-presentation" src="../assets/img/omer/omer1.png" alt="">-->
     <div class="movie-poster olga">
       <div class="zoom">
         <img @click="direct('5c9c7f63d44e15672c5de7ea')" src="../assets/img/omer/wonder-woman.jpg">
