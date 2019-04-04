@@ -1,7 +1,7 @@
 <template>
   <section class="list-section container-movies">
 
-    <transition-group name="list" class="movie-list clean-list" tag="ul">
+    <transition-group name="list" class="clean-list" tag="ul">
 
       <li class="list-item" v-for="currMovie in movies" :key="currMovie._id">
         <router-link :to="'/movies/details/' + currMovie._id">

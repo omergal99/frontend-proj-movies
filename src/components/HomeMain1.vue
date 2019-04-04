@@ -1,9 +1,15 @@
 <template>
   <main>
     <div class="movies-container">
+      <div v-if="!fourMovies.length" class="loader-all">
+        <!-- loader -->
+        <img src="../assets/img/omer/loaders/loader2.gif">
+      </div>
       <ul class="movie-list" v-if="fourMovies.length">
         <li v-for="(movie,idx) in fourMovies" :key="idx">
           <div class="poster">
+            <!-- loader -->
+            <img v-if="!movie.details.movieImg" src="../assets/img/omer/loaders/loadermovie.gif">
             <router-link :to="'/movies/details/' + movie._id">
               <img :src="movie.details.movieImg">
             </router-link>
@@ -24,6 +30,8 @@
               :key="idx"
             >
               <div class="user-img-wrap">
+                <!-- loader -->
+                <img v-if="!review.user.userImg" src="../assets/img/omer/loaders/loader1.gif">
                 <img @click="userLink(review.user.userId)" :src="review.user.userImg">
               </div>
               <p class="text">
@@ -82,7 +90,6 @@ export default {
           this.$store.dispatch({ type: "reviewsModule/loadFourReviews", id: movie._id });
         })
       }
-
       return this.$store.state.reviewsModule.fourReviews;
       // return this.$store.getters['reviewsModule/fourReviews'];
     }
@@ -118,6 +125,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 main {
   height: 100%;
   padding-top: 6vh;
@@ -228,7 +236,7 @@ main {
     grid-gap: 20px;
     > li {
       .poster {
-        height: 200px;
+        height: 170px;
       }
     }
   }

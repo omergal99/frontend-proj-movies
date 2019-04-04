@@ -1,6 +1,10 @@
 <template>
   <main>
     <div class="users-container">
+      <div v-if="!fourUsers.length" class="loader-all">
+        <!-- loader -->
+        <img src="../assets/img/omer/loaders/loader2.gif">
+      </div>
       <ul class="user-list" v-if="fourUsers.length">
         <li v-for="(user,idx) in fourUsers" :key="idx">
           <div class="poster">
@@ -9,8 +13,9 @@
             </router-link>
           </div>
 
-          <div class="details flex space-even">
-            <label>Gender - {{user.gender}}</label>
+          <div class="details flex space-between">
+            <label>{{user.name}}</label>
+            <label>{{user.gender}}</label>
             <!-- <label>Views (74,841)</label> -->
           </div>
 
@@ -116,7 +121,7 @@ main {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  grid-gap: 20px;
+  grid-gap: 10px;
   color: #dbd5d5;
   > li {
     border-radius: 4px;
