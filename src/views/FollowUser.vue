@@ -18,14 +18,14 @@ export default {
   name: 'FollowUser',
   data() {
     return {
-      isLogin: false,  // isTellLogin
+      isLogin: false, 
       isAlreadyFollowed: false
     }
   },
   created() {
     if(this.viewUser){
-      this.$emit('viewUserFollowedBy', this.viewUserFollowedBy)  // following
-      this.$emit('viewUserFollowAfter', this.viewUserFollowAfter)  // followers
+      this.$emit('viewUserFollowedBy', this.viewUserFollowedBy)  // followers
+      this.$emit('viewUserFollowAfter', this.viewUserFollowAfter)  // following
     }
   },
   computed: {
@@ -33,17 +33,17 @@ export default {
       return this.$store.state.usersModule.currUser;
     },
     viewUser() {
-        return this.$store.state.usersModule.viewUser;
+      return this.$store.state.usersModule.viewUser;
     },
     isSelfProfile() {
-        if (this.currUser.name === this.viewUser.name) {
-            return false
-        } else {
-            return true
-        }
+      if (this.currUser.name === this.viewUser.name) {
+        return false
+      } else {
+        return true
+      }
     },
-    followedByList(){
-        return this.viewUser.follow.followedBy
+    viewUserFollowAfter(){
+      return this.viewUser.follow.followAfter;
     },
     viewUserFollowedBy(){
       return this.viewUser.follow.followedBy;
@@ -66,35 +66,29 @@ export default {
       var already = this.checkIfAlreadyFollow(loggedInUser, followedUser)
       if (already) return
 
-            // send to backend
-            var users = { "loggedInUser": {"_id": loggedInUser._id, "name": loggedInUser.name}, 
-                           "followedUser": {"_id": followedUser._id, "name": followedUser.name}}
-            this.$store.dispatch({ type: "usersModule/addFollower", users })
-        },
-        checkIfAlreadyFollow(loggedInUser, followedUser){
-          if (loggedInUser && followedUser) {
-            var loggedInUserName = JSON.parse(JSON.stringify(loggedInUser.name))
-            var followedUserList = JSON.parse(JSON.stringify(followedUser.follow.followedBy))
+      // send to backend
+      var users = { "loggedInUser": {"_id": loggedInUser._id, "name": loggedInUser.name}, 
+                    "followedUser": {"_id": followedUser._id, "name": followedUser.name}}
+      this.$store.dispatch({ type: "usersModule/addFollower", users })
+    },
+    checkIfAlreadyFollow(loggedInUser, followedUser){
+      if (loggedInUser && followedUser) {
+        var loggedInUserName = JSON.parse(JSON.stringify(loggedInUser.name))
+        var followedUserList = JSON.parse(JSON.stringify(followedUser.follow.followedBy))
 
-            for(var i=0; i < followedUserList.length; i++){
-              // console.log('followedUserList.length:', followedUserList.length)
-              // console.log('i:', i)
-              // console.log('loggedInUserName:', loggedInUserName)
-              // console.log('followedUserList[i]:', followedUserList[i])
-                if (loggedInUserName === followedUserList[i]){
-                  // console.log('already')
-                    this.isAlreadyFollowed = true
-                    setTimeout(() => {
-                        this.isAlreadyFollowed = false;
-                    }, 3000)   // 3 secs to show "The user is already followed by ..."
-                    return true
-                }
-            }
-            return false
+        for(var i=0; i < followedUserList.length; i++){
+          if (loggedInUserName === followedUserList[i]){
+            // console.log('already')
+            this.isAlreadyFollowed = true
+            setTimeout(() => {
+              this.isAlreadyFollowed = false;
+            }, 3000)   // 3 secs to show "The user is already followed by ..."
+            return true
+          }
+        }
+        return false
       }
     },
-
-
   },
 }
 </script>
