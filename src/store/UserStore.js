@@ -28,8 +28,8 @@ const usersModule = {
         setFollower(state, {users}){
             state.currUser.follow.followAfter.push(users.followedUser.name)
             state.viewUser.follow.followedBy.push(users.loggedInUser.name)
-            // console.log('currUser follow after',state.currUser.follow.followAfter)
-            // console.log('viewUser followed by',state.viewUser.follow.followedBy)
+            console.log('currUser follow after',state.currUser.follow.followAfter)
+            console.log('viewUser followed by',state.viewUser.follow.followedBy)
         }
 
     },

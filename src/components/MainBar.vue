@@ -55,7 +55,7 @@ export default {
   name: "mainBar",
   mounted() {
     if (!this.$store.state.usersModule.currUser && !UserService.getLoggedInUser()) {
-    console.log('3333333333333333333')
+    // console.log('3333333333333333333')
       var guestUser = UserService.getGuestUser();
       this.$store.dispatch({ type: "usersModule/loadUser", user: guestUser });
     }

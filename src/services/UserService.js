@@ -34,14 +34,14 @@ function logout() {
     socketService.disconnect()
     return HttpService.get(`${USER_URL}/logout`)
         .then(res => {
-            console.log('Loged out success');
-            console.log('RES IS ', res);
+            // console.log('Loged out success');
+            // console.log('RES IS ', res);
             localStorage.removeItem(USER_STORAGE)
         })
 }
 
 function singup(newUser) {
-    console.log('signup', newUser)
+    // console.log('signup', newUser)
     return HttpService.post(`${USER_URL}/singup`, newUser)
         .then(res => {
             localStorage.setItem(USER_STORAGE, JSON.stringify(res.data));
@@ -56,7 +56,7 @@ function login(userNamePass) {
     var prmAnsRes = HttpService.put(`${USER_URL}/login`, userNamePass)
     var prmAns = prmAnsRes.then(res => {
         if (res.data) {
-            console.log('Result- Data:', res.data);
+            // console.log('Result- Data:', res.data);
             localStorage.setItem(USER_STORAGE, JSON.stringify(res.data));
             return res.data;
         } else {
@@ -64,7 +64,7 @@ function login(userNamePass) {
         }
     })
 
-    console.log('Done Sending the AJAX Request');
+    // console.log('Done Sending the AJAX Request');
     return prmAns;
 }
 
@@ -89,7 +89,7 @@ function uploadImg(fileAndUser ) {
             userId:fileAndUser.user,
             img:imgUrl
         }
-        console.log("front",userAndImg)
+        // console.log("front",userAndImg)
         return HttpService.put(`${USER_URL}/${userAndImg.userId}`, userAndImg)
     })
     .catch ((err)=>console.log(err))
