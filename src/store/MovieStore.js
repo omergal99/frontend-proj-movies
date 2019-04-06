@@ -18,11 +18,12 @@ const moviesModule = {
             state.currMovie = currMovie;
         },
         updateMovieRate(state, { rateDetails }) {
-            var movieIdx = state.movies.findIndex(movie => {
-                return movie._id === rateDetails.movieId
-            })
-            state.movies[movieIdx].rank.push(rateDetails.rate)
-            state.movies[movieIdx].avgRank = ((state.movies[movieIdx].rank.reduce((acc, rank) => acc + rank, 0)) / state.movies[movieIdx].rank.length).toFixed(1)
+            const movieIdx = state.movies.findIndex(movie => movie._id === rateDetails.movieId)
+            //console.log('Nat heeer',state.movies[movieIdx])
+            state.movies[movieIdx].rank.push({userId:rateDetails.loggedInUser,rank:rateDetails.rate})
+            console.log('Nat heeer',state.movies[movieIdx])
+            state.movies[movieIdx].avgRank = ((state.movies[movieIdx].rank.reduce((acc, rank) => acc + rank.rank, 0)) / state.movies[movieIdx].rank.length).toFixed(1)
+            console.log ('avg', state.movies[movieIdx].avgRank )
         },
     },
     getters: {
@@ -33,9 +34,7 @@ const moviesModule = {
             return movies.splice(0, 4);
         }
     },
-    // cartTotal(state) {
-    //     return state.cartItems.reduce((acc, item) => acc + item.price, 0)
-    // },
+
 
     actions: {
         loadMovies(context, { filter }) {
@@ -59,10 +58,11 @@ const moviesModule = {
 
         updateStarRate(context, { rateDetails }) {
             return MovieService.updateRate(rateDetails)
-                .then(() => {
-                    console.log('heeer')
-                    context.commit({ type: 'updateMovieRate', rateDetails })
+                .then(res => {
+                    //console.log('resssssss', res)
+                    return context.commit({ type: 'updateMovieRate', rateDetails })
                 })
+                .catch(err => console.log('catch'))
         }
 
     }

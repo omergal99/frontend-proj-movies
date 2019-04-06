@@ -64,13 +64,13 @@ function remove(movieId) {
 }
 
 function updateRate(rateDetails) {
-    console.log('rateDetails', rateDetails);
+    //console.log('rateDetails', rateDetails);
 
     return new Promise((resolve, reject) => {
         HttpService.put(MOVIE_URL, rateDetails)
             .then(res => {
                 let updatedMovie = res
-                console.log('updated movie:', updatedMovie)
+                // console.log('updated movie:', updatedMovie)
                 resolve(updatedMovie)
             })
             .catch(err => err)
