@@ -120,7 +120,7 @@ main {
   list-style-type: none;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   grid-gap: 10px;
   color: #dbd5d5;
   > li {

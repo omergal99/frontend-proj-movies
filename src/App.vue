@@ -4,6 +4,11 @@
       <transition name="slide-start">
         <img v-if="isOnMove" src="../src/assets/img/omer/home/curtains-right.png">
       </transition>
+      <transition name="slide-text">
+        <p v-if="isOnMove" class="text-start">
+          Movies<br>&<br>Reviews
+        </p>
+      </transition>
     </div> -->
 
     <main-bar/>
@@ -39,20 +44,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// .slide-start-enter-active {
-//   transition: all 5s ease;
-// }
 .slide-start-leave-active {
-  // transition: all 4s ;
   transition: all 4s cubic-bezier(1, 0.5, 0.8, 1);
 }
-.slide-start-enter,
 .slide-start-leave-to {
-  // transform: translateX(10px);
-  // left: 100vw;
-  animation: myfirst 4s 1;
+  animation: imgOut 4s 1;
   animation-direction: alternate;
-  // opacity: 0;
+}
+.slide-text-leave-active {
+  transition: all 1.4s;
+}
+.slide-text-leave-to {
+  opacity: 0;
 }
 .pages {
   padding-top: 68px;
@@ -67,24 +70,33 @@ export default {
     position: absolute;
     z-index: 30;
     left: 0px;
-    // right: 0px;
     top: 0px;
-    // .animate {
-    // animation: myfirst 5s 1;
-    // animation-direction: alternate;
-    // }
+  }
+  .text-start {
+    position: absolute;
+    z-index: 30;
+    color: gold;
+    left: calc(50% - 225px); // - half of the text width
+    top: calc(40% - 160px);
+    font-size: 64px;
+    margin: 0;
+    padding: 30px 20px;
+    font-family: neogrey, cursive, Arial, Helvetica, sans-serif;
+    // font-family: movieFilmstrip,cursive,Arial, Helvetica, sans-serif;
+    text-shadow: 4px 4px 0 #000, -4px 4px 0 #000, 4px -4px 0 #000,
+      -4px -4px 0 #000, 0px 4px 0 #000, 0px -4px 0 #000, -4px 0px 0 #000,
+      4px 0px 0 #000;
   }
 }
-@keyframes myfirst {
+@keyframes imgOut {
   0% {
     left: 0px;
     opacity: 1;
   }
-  90%{
-    opacity: 0.8;
+  50% {
+    opacity: 0.9;
   }
   100% {
-    // width: 0;
     left: 100%;
     width: 0;
     opacity: 0;
