@@ -38,12 +38,12 @@
             <span>Dislikes</span>
           </div>
           <div class="followers flex flex-col align-center">
-            <span v-if="followers">{{followers}}</span>
+            <span v-if="followers">{{followers.length}}</span>
             <span v-else>0</span>
             <span>Followers</span>
           </div>
           <div class="following flex flex-col align-center">
-            <span v-if="following">{{following}}</span>
+            <span v-if="following">{{following.length}}</span>
             <span v-else>0</span>
             <span>Following</span>
           </div>
@@ -104,27 +104,32 @@ export default {
     },
     viewUserFollowedBy(list) {
       if( !list ) return
-      this.following = list.length;
+      console.log('followers:', list)
+      this.followers = list; //followers
     },
     viewUserFollowAfter(list) {
       if( !list ) return
-      this.followers = list.length;
+      this.following = list;   //following
     }
   },
   watch: {
     userId: function () {
       this.loadUser();
-    }
+    },
+    // followers(oldV, newV){
+    //   console.log(oldV, newV)
+    // },
+    // following(oldV, newV){
+
+    // }
   },
   computed: {
     viewUser() {
       return this.$store.state.usersModule.viewUser;
     },
-
     userId() {
       return this.$route.params.userId;
     },
-
     detailsForShowReviews() {
       if (this.viewUser) {
         var directAndId = {
@@ -140,15 +145,12 @@ export default {
     currUser() {
       return this.$store.state.usersModule.currUser;
     },
-
     numOfReviews() {
       return this.$store.getters["reviewsModule/numOfReviews"];
     },
-
     numOfLikes() {
       return this.$store.getters["reviewsModule/numOfLikes"];
     },
-
     numOfDislikes() {
       return this.$store.getters["reviewsModule/numOfDislikes"];
     },

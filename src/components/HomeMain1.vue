@@ -2,13 +2,11 @@
   <main>
     <div class="movies-container">
       <div v-if="!fourMovies.length" class="loader-all">
-        <!-- loader -->
         <img src="../assets/img/omer/loaders/loader2.gif">
       </div>
-      <ul class="movie-list" v-if="fourMovies.length">
+      <ul class="movie-list" v-if="fourMovies.length && fourMovies">
         <li v-for="(movie,idx) in fourMovies" :key="idx">
           <div class="poster">
-            <!-- loader -->
             <img v-if="!movie.details.movieImg" src="../assets/img/omer/loaders/loadermovie.gif">
             <router-link :to="'/movies/details/' + movie._id">
               <img :src="movie.details.movieImg">
@@ -24,13 +22,9 @@
           </div>
 
           <div class="users">
-            <li
-              class="flex space-between align-center"
-              v-for="(review,idx) in showReviews(movie._id)"
-              :key="idx"
-            >
+            <li class="flex space-between align-center"
+              v-for="(review,idx) in showReviews(movie._id)" :key="idx">
               <div class="user-img-wrap">
-                <!-- loader -->
                 <img v-if="!review.user.userImg" src="../assets/img/omer/loaders/loader1.gif">
                 <img @click="userLink(review.user.userId)" :src="review.user.userImg">
               </div>
@@ -45,6 +39,7 @@
           </div>
         </li>
       </ul>
+
       <div class="galery-link">
         <router-link to="/movies">
           <label>See all Movies</label>
@@ -99,14 +94,12 @@ export default {
     showReviews(movieId) {
       var toSend = [];
       this.reviews.forEach(reviewsForMovie => {
-        if (reviewsForMovie[0].movie.movieId === movieId) {
-          toSend = reviewsForMovie;
+        if(reviewsForMovie[0]){
+          if (reviewsForMovie[0].movie.movieId === movieId) {
+            toSend = reviewsForMovie;
+          }
         }
       })
-      // toSend.sort((r1, r2) => {
-      //   return r2.rate.countLike.length - r1.rate.countLike.length
-      // })
-      // return toSend.slice(0,2);
       return toSend;
     },
     limitWords(str) {
@@ -117,7 +110,7 @@ export default {
     },
     arrayAvg(likes) {
       var sum = 0;
-      likes.forEach(like => sum += like);
+      likes.forEach(like => sum += like.rank);
       var avg = sum / likes.length;
       return avg.toFixed(2);
     }
@@ -126,7 +119,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 main {
   height: 100%;
   padding-top: 6vh;
