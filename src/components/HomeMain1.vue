@@ -4,6 +4,7 @@
       <div v-if="!fourMovies.length" class="loader-all">
         <img src="../assets/img/omer/loaders/loader2.gif">
       </div>
+      {{fourMovies}}
       <ul class="movie-list" v-if="fourMovies.length && fourMovies">
         <li v-for="(movie,idx) in fourMovies" :key="idx">
           <div class="poster">
@@ -110,7 +111,7 @@ export default {
     },
     arrayAvg(likes) {
       var sum = 0;
-      likes.forEach(like => sum += like);
+      likes.forEach(like => sum += like.rank);
       var avg = sum / likes.length;
       return avg.toFixed(2);
     }

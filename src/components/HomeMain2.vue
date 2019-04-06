@@ -2,12 +2,12 @@
   <main>
     <div class="users-container">
       <div v-if="!fourUsers.length" class="loader-all">
-        <!-- loader -->
         <img src="../assets/img/omer/loaders/loader2.gif">
       </div>
       <ul class="user-list" v-if="fourUsers.length">
         <li v-for="(user,idx) in fourUsers" :key="idx">
           <div class="poster">
+            <img v-if="!user.userImg" src="../assets/img/omer/loaders/loadermovie.gif">
             <router-link :to="'/user/details/' + user._id">
               <img :src="user.userImg">
             </router-link>
@@ -22,7 +22,8 @@
           <div class="movies">
             <li class="flex space-between align-center" 
               v-for="(review,idx) in showReviews(user._id)" :key="idx">
-              <div class="user-img-wrap">
+              <div class="movie-img-wrap">
+                <img v-if="!review.movie.movieId" src="../assets/img/omer/loaders/loader1.gif">
                 <img @click="movieLink(review.movie.movieId)" :src="review.movie.movieImg">
               </div>
               <p class="text">
@@ -75,8 +76,10 @@ export default {
     showReviews(userId) {
       var toSend = [];
       this.reviews.forEach(reviewsForUser => {
-        if (reviewsForUser[0].user.userId === userId) {
-          toSend = reviewsForUser;
+        if(reviewsForUser[0]){
+          if (reviewsForUser[0].user.userId === userId) {
+            toSend = reviewsForUser;
+          }
         }
       })
       return toSend;
@@ -150,7 +153,7 @@ main {
     .movies {
       li {
         padding: 2px 2px 2px 2px;
-        .user-img-wrap {
+        .movie-img-wrap {
           // width: 40px;
           flex: 0 0 40px;
           height: 50px;
