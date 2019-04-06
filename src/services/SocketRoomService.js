@@ -5,7 +5,7 @@ const serverUrl = process.env.NODE_ENV !== 'development'?
 
 var socket = io(serverUrl);
 
-const msgs = [];
+var msgs = [];
 
 var nickName = 'Check123';
 
@@ -14,7 +14,7 @@ function init(topic, user){
 	socket.emit('roomRequested', {user, topic});
 
 	socket.on('userConnected', user => {
-		// console.log('user conncted in front', { newUser: user });
+		console.log('user conncted in front', { newUser: user });
 	});
 
 	socket.on('msg-recived', msg => {
@@ -25,13 +25,20 @@ function init(topic, user){
 }
 
 function send(msg){
-    // console.log('We Got new msgggggg', msg);
+	console.log('We Got new msgggggg', msg);
+	console.log('We Got new msggggggssssssssssss', msgs);
     socket.emit('post-msg', msg);
     // msgs.push(msg);
 }
 
 function emit(eventName, data){
 	socket.emit(eventName, data)
+}
+
+const disconnect = () => {
+	// alert('logout or login')
+	socket.emit('dissconnect user')
+	// msgs = [];
 }
 
 function on(eventName, cb) {
@@ -45,7 +52,6 @@ function createEmptyMsg(txt = '') {
     return { txt, from: nickName };
 }
 
-
 export default {
 	msgs,
 	init,
@@ -53,5 +59,6 @@ export default {
 	on,
     emit,
     getMsgs,
-    createEmptyMsg
+	createEmptyMsg,
+	disconnect
 };

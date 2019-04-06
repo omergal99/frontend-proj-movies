@@ -43,7 +43,7 @@
 
 <script>
 import UserService from '../services/UserService.js';
-import SocketService from '../services/SocketService.js';
+// import SocketService from '../services/SocketService.js';
 
 export default {
   name: 'user',

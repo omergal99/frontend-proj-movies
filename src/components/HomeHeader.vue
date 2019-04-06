@@ -74,6 +74,7 @@
     flex-direction: row;
     margin: 0 auto;
     .bc-img {
+      padding: 95px 22px 95px 22px;
       img {
         width: 100%;
         max-width: 440px;

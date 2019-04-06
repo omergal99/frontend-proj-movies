@@ -8,9 +8,9 @@
       <HomeMain1/>
     </section>
 
-    <!-- <section class="main-second">
+    <section class="main-second">
       <HomeMain2/>
-    </section> -->
+    </section>
 
     <!-- <section class="main-thrid">
       <HomeMain3/>
@@ -54,5 +54,9 @@ export default {
 //    body {
 //      background: $clr2;
 //    }
+
+.full-height{
+    min-height: 560px;
+}
 
 </style>

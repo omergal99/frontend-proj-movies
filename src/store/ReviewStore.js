@@ -5,7 +5,8 @@ const reviewsModule = {
     namespaced: true,
     state: {
         currReviews: [],
-        fourReviews: []
+        fourReviews: [],
+        fourReviewsUser: [],
     },
 
     mutations: {
@@ -39,8 +40,13 @@ const reviewsModule = {
             reviews.sort((r1, r2) => {
                 return r2.rate.countLike.length - r1.rate.countLike.length
             })
-
             state.fourReviews.push(reviews.slice(0,2))
+        },
+        fourReviewsUserAdd(state, { reviews }) {
+            reviews.sort((r1, r2) => {
+                return r2.rate.countLike.length - r1.rate.countLike.length
+            })
+            state.fourReviewsUser.push(reviews.slice(0,2))
         },
     },
 
@@ -60,15 +66,15 @@ const reviewsModule = {
         numOfDislikes(state) {
             return state.currReviews.reduce((acc, rev) => acc + rev.rate.countDislike.length, 0)
         },
-        fourReviews(state){
-            if(state.fourReviews){
-                return state.fourReviews.forEach(reviewsOfOneMovie=>{
-                    reviewsOfOneMovie.sort((r1, r2) => {
-                        return r2.rate.countLike.length - r1.rate.countLike.length
-                    })
-                })
-            }
-        }
+        // fourReviews(state){
+        //     if(state.fourReviews){
+        //         return state.fourReviews.forEach(reviewsOfOneMovie=>{
+        //             reviewsOfOneMovie.sort((r1, r2) => {
+        //                 return r2.rate.countLike.length - r1.rate.countLike.length
+        //             })
+        //         })
+        //     }
+        // }
     },
     actions: {
         loadReviews(context, { directAndId }) {
@@ -83,6 +89,13 @@ const reviewsModule = {
             return ReviewService.query(directAndId)
                 .then(serverReviews => {
                     context.commit({ type: 'fourReviewsAdd', reviews: serverReviews })
+                })
+        },
+        loadFourReviewsUser(context, { id }) {
+            var directAndId = { direct: "user", id }
+            return ReviewService.query(directAndId)
+                .then(serverReviews => {
+                    context.commit({ type: 'fourReviewsUserAdd', reviews: serverReviews })
                 })
         },
 
