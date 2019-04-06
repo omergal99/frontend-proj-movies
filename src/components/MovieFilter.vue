@@ -4,12 +4,12 @@
     <div class="filter-container flex space-center wrap">
       <select class="filter-category" @change="emitFilter" v-model="filterBy.category">
         <option value>Category</option>
-        <option value="action">Action</option>
-        <option value="comedy">Comedy</option>
-        <option value="srama">Drama</option>
-        <option value="family">Family</option>
-        <option value="horror">Horror</option>
-        <option value="romance">Romance</option>
+        <option value="Action">Action</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Drama">Drama</option>
+        <option value="Fantacy">Fantacy</option>
+        <option value="Thriller">Thriller</option>
+        <option value="Documenrary">Documentary</option>
       </select>
 
       <input
