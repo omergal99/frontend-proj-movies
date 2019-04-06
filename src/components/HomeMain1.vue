@@ -4,7 +4,6 @@
       <div v-if="!fourMovies.length" class="loader-all">
         <img src="../assets/img/omer/loaders/loader2.gif">
       </div>
-      {{fourMovies}}
       <ul class="movie-list" v-if="fourMovies.length && fourMovies">
         <li v-for="(movie,idx) in fourMovies" :key="idx">
           <div class="poster">
