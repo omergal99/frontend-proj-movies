@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- <div v-if="isStart" class="stage" @click="moveStage">
+    <div v-if="isStart && currUser && currUser.name === 'Omer'" class="stage" @click="moveStage">
       <transition name="slide-start">
         <img v-if="isOnMove" src="../src/assets/img/omer/home/curtains-right.png">
       </transition>
@@ -9,8 +9,7 @@
           Movies<br>&<br>Reviews
         </p>
       </transition>
-    </div> -->
-
+    </div>
     <main-bar/>
 
     <div class="pages">
@@ -37,18 +36,23 @@ export default {
       this.isOnMove = false;
       setTimeout(() => {
         this.isStart = false;
-      }, 4000);
+      }, 3500);
     },
-  }
+  },
+  computed: {
+    currUser() {
+      return this.$store.state.usersModule.currUser;
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
 .slide-start-leave-active {
-  transition: all 4s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 3.5s cubic-bezier(1, 0.5, 0.8, 1);
 }
 .slide-start-leave-to {
-  animation: imgOut 4s 1;
+  animation: imgOut 3.5s 1;
   animation-direction: alternate;
 }
 .slide-text-leave-active {
