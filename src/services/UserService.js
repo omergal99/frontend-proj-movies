@@ -1,5 +1,6 @@
 import HttpService from './HttpService';
-import socketService from '../services/SocketService'
+import SocketService from '../services/SocketService'
+import SocketRoomService from '../services/SocketRoomService'
 const USER_URL = HttpService.getUrl('user');
 const UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dwlinsb9c/image/upload'
 var UPLOAD_PRESET = 'ults0zzo'
@@ -14,10 +15,18 @@ export default {
     getLoggedInUser,
     logout,
     uploadImg,
-    USER_STORAGE
+    USER_STORAGE,
+    query
 }
 
 const USER_STORAGE = 'user connected';
+
+function query(filterBy) {
+    var queryStr = '';
+    return HttpService.get(`${USER_URL}${queryStr}`)
+        .then(resolveData)
+        .catch((err) => err)
+}
 
 function getLoggedInUser() {
     return JSON.parse(localStorage.getItem(USER_STORAGE));
@@ -31,7 +40,8 @@ function getById(userId) {
 
 function logout() {
     // alert('logging out')
-    socketService.disconnect()
+    // SocketService.disconnect();
+    SocketRoomService.disconnect();
     return HttpService.get(`${USER_URL}/logout`)
         .then(res => {
             // console.log('Loged out success');
@@ -52,7 +62,8 @@ function singup(newUser) {
 
 function login(userNamePass) {
     // alert('logging IN')
-    socketService.disconnect()
+    // SocketService.disconnect();
+    SocketRoomService.disconnect();
     var prmAnsRes = HttpService.put(`${USER_URL}/login`, userNamePass)
     var prmAns = prmAnsRes.then(res => {
         if (res.data) {

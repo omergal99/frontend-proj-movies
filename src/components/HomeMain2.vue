@@ -1,32 +1,35 @@
 <template>
   <main>
-    <div class="movies-container">
-      <ul class="movie-list" v-if="fourMovies.length">
-        <li v-for="(movie,idx) in fourMovies" :key="idx">
+    <div class="users-container">
+      <div v-if="!fourUsers.length" class="loader-all">
+        <img src="../assets/img/omer/loaders/loader2.gif">
+      </div>
+      <ul class="user-list" v-if="fourUsers.length">
+        <li v-for="(user,idx) in fourUsers" :key="idx">
           <div class="poster">
-            <router-link :to="'/movies/details/' + movie._id">
-              <img :src="movie.details.movieImg">
+            <img v-if="!user.userImg" src="../assets/img/omer/loaders/loadermovie.gif">
+            <router-link :to="'/user/details/' + user._id">
+              <img :src="user.userImg">
             </router-link>
           </div>
 
-          <div class="details flex space-even">
-            <label>Rank ({{arrayAvg(movie.rank)}})</label>
-            <label>Views (74,841)</label>
+          <div class="details flex space-between">
+            <label>{{user.name}}</label>
+            <label>{{user.gender}}</label>
+            <!-- <label>Views (74,841)</label> -->
           </div>
 
-          <div class="users">
-            <li
-              class="flex space-between align-center"
-              v-for="(review,idx2) in reviews[idx]"
-              :key="idx2"
-            >
-              <div class="user-img-wrap">
-                <img @click="userLink(review.user.userId)" :src="review.user.userImg">
+          <div class="movies">
+            <li class="flex space-between align-center" 
+              v-for="(review,idx) in showReviews(user._id)" :key="idx">
+              <div class="movie-img-wrap">
+                <img v-if="!review.movie.movieId" src="../assets/img/omer/loaders/loader1.gif">
+                <img @click="movieLink(review.movie.movieId)" :src="review.movie.movieImg">
               </div>
               <p class="text">
                 {{limitWords(review.content.txt)}}
                 <span
-                  @click="userLink(review.user.userId)"
+                  @click="movieLink(review.movie.movieId)"
                 >Read more</span>
               </p>
               <p class="likes">LIKES ({{review.rate.countLike.length}})</p>
@@ -34,69 +37,59 @@
           </div>
         </li>
       </ul>
-      <div class="galery-link">
+      <!-- <div class="galery-link">
         <router-link to="/movies">
-          <label>See all Movies</label>
+          <label>See 10 Top Users</label>
         </router-link>
-      </div>
+      </div> -->
     </div>
-
-    <ul class="feature-list-grid">
-      <li class="flex" v-for="(feature,idx) in features" :key="idx">
-        <span class="icon">
-          <img src="../assets/img/icons/new.png">
-        </span>
-        <p>{{feature}}</p>
-      </li>
-    </ul>
   </main>
 </template>
 
 <script>
 
 export default {
-  name: "main1",
+  name: "main2",
   data() {
     return {
-      features: ['Show some love for your friends and other members to read theirs favorite filmsShow some love for your favorite films, lists and reviews with a “like”',
-        'Write and share reviews, and follow friends and other members to read theirs',
-        'Rate each film on a five-star scale (with halves) to record and share your reaction',
-        'Compile and share lists of films on any topic and keep a watchlist of films to see'],
-    };
+    }
   },
   created() {
-    if (!this.$store.state.moviesModule.movies.length) {
-      this.$store.dispatch({ type: 'moviesModule/loadMovies' });
+    if (!this.$store.state.usersModule.users.length) {
+      this.$store.dispatch({ type: 'usersModule/loadUsers' });
     }
   },
   computed: {
-    fourMovies() {
-      return this.$store.getters['moviesModule/fourMovies'];
+    fourUsers() {
+      return this.$store.getters['usersModule/fourUsers'];
     },
     reviews() {
-      if (!this.$store.state.reviewsModule.fourReviews.length) {
-        this.fourMovies.forEach(movie => {
-          this.$store.dispatch({ type: "reviewsModule/loadFourReviews", id: movie._id });
+      if (!this.$store.state.reviewsModule.fourReviewsUser.length) {
+        this.fourUsers.forEach(user => {
+          this.$store.dispatch({ type: "reviewsModule/loadFourReviewsUser", id: user._id });
         })
       }
-      return this.$store.state.reviewsModule.fourReviews;
-      // TODO: getters after data will have more then 1 review!!
-      // return this.$store.getters['reviewsModule/fourReviews'];
+      return this.$store.state.reviewsModule.fourReviewsUser;
     }
   },
   methods: {
+    showReviews(userId) {
+      var toSend = [];
+      this.reviews.forEach(reviewsForUser => {
+        if(reviewsForUser[0]){
+          if (reviewsForUser[0].user.userId === userId) {
+            toSend = reviewsForUser;
+          }
+        }
+      })
+      return toSend;
+    },
     limitWords(str) {
       return str.substring(0, 45) + '...';
     },
-    userLink(userId) {
-      this.$router.push(`/user/details/${userId}`);
+    movieLink(userId) {
+      this.$router.push(`/movies/details/${userId}`);
     },
-    arrayAvg(likes) {
-      var sum = 0;
-      likes.forEach(like => sum += like);
-      var avg = sum / likes.length;
-      return avg.toFixed(2);
-    }
   },
 }
 </script>
@@ -110,7 +103,7 @@ main {
   padding-left: 10px;
   padding-right: 10px;
 }
-.movies-container {
+.users-container {
   padding: 0px 0px 25px 0px;
   .galery-link {
     padding: 8px 8px 0 0;
@@ -125,30 +118,29 @@ main {
     }
   }
 }
-.movie-list {
+.user-list {
   padding: 0;
   list-style-type: none;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-gap: 10px;
   color: #dbd5d5;
   > li {
     border-radius: 4px;
     padding: 6px 2px 2px 2px;
     background-color: #151416;
     .poster {
-      height: 200px;
       overflow: hidden;
       margin: 0 auto;
       img {
         width: 100%;
         height: 100%;
-        // object-fit: cover;
-        object-fit: contain;
-        object-position: center;
+        border-radius: 50%;
+        width: 125px;
+        height: 125px;
+        object-fit: cover;
         transition: transform 0.4s;
-        // border-radius: 0px 55px 0px 55px;
         &:hover {
           transform: scale(1.05);
         }
@@ -158,20 +150,18 @@ main {
       padding: 6px 2px 2px 2px;
       font-size: 0.75em;
     }
-    .users {
+    .movies {
       li {
         padding: 2px 2px 2px 2px;
-        .user-img-wrap {
-          width: 40px;
-          height: 40px;
-          // height: auto;
-          overflow: hidden;
-          // margin: 0 auto;
-          display: inline-block;
+        .movie-img-wrap {
+          // width: 40px;
           flex: 0 0 40px;
+          height: 50px;
+          overflow: hidden;
+          display: inline-block;
           img {
             cursor: pointer;
-            border-radius: 50%;
+            border-radius: 4px;
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -206,6 +196,13 @@ main {
   }
 }
 
+@media (min-width: 500px) {
+  .user-list {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    grid-gap: 20px;
+  }
+}
+
 .feature-list-grid {
   list-style-type: none;
   margin: 0;
@@ -231,19 +228,5 @@ main {
       text-align: left;
     }
   }
-}
-
-.icon {
-  position: relative;
-  float: left;
-  width: 52px;
-  height: 40px;
-  margin: 0;
-  top: 5px;
-  left: -8px;
-  // background-image: url(../assets/img/icons/white-star2.png);
-  // background-repeat: no-repeat;
-  // background-position: -53px -8px;
-  flex: 0 0 58px;
 }
 </style>

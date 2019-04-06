@@ -4,19 +4,23 @@ const usersModule = {
     strict: true,
     namespaced: true,
     state: {
+        users: [], // all users?
         currUser: null, // loged in user
-        viewUser: null //  user
+        viewUser: null, //  user
     },
     mutations: {
+        setUsers(state, payload) {
+            state.users = payload.serverUsers;
+        },
         setCurrUser(state, payload) {
-            // console.log('olderrrrrrrrrr login', state.currUser)
+            console.log('olderrrrrrrrrr login', state.currUser)
             state.currUser = payload.user;
-            // console.log('newwwwwwwwwwww login', state.currUser)
+            console.log('newwwwwwwwwwww login', state.currUser)
         },
         cleanCurrUser(state, payload) {
-            // console.log('olderrrrrrrrrr', state.currUser)
+            console.log('older logout', state.currUser)
             state.currUser = payload.guest;
-            // console.log('newwwwwwwwwwww', state.currUser)
+            console.log('new logout', state.currUser)
         },
         setViewUser(state, payload) {
             // console.log('payload.user',payload.user)
@@ -34,9 +38,20 @@ const usersModule = {
 
     },
     getters: {
-
+        fourUsers(state) {
+            var users = state.users.sort((u1, u2) => {
+                return u2.name - u1.name;
+            })
+            return users.splice(0, 4);
+        }
     },
     actions: {
+        loadUsers(context, { filter }) {
+            return UserService.query(filter)
+                .then(serverUsers => {
+                    context.commit({ type: 'setUsers', serverUsers })
+                })
+        },
         doLogin(context, { user }) {
             return UserService.login(user)
                 .then(serverUser => {

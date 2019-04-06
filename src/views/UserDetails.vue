@@ -8,14 +8,19 @@
 
         <div class="user-img">
           <img :src="viewUser.userImg">
-        </div>
-      </div>
-
       <!-- change image button -->
-      <div v-if="currUser._id===viewUser._id">
+          <div v-if="currUser._id===viewUser._id" class="changeImg-btn">
         <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
         <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
       </div>
+        </div>
+      </div>
+
+      <!-- change image button
+      <div v-if="currUser._id===viewUser._id">
+        <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
+        <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
+      </div> -->
 
       <div class="details-container flex flex-col">
         <!-- number of reviews/likes/dislikes/following/followers -->
@@ -163,13 +168,20 @@ export default {
 .details-container {
   width: 100%;
   // margin: auto 0;
-  padding: 0 0 0 8px;
+  padding: 0 0 0 20px;
   .user-data{
-    padding-bottom: 6px;
+    padding-bottom: 25px;
   }
 }
 h2 {
   margin: 4px 0 4px 0;
+
+}
+
+.user{
+  display: flex;
+  flex-direction:column;
+  text-align: center; 
 }
 
 .user-reviews {
@@ -183,16 +195,40 @@ h2 {
 .user-container {
   flex: 0 0 270px;
   margin-top: 30px;
+
 }
 .user-img {
   width: 150px;
   margin: 0;
   display: inline-block;
+ position: relative;
 }
 .user-img img {
   border-radius: 3px;
   // width: 150px;
+ }
+
+.add-img{
+  padding: 5px;
+ text-align: center;
+ //color: white;
+ border: solid 2px white;
+ z-index: 1; 
 }
+
+.changeImg-btn {
+  position: absolute;
+  bottom:0;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .35s ease;
+   z-index: 1;
+}
+
+.user-img:hover .changeImg-btn {
+  opacity: 1;
+}
+
 
 @media (max-width: 720px) {
   .user-profile {

@@ -69,14 +69,18 @@ export default {
         return { err: "problem in MovieDetails page" };
       }
     },
+    loggedInuser(){
+      return this.$store.state.usersModule.currUser._id;
+    }
   },
   watch: {
     selectedRate: function (selectedRate) {
       var rateDetails = {
         movieId: this.currMovie._id,
-        rate: this.selectedRate
+        rate: this.selectedRate,
+        loggedInUser:this.loggedInuser
       }
-     
+     console.log(rateDetails )
       this.$store.dispatch({ type: "moviesModule/updateStarRate", rateDetails })
     }
   },

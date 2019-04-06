@@ -12,7 +12,9 @@
         <br>
         <span class="logo logo5">Movies&Reviews</span>
         <br>
-        <span class="logo logo6">Movies&Reviews</span>-->
+        <span class="logo logo6">Movies&Reviews</span>
+        <br>
+        <span class="logo logo7">Movies&Reviews</span> -->
       </router-link>
 
       <div class="links">
@@ -48,8 +50,8 @@
 
 <script>
 import UserService from "../services/UserService.js";
-import SocketService from '../services/SocketService.js';
-
+// import SocketService from '../services/SocketService.js';
+// import SocketRoomService from "../services/SocketRoomService.js";
 
 export default {
   name: "mainBar",
@@ -78,6 +80,7 @@ export default {
     logoutUser() {
       localStorage.removeItem(UserService.USER_STORAGE);
       this.$store.dispatch({ type: "usersModule/logoutUser" });
+      // SocketRoomService.disconnect();
     }
   }
 };
@@ -99,6 +102,7 @@ export default {
 }
 .logo1 {
   font-family: badScript, cursive, Arial, Helvetica, sans-serif, serif;
+      font-weight: bold;
 }
 .logo2 {
   font-family: undeveloped;
@@ -114,6 +118,9 @@ export default {
 }
 .logo6 {
   font-family: acFilmstrip;
+}
+.logo7 {
+  font-family: neogrey;
 }
 
 .links {
