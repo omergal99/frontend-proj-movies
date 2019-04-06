@@ -84,6 +84,7 @@ export default {
     fourMovies() {
       return this.$store.getters['moviesModule/fourMovies'];
     },
+    
     reviews() {
       if (!this.$store.state.reviewsModule.fourReviews.length) {
         this.fourMovies.forEach(movie => {
