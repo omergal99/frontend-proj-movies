@@ -64,7 +64,7 @@ export default {
     })
   },
   destroyed() {
-    // SocketRoomService.init('', '');
+    // SocketRoomService.disconnect();
   },
   computed: {
     currUser() {
