@@ -67,7 +67,7 @@ export default {
   opacity: 0;
 }
 .pages {
-  padding-top: 68px;
+  padding-top: 42px;
 }
 .stage {
   width: 100%;
@@ -127,6 +127,11 @@ export default {
         -4px -4px 0 #000, 0px 4px 0 #000, 0px -4px 0 #000, -4px 0px 0 #000,
         4px 0px 0 #000;
     }
+  }
+}
+@media (min-width: 720px) {
+  .pages {
+    padding-top: 68px;
   }
 }
 </style>
