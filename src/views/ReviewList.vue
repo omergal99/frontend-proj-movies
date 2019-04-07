@@ -105,7 +105,7 @@ export default {
       this.$store.dispatch({ type: "reviewsModule/removeReview", reviewId });
     },
     editReview(reviewToEdit) {
-      // console.log('Natalia rev', reviewToEdit)
+       //console.log('Natalia rev', reviewToEdit)
       this.$store.dispatch({ type: "reviewsModule/updateReviewTxt", reviewToEdit });
     }
   },

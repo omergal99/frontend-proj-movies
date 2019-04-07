@@ -50,14 +50,18 @@ export default {
   created() {
     const movieId = this.$route.params.movieId;
     this.$store.dispatch({ type: "moviesModule/loadMovie", movieId });
+    if(this.$store.state.moviesModule.movies.length===0){
+      this.$store.dispatch({ type: "moviesModule/loadMovies" })
+    }
   },
   destroyed() {
     this.$store.commit({ type: "moviesModule/setMovie", currMovie: null });
   },
   computed: {
     currMovie() {
-      return this.$store.state.moviesModule.currMovie;
-    },
+      return this.$store.state.moviesModule.currMovie
+         },
+
     detailsForShowReviews() {
       if (this.currMovie) {
         var directAndId = {
@@ -71,7 +75,12 @@ export default {
     },
     loggedInuser(){
       return this.$store.state.usersModule.currUser._id;
-    }
+    },
+     previoslyRated(){
+       console.log('natash', currMovie,loggedInUser )
+       
+     }
+
   },
   watch: {
     selectedRate: function (selectedRate) {
@@ -80,6 +89,8 @@ export default {
         rate: this.selectedRate,
         loggedInUser:this.loggedInuser
       }
+      
+      localStorage.setItem("currRate", JSON.stringify(rateDetails));
      console.log(rateDetails )
       this.$store.dispatch({ type: "moviesModule/updateStarRate", rateDetails })
     }
