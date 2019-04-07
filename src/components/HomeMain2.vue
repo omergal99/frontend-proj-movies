@@ -7,10 +7,14 @@
       <ul class="user-list" v-if="fourUsers.length">
         <li v-for="(user,idx) in fourUsers" :key="idx">
           <div class="poster">
-            <img v-if="!user.userImg" src="../assets/img/omer/loaders/loadermovie.gif">
+            <img class="content" v-if="!user.userImg"
+              src="../assets/img/omer/loaders/loadermovie.gif">
             <router-link :to="'/user/details/' + user._id">
-              <img :src="user.userImg">
+              <img class="content" :src="user.userImg">
             </router-link>
+            <div class="premium">
+              <img class="icon" src="../assets/img/icons/premium.png">
+            </div>
           </div>
 
           <div class="details flex space-between">
@@ -20,7 +24,7 @@
           </div>
 
           <div class="movies">
-            <li class="flex space-between align-center" 
+            <li class="flex space-between align-center"
               v-for="(review,idx) in showReviews(user._id)" :key="idx">
               <div class="movie-img-wrap">
                 <img v-if="!review.movie.movieId" src="../assets/img/omer/loaders/loader1.gif">
@@ -41,7 +45,7 @@
         <router-link to="/movies">
           <label>See 10 Top Users</label>
         </router-link>
-      </div> -->
+      </div>-->
     </div>
   </main>
 </template>
@@ -76,7 +80,7 @@ export default {
     showReviews(userId) {
       var toSend = [];
       this.reviews.forEach(reviewsForUser => {
-        if(reviewsForUser[0]){
+        if (reviewsForUser[0]) {
           if (reviewsForUser[0].user.userId === userId) {
             toSend = reviewsForUser;
           }
@@ -133,7 +137,7 @@ main {
     .poster {
       overflow: hidden;
       margin: 0 auto;
-      img {
+      .content {
         width: 100%;
         height: 100%;
         border-radius: 50%;
@@ -143,6 +147,16 @@ main {
         transition: transform 0.4s;
         &:hover {
           transform: scale(1.05);
+        }
+      }
+      .premium {
+        position: absolute;
+        .icon {
+          position: relative;
+          width: 45px;
+          height: auto;
+          left: 18px;
+          top: -45px;
         }
       }
     }
