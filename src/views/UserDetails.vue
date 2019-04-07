@@ -17,15 +17,6 @@
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
-      <!-- change image button
-      <div v-if="currUser._id===viewUser._id">
-        <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
-        <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
-      </div>-->
-
->>>>>>> 93ebbed725ae00b07dc811cbe2aa6c26ec5b3ec3
       <div class="details-container flex flex-col">
         <!-- number of reviews/likes/dislikes/following/followers -->
         <div class="user-data flex wrap space-between">
@@ -83,15 +74,8 @@ export default {
   name: "UserDetails",
   data() {
     return {
-<<<<<<< HEAD
       // followers: null,    
       // following: null,
-=======
-      followers: null,
-      following: null,
-      isTellLogin: false,
-      isAlreadyFollowed: false,
->>>>>>> 93ebbed725ae00b07dc811cbe2aa6c26ec5b3ec3
       isUserChatOpen: false,
       selectedFile: null
     };
@@ -117,7 +101,6 @@ export default {
       var userId = this.$route.params.userId;
       this.$store.dispatch({ type: "usersModule/loadViewUser", userId });
     },
-<<<<<<< HEAD
     // viewUserFollowedBy(list) {
     //   if( !list ) return
     //   console.log('followers:', list)
@@ -127,17 +110,6 @@ export default {
     //   if( !list ) return
     //   this.following = list;   //following
     // }
-=======
-    viewUserFollowedBy(list) {
-      if (!list) return
-      console.log('followers:', list)
-      this.followers = list; //followers
-    },
-    viewUserFollowAfter(list) {
-      if (!list) return
-      this.following = list;   //following
-    }
->>>>>>> 93ebbed725ae00b07dc811cbe2aa6c26ec5b3ec3
   },
   watch: {
     userId: function () {
