@@ -13,7 +13,7 @@
           <movie-chat/>
         </div>
 
-        <label>Rate the movie:</label>
+        <label>Rate this movie:</label>
         <StarRating :show-rating="false" v-model="selectedRate" :increment="0.5" :star-size="30"></StarRating>
         
         <p><span style="text-decoration: underline;">Directed by:</span>&nbsp;

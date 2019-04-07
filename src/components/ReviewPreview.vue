@@ -9,6 +9,7 @@
       </router-link>
   
     <div class="likes flex" v-if="direct === 'user'">
+      <div class="rank" title="Rated by this user" v-if=review.curmovie>{{review.curmovie.rank}}<i class="fas fa-star"></i></div>
       <i class="fas fa-thumbs-up" title="Like"></i><span class="numOfLikes">{{review.rate.countLike.length}} &nbsp;</span>
       <i class="fas fa-thumbs-down" title="Dislike"></i><span   class="numOfDislikes">{{review.rate.countDislike.length}}</span>
     <a title="Share" href="https://www.facebook.com/sharer/sharer.php?u=">
@@ -19,6 +20,9 @@
   </div>
 
     <div v-if="currUser._id===review.user.userId" class="flex space-end">
+      
+      
+      
       <button v-if="!isEditOpen" class="btn" title="Edit" @click="toggleEditReview(review)"><i class="fas fa-pencil-alt"></i></button>
       <button v-if="isEditOpen" title="Save"  class="btn" @click="emitSaveReview"><i class="far fa-save"></i></button>
       <button v-if="isEditOpen" title="Cancel"  class="btn" @click="cancelEditReview(review)"><i class="far fa-window-close"></i></button>
@@ -52,7 +56,10 @@
   </div>
 </template>
 
+
 <script>
+
+
 export default {
   name: "reviewPreview",
   props: {
@@ -65,7 +72,7 @@ export default {
       isEditOpen: false,
       tempTxt: null,
       notFullReview: true,
-      txt: this.review.content.txt
+      txt: this.review.content.txt      
     };
   },
   computed: {
@@ -76,13 +83,13 @@ export default {
       } else {
           return shortTxt
       }
-    }
-  //   fullTxt(){
-      
-  //     var txt = this.review.content.txt;
-  //     return txt;
-  //   }
-   },
+    },
+// movieStars(){
+//   var movieRview=this.review 
+//   console.log()
+// }
+
+     },
   methods: {
     emitRemoveReview() {
       console.log("this review", this.review);
@@ -188,6 +195,11 @@ ul .share-social {
 }
 .fas{
   cursor: pointer;
+}
+.fa-star{
+  /* cursor: none; */
+  color:#ffd055;
+  padding-right:10px 
 }
 
 </style>
