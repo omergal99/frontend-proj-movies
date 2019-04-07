@@ -3,24 +3,19 @@
     <!-- USER DETAILS -->
 
     <div class="user-container flex" v-if="viewUser">
-      <div class="user">
+      <div class="user-header flex">
+        <div class="user">
         <h2>{{viewUser.name}}</h2>
 
         <div class="user-img">
           <img :src="viewUser.userImg">
-      <!-- change image button -->
+          <!-- change image button -->
           <div v-if="currUser._id===viewUser._id" class="changeImg-btn">
-        <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
-        <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
-      </div>
+            <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
+            <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
+          </div>
         </div>
       </div>
-
-      <!-- change image button
-      <div v-if="currUser._id===viewUser._id">
-        <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
-        <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
-      </div> -->
 
       <div class="details-container flex flex-col">
         <!-- number of reviews/likes/dislikes/following/followers -->
@@ -48,11 +43,14 @@
             <span>Following</span>
           </div>
         </div>
+      </div>
+      
 
         <!-- chat and follow button -->
         <div class="flex space-between">
           <user-chat/>
-          <follow-user @viewUserFollowedBy="viewUserFollowedBy" @viewUserFollowAfter="viewUserFollowAfter"></follow-user>
+          <!-- <follow-user @viewUserFollowedBy="viewUserFollowedBy" @viewUserFollowAfter="viewUserFollowAfter"></follow-user> -->
+          <follow-user></follow-user>
         </div>
       </div>
     </div>
@@ -61,6 +59,9 @@
     <div class="user-reviews full">
       <review-list :directAndId="detailsForShowReviews"></review-list>
     </div>
+
+    <!-- following reviews -->
+
   </section>
 </template>
 
@@ -73,10 +74,8 @@ export default {
   name: "UserDetails",
   data() {
     return {
-      followers: null,    
-      following: null,
-      isTellLogin: false,
-      isAlreadyFollowed: false,
+      // followers: null,    
+      // following: null,
       isUserChatOpen: false,
       selectedFile: null
     };
@@ -102,26 +101,20 @@ export default {
       var userId = this.$route.params.userId;
       this.$store.dispatch({ type: "usersModule/loadViewUser", userId });
     },
-    viewUserFollowedBy(list) {
-      if( !list ) return
-      console.log('followers:', list)
-      this.followers = list; //followers
-    },
-    viewUserFollowAfter(list) {
-      if( !list ) return
-      this.following = list;   //following
-    }
+    // viewUserFollowedBy(list) {
+    //   if( !list ) return
+    //   console.log('followers:', list)
+    //   this.followers = list; //followers
+    // },
+    // viewUserFollowAfter(list) {
+    //   if( !list ) return
+    //   this.following = list;   //following
+    // }
   },
   watch: {
     userId: function () {
       this.loadUser();
     },
-    // followers(oldV, newV){
-    //   console.log(oldV, newV)
-    // },
-    // following(oldV, newV){
-
-    // }
   },
   computed: {
     viewUser() {
@@ -139,6 +132,18 @@ export default {
         return directAndId;
       } else {
         return { err: "problem in UserDetails page" };
+      }
+    },
+    followers(){
+      if(this.$store.state.usersModule.viewUser){
+        console.log('followedBy:', this.$store.state.usersModule.viewUser.follow.followedBy)
+        return this.$store.state.usersModule.viewUser.follow.followedBy;
+      }
+    },
+    following(){
+      if(this.$store.state.usersModule.viewUser){
+        console.log('followAfter:', this.$store.state.usersModule.viewUser.follow.followAfter)
+        return this.$store.state.usersModule.viewUser.follow.followAfter;
       }
     },
 
@@ -233,6 +238,7 @@ h2 {
 @media (max-width: 720px) {
   .user-profile {
     flex-direction: column;
+    background-color: red;
     .add-img {
       color: white;
       padding: 7px;

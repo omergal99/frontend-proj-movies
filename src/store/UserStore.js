@@ -13,14 +13,14 @@ const usersModule = {
             state.users = payload.serverUsers;
         },
         setCurrUser(state, payload) {
-            console.log('olderrrrrrrrrr login', state.currUser)
+            // console.log('olderrrrrrrrrr login', state.currUser)
             state.currUser = payload.user;
-            console.log('newwwwwwwwwwww login', state.currUser)
+            // console.log('newwwwwwwwwwww login', state.currUser)
         },
         cleanCurrUser(state, payload) {
-            console.log('older logout', state.currUser)
+            // console.log('older logout', state.currUser)
             state.currUser = payload.guest;
-            console.log('new logout', state.currUser)
+            // console.log('new logout', state.currUser)
         },
         setViewUser(state, payload) {
             // console.log('payload.user',payload.user)
@@ -32,8 +32,8 @@ const usersModule = {
         setFollower(state, {users}){
             state.currUser.follow.followAfter.push(users.followedUser.name)
             state.viewUser.follow.followedBy.push(users.loggedInUser.name)
-            console.log('currUser follow after',state.currUser.follow.followAfter)
-            console.log('viewUser followed by',state.viewUser.follow.followedBy)
+            // console.log('currUser follow after',state.currUser.follow.followAfter)
+            // console.log('viewUser followed by',state.viewUser.follow.followedBy)
         }
 
     },
@@ -68,10 +68,10 @@ const usersModule = {
             return UserService.singup(newUser)
                 .then(addedUser => {
                     if (addedUser) {
-                        console.log("addedUser", addedUser)
+                        // console.log("addedUser", addedUser)
                         context.commit({ type: 'setCurrUser', user: addedUser })
                     } else {
-                        console.log('name is not available')
+                        // console.log('name is not available')
                     }
                     return addedUser;
                 })
@@ -92,10 +92,10 @@ const usersModule = {
             return context.commit({ type: 'setFollower', users })
         },
         uploadImg(context, { fileAndUser }) {
-            console.log('i am here')
+            // console.log('i am here')
             return UserService.uploadImg(fileAndUser )
                 .then((res) => {
-                    console.log(res)
+                    // console.log(res)
                     return context.commit({ type: 'addImg', selectedImg })
                 })
         }

@@ -28,15 +28,14 @@
 
           <!-- reviews of the user -->
           <div v-if="directAndId.direct === 'user'"
-              class="review-details stam flex flex-col align-center" >
-                  <router-link 
-                    :to="'/movies/details/' + currReview.movie.movieId"
-                    class="review-details-link flex flex-col" >
-                    <img class="movie-img" :src="currReview.movie.movieImg">
-                  </router-link>
+            class="review-details stam flex flex-col align-center" >
+              <router-link 
+                :to="'/movies/details/' + currReview.movie.movieId"
+                class="review-details-link flex flex-col" >
+                <img class="movie-img" :src="currReview.movie.movieImg">
+              </router-link>
           </div>
 
-          <!-- <div class="" style="background-color: yellow; width:100%"> -->
             <review-preview
               v-if="currUser"
               :review="currReview"
@@ -45,7 +44,6 @@
               @onRemoveReview="removeReview"
               @onEditReview="editReview">
             </review-preview>
-          <!-- </div> -->
         </div>
       </li>
     </ul>

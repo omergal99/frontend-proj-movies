@@ -1,14 +1,14 @@
 <template>
   <section>
 
-    <div class="follow" v-if="isSelfProfile">
+    <div class="follow" v-if="showFollowButton">
       <button @click="onFollowUser" class="btn-follow" title="Follow User">
         Follow {{viewUser.name}}! <i class="fas fa-user-plus"></i>
       </button>
       <div v-if="isLogin">Please login to follow the user...</div>
     </div>
 
-    <div v-if="isAlreadyFollowed">You already follow this user</div>
+    <div v-if="isAlreadyFollowed">You follow {{viewUser.name}}</div>
 
   </section>
 </template>
@@ -24,6 +24,7 @@ export default {
   },
   created() {
     if(this.viewUser){
+      
       this.$emit('viewUserFollowedBy', this.viewUserFollowedBy)  // followers
       this.$emit('viewUserFollowAfter', this.viewUserFollowAfter)  // following
     }
@@ -35,9 +36,11 @@ export default {
     viewUser() {
       return this.$store.state.usersModule.viewUser;
     },
-    isSelfProfile() {
+    showFollowButton() {
       if (this.currUser.name === this.viewUser.name) {
         return false
+      } else if (this.checkIfAlreadyFollow(this.currUser, this.viewUser)){
+        console.log('dd')
       } else {
         return true
       }
@@ -80,9 +83,10 @@ export default {
           if (loggedInUserName === followedUserList[i]){
             // console.log('already')
             this.isAlreadyFollowed = true
-            setTimeout(() => {
-              this.isAlreadyFollowed = false;
-            }, 3000)   // 3 secs to show "The user is already followed by ..."
+            // this.showFollowButton = false
+            // setTimeout(() => {
+            //   this.isAlreadyFollowed = false;
+            // }, 3000)   // 3 secs to show "The user is already followed by ..."
             return true
           }
         }
