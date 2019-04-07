@@ -35,11 +35,11 @@
                 >
                 <img 
                   class="content"
-                  :class="[calcLiks(review) > 10 ? 'gold' : 'blue']"
+                  :class="[calcLiks(review) > 150 ? 'gold' : 'blue']"
                   @click="userLink(review.user.userId)"
                   :src="review.user.userImg"
                 >
-                <div v-if="calcLiks(review) > 10" class="premium">
+                <div v-if="calcLiks(review) > 150" class="premium">
                   <img class="icon" src="../assets/img/icons/premium.png">
                 </div>
               </div>

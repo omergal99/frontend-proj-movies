@@ -94,7 +94,7 @@ export default {
 
 .logo {
   font-size: 1.2em;
-  color: #3481b4;
+  color: #149cf7;
   // font-family: merienda,badScript, cursive, Arial, Helvetica, sans-serif, serif;
   // font-family: undeveloped, movieFilmstrip,
   // krAction ,Faster_One ,acFilmstrip;

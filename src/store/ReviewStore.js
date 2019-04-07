@@ -46,7 +46,8 @@ const reviewsModule = {
             reviews.sort((r1, r2) => {
                 return r2.rate.countLike.length - r1.rate.countLike.length
             })
-            state.fourReviewsUser.push(reviews.slice(0,2))
+            // state.fourReviewsUser.push(reviews.slice(0,2))
+            state.fourReviewsUser.push(reviews)
         },
     },
 
@@ -62,7 +63,6 @@ const reviewsModule = {
         numOfLikes(state) {
             return state.currReviews.reduce((acc, rev) => acc + rev.rate.countLike.length, 0)
         },
-
         numOfDislikes(state) {
             return state.currReviews.reduce((acc, rev) => acc + rev.rate.countDislike.length, 0)
         },
