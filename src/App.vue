@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <!-- <div v-if="isStart" class="stage" @click="moveStage">
+    <div v-if="isStart && currUser && currUser.name === 'Omer'" class="stage" @click="moveStage">
       <transition name="slide-start">
         <img v-if="isOnMove" src="../src/assets/img/omer/home/curtains-right.png">
       </transition>
       <transition name="slide-text">
         <p v-if="isOnMove" class="text-start">
-          Movies<br>&<br>Reviews
+          Movies
+          <br>&
+          <br>Reviews
         </p>
       </transition>
-    </div> -->
-
+    </div>
     <main-bar/>
 
     <div class="pages">
@@ -25,30 +26,38 @@ import MainBar from '../src/components/MainBar.vue';
 export default {
   data() {
     return {
-      isStart: true,
+      isStart: false,
       isOnMove: true
     }
   },
   components: {
     MainBar
   },
+  created() {
+    this.isStart = true;
+  },
   methods: {
     moveStage() {
       this.isOnMove = false;
       setTimeout(() => {
         this.isStart = false;
-      }, 4000);
+      }, 3500);
     },
-  }
+  },
+  computed: {
+    currUser() {
+      return this.$store.state.usersModule.currUser;
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
 .slide-start-leave-active {
-  transition: all 4s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 3.5s cubic-bezier(1, 0.5, 0.8, 1);
 }
 .slide-start-leave-to {
-  animation: imgOut 4s 1;
+  animation: imgOut 3.5s 1;
   animation-direction: alternate;
 }
 .slide-text-leave-active {
@@ -58,7 +67,7 @@ export default {
   opacity: 0;
 }
 .pages {
-  padding-top: 68px;
+  padding-top: 42px;
 }
 .stage {
   width: 100%;
@@ -76,9 +85,9 @@ export default {
     position: absolute;
     z-index: 30;
     color: gold;
-    left: calc(50% - 225px); // - half of the text width
-    top: calc(40% - 160px);
-    font-size: 64px;
+    left: calc(50% - 160px); // - half of the text width
+    top: calc(40% - 150px);
+    font-size: 44px;
     margin: 0;
     padding: 30px 20px;
     font-family: neogrey, cursive, Arial, Helvetica, sans-serif;
@@ -100,6 +109,29 @@ export default {
     left: 100%;
     width: 0;
     opacity: 0;
+  }
+}
+@media (min-width: 600px) {
+  .stage {
+    .text-start {
+      position: absolute;
+      z-index: 30;
+      color: gold;
+      left: calc(50% - 225px); // - half of the text width
+      top: calc(40% - 160px);
+      font-size: 64px;
+      margin: 0;
+      padding: 30px 20px;
+      font-family: neogrey, cursive, Arial, Helvetica, sans-serif;
+      text-shadow: 4px 4px 0 #000, -4px 4px 0 #000, 4px -4px 0 #000,
+        -4px -4px 0 #000, 0px 4px 0 #000, 0px -4px 0 #000, -4px 0px 0 #000,
+        4px 0px 0 #000;
+    }
+  }
+}
+@media (min-width: 720px) {
+  .pages {
+    padding-top: 68px;
   }
 }
 </style>

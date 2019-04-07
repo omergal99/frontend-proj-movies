@@ -9,9 +9,10 @@
       </router-link>
   
     <div class="likes flex" v-if="direct === 'user'">
-      <i class="fas fa-thumbs-up"></i><span class="numOfLikes">{{review.rate.countLike.length}} &nbsp;</span>
-      <i class="fas fa-thumbs-down"></i><span class="numOfDislikes">{{review.rate.countDislike.length}}</span>
-    <a title="share" href="https://www.facebook.com/sharer/sharer.php?u=">
+      <div class="rank" title="Rated by this user" v-if=review.curmovie>{{review.curmovie.rank}}<i class="fas fa-star"></i></div>
+      <i class="fas fa-thumbs-up" title="Like"></i><span class="numOfLikes">{{review.rate.countLike.length}} &nbsp;</span>
+      <i class="fas fa-thumbs-down" title="Dislike"></i><span   class="numOfDislikes">{{review.rate.countDislike.length}}</span>
+    <a title="Share" href="https://www.facebook.com/sharer/sharer.php?u=">
         &nbsp;&nbsp;<i class="fab fa-facebook-square"></i>
       </a>
     </div>
@@ -19,20 +20,23 @@
   </div>
 
     <div v-if="currUser._id===review.user.userId" class="flex space-end">
-      <button v-if="!isEditOpen" class="btn" @click="toggleEditReview(review)"><i class="fas fa-pencil-alt"></i></button>
-      <button v-if="isEditOpen" class="btn" @click="emitSaveReview"><i class="far fa-save"></i></button>
-      <button v-if="isEditOpen" class="btn" d @click="cancelEditReview(review)"><i class="far fa-window-close"></i></button>
-      <button @click="emitRemoveReview" class="btn"><i class="far fa-trash-alt"></i></button>
+      
+      
+      
+      <button v-if="!isEditOpen" class="btn" title="Edit" @click="toggleEditReview(review)"><i class="fas fa-pencil-alt"></i></button>
+      <button v-if="isEditOpen" title="Save"  class="btn" @click="emitSaveReview"><i class="far fa-save"></i></button>
+      <button v-if="isEditOpen" title="Cancel"  class="btn" @click="cancelEditReview(review)"><i class="far fa-window-close"></i></button>
+      <button @click="emitRemoveReview" title="Delete" class="btn"><i class="far fa-trash-alt"></i></button>
     </div>
     <input type="text" class="div-reviews" v-if="isEditOpen" v-model="txt">
  
 
 
     <!-- show less than 300 symbols -->
-    <div class="div-reviews" v-if="notFullReview">{{txt}}
-      <div @click.stop="toggleFullReview" v-if="txt.length > 298" class="full-review">Read Full Review</div>
+    <div class="div-reviews" v-if="notFullReview">{{shortTxt}}
+      <div @click.stop="toggleFullReview" v-if="txt.length > 298" class="full-review">Read more</div>
     </div>
-    <div class="div-reviews" v-else>{{fullTxt}} 
+    <div class="div-reviews" v-else>{{txt}} 
       <div @click.stop="toggleFullReview" class="full-review">... Read Less</div>
     </div>
       
@@ -52,7 +56,10 @@
   </div>
 </template>
 
+
 <script>
+
+
 export default {
   name: "reviewPreview",
   props: {
@@ -64,25 +71,25 @@ export default {
     return {
       isEditOpen: false,
       tempTxt: null,
-      notFullReview: true
+      notFullReview: true,
+      txt: this.review.content.txt      
     };
   },
   computed: {
-    txt(){
-
-      var txt = this.review.content.txt;
-      if (txt.length > 300) {
-        return txt.substring(0,299)
+    shortTxt(){
+      var shortTxt = this.txt;
+      if (shortTxt.length > 300) {
+        return shortTxt.substring(0,299)
       } else {
-          return txt
+          return shortTxt
       }
     },
-    fullTxt(){
-      
-      var txt = this.review.content.txt;
-      return txt;
-    }
-  },
+// movieStars(){
+//   var movieRview=this.review 
+//   console.log()
+// }
+
+     },
   methods: {
     emitRemoveReview() {
       console.log("this review", this.review);
@@ -185,6 +192,14 @@ a{
 ul .share-social {
   list-style: none;
   display: flex;
+}
+.fas{
+  cursor: pointer;
+}
+.fa-star{
+  /* cursor: none; */
+  color:#ffd055;
+  padding-right:10px 
 }
 
 </style>

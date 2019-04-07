@@ -15,18 +15,33 @@
 
           <div class="details flex space-even">
             <label>
-              Rank ({{arrayAvg(movie.rank)}}
+              Rank ({{(movie.avgRank)}}
               <i class="fas fa-star"></i>)
             </label>
             <!-- <label>Views (74,841)</label> -->
           </div>
 
           <div class="users">
-            <li class="flex space-between align-center"
-              v-for="(review,idx) in showReviews(movie._id)" :key="idx">
+            <li
+              class="flex space-between align-center"
+              v-for="(review,idx) in showReviews(movie._id)"
+              :key="idx"
+            >
               <div class="user-img-wrap">
-                <img v-if="!review.user.userImg" src="../assets/img/omer/loaders/loader1.gif">
-                <img @click="userLink(review.user.userId)" :src="review.user.userImg">
+                <img
+                  class="content"
+                  v-if="!review.user.userImg"
+                  src="../assets/img/omer/loaders/loader1.gif"
+                >
+                <img 
+                  class="content"
+                  :class="[calcLiks(review) > 150 ? 'gold' : 'blue']"
+                  @click="userLink(review.user.userId)"
+                  :src="review.user.userImg"
+                >
+                <div v-if="calcLiks(review) > 150" class="premium">
+                  <img class="icon" src="../assets/img/icons/premium.png">
+                </div>
               </div>
               <p class="text">
                 {{limitWords(review.content.txt)}}
@@ -34,7 +49,7 @@
                   @click="userLink(review.user.userId)"
                 >Read more</span>
               </p>
-              <p class="likes">LIKES ({{review.rate.countLike.length}})</p>
+              <p class="likes">LIKES ({{calcLiks(review)}})</p>
             </li>
           </div>
         </li>
@@ -79,7 +94,7 @@ export default {
     fourMovies() {
       return this.$store.getters['moviesModule/fourMovies'];
     },
-    
+
     reviews() {
       if (!this.$store.state.reviewsModule.fourReviews.length) {
         this.fourMovies.forEach(movie => {
@@ -91,10 +106,13 @@ export default {
     }
   },
   methods: {
+    calcLiks(review) {
+      return review.rate.countLike.length
+    },
     showReviews(movieId) {
       var toSend = [];
       this.reviews.forEach(reviewsForMovie => {
-        if(reviewsForMovie[0]){
+        if (reviewsForMovie[0]) {
           if (reviewsForMovie[0].movie.movieId === movieId) {
             toSend = reviewsForMovie;
           }
@@ -108,12 +126,12 @@ export default {
     userLink(userId) {
       this.$router.push(`/user/details/${userId}`);
     },
-    arrayAvg(likes) {
-      var sum = 0;
-      likes.forEach(like => sum += like.rank);
-      var avg = sum / likes.length;
-      return avg.toFixed(2);
-    }
+    // arrayAvg(likes) {
+    //   var sum = 0;
+    //   likes.forEach(like => sum += like.rank);
+    //   var avg = sum / likes.length;
+    //   return avg.toFixed(2);
+    // }
   },
 }
 </script>
@@ -186,15 +204,29 @@ main {
           // margin: 0 auto;
           display: inline-block;
           flex: 0 0 40px;
-          img {
+          .content {
             cursor: pointer;
             border-radius: 50%;
             width: 100%;
             height: 100%;
             object-fit: cover;
             border: 2px solid #3481b400;
-            &:hover {
+            &.blue:hover,
+            &.gold:hover {
               border: 2px solid #3481b4;
+            }
+            &.gold {
+              border: 2px solid gold;
+            }
+          }
+          .premium {
+            position: absolute;
+            .icon {
+              position: relative;
+              width: 20px;
+              height: auto;
+              left: -4px;
+              top: -22px;
             }
           }
         }

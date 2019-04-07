@@ -4,7 +4,7 @@ const usersModule = {
     strict: true,
     namespaced: true,
     state: {
-        users: [], // all users?
+        users: [], // all users? yes!
         currUser: null, // loged in user
         viewUser: null, //  user
     },
