@@ -8,11 +8,11 @@
 
         <div class="user-img">
           <img :src="viewUser.userImg">
-      <!-- change image button -->
+          <!-- change image button -->
           <div v-if="currUser._id===viewUser._id" class="changeImg-btn">
-        <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
-        <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
-      </div>
+            <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
+            <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
+          </div>
         </div>
       </div>
 
@@ -20,11 +20,11 @@
       <div v-if="currUser._id===viewUser._id">
         <input style="display: none" type="file" @change="onfileSelected" ref="fileInput">
         <button class="add-img" @click="$refs.fileInput.click()">Add/Change your picture</button>
-      </div> -->
+      </div>-->
 
       <div class="details-container flex flex-col">
         <!-- number of reviews/likes/dislikes/following/followers -->
-        <div class="user-data flex space-between">
+        <div class="user-data flex wrap space-between">
           <div class="reviews flex flex-col align-center">
             <span>{{numOfReviews}}</span>
             <span>Reviews</span>
@@ -52,7 +52,10 @@
         <!-- chat and follow button -->
         <div class="flex space-between">
           <user-chat/>
-          <follow-user @viewUserFollowedBy="viewUserFollowedBy" @viewUserFollowAfter="viewUserFollowAfter"></follow-user>
+          <follow-user
+            @viewUserFollowedBy="viewUserFollowedBy"
+            @viewUserFollowAfter="viewUserFollowAfter"
+          ></follow-user>
         </div>
       </div>
     </div>
@@ -73,7 +76,7 @@ export default {
   name: "UserDetails",
   data() {
     return {
-      followers: null,    
+      followers: null,
       following: null,
       isTellLogin: false,
       isAlreadyFollowed: false,
@@ -103,12 +106,12 @@ export default {
       this.$store.dispatch({ type: "usersModule/loadViewUser", userId });
     },
     viewUserFollowedBy(list) {
-      if( !list ) return
+      if (!list) return
       console.log('followers:', list)
       this.followers = list; //followers
     },
     viewUserFollowAfter(list) {
-      if( !list ) return
+      if (!list) return
       this.following = list;   //following
     }
   },
@@ -169,19 +172,18 @@ export default {
   width: 100%;
   // margin: auto 0;
   padding: 0 0 0 20px;
-  .user-data{
+  .user-data {
     padding-bottom: 25px;
   }
 }
 h2 {
   margin: 4px 0 4px 0;
-
 }
 
-.user{
+.user {
   display: flex;
-  flex-direction:column;
-  text-align: center; 
+  flex-direction: column;
+  text-align: center;
 }
 
 .user-reviews {
@@ -194,41 +196,39 @@ h2 {
 
 .user-container {
   flex: 0 0 270px;
-  margin-top: 30px;
-
+  margin-top: 18px;
 }
 .user-img {
   width: 150px;
-  margin: 0;
   display: inline-block;
- position: relative;
+  position: relative;
+  margin: 0 auto;
 }
 .user-img img {
   border-radius: 3px;
   // width: 150px;
- }
+}
 
-.add-img{
+.add-img {
   padding: 5px;
- text-align: center;
- //color: white;
- border: solid 2px white;
- z-index: 1; 
+  text-align: center;
+  //color: white;
+  border: solid 2px white;
+  z-index: 1;
 }
 
 .changeImg-btn {
   position: absolute;
-  bottom:0;
+  bottom: 0;
   text-align: center;
   opacity: 0;
-  transition: opacity .35s ease;
-   z-index: 1;
+  transition: opacity 0.35s ease;
+  z-index: 1;
 }
 
 .user-img:hover .changeImg-btn {
   opacity: 1;
 }
-
 
 @media (max-width: 720px) {
   .user-profile {
@@ -248,6 +248,9 @@ h2 {
         color: #3481b4;
       }
     }
+  }
+  .user-container {
+    flex-direction: column;
   }
 }
 </style>

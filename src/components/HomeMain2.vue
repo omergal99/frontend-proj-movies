@@ -7,8 +7,11 @@
       <ul class="user-list" v-if="fourUsers.length">
         <li v-for="(user,idx) in fourUsers" :key="idx">
           <div class="poster">
-            <img class="content" v-if="!user.userImg"
-              src="../assets/img/omer/loaders/loadermovie.gif">
+            <img
+              class="content"
+              v-if="!user.userImg"
+              src="../assets/img/omer/loaders/loadermovie.gif"
+            >
             <router-link :to="'/user/details/' + user._id">
               <img class="content" :src="user.userImg">
             </router-link>
@@ -19,24 +22,24 @@
 
           <div class="details flex space-between">
             <label>{{user.name}}</label>
-            <label>{{user.gender}}</label>
-            <!-- <label>Views (74,841)</label> -->
+            <label>Likes {{sumReviews(user._id)}}</label>
           </div>
 
           <div class="movies">
-            <li class="flex space-between align-center"
-              v-for="(review,idx) in showReviews(user._id)" :key="idx">
-              <div class="movie-img-wrap">
-                <img v-if="!review.movie.movieId" src="../assets/img/omer/loaders/loader1.gif">
-                <img @click="movieLink(review.movie.movieId)" :src="review.movie.movieImg">
+            <li v-for="(review,idx) in showReviews(user._id)" :key="idx">
+              <div v-if="idx < 2" class="flex space-between align-center">
+                <div class="movie-img-wrap">
+                  <img v-if="!review.movie.movieId" src="../assets/img/omer/loaders/loader1.gif">
+                  <img @click="movieLink(review.movie.movieId)" :src="review.movie.movieImg">
+                </div>
+                <p class="text">
+                  {{limitWords(review.content.txt)}}
+                  <span
+                    @click="movieLink(review.movie.movieId)"
+                  >Read more</span>
+                </p>
+                <p class="likes">LIKES ({{review.rate.countLike.length}})</p>
               </div>
-              <p class="text">
-                {{limitWords(review.content.txt)}}
-                <span
-                  @click="movieLink(review.movie.movieId)"
-                >Read more</span>
-              </p>
-              <p class="likes">LIKES ({{review.rate.countLike.length}})</p>
             </li>
           </div>
         </li>
@@ -87,6 +90,17 @@ export default {
         }
       })
       return toSend;
+    },
+    sumReviews(userId) {
+      var fourArrReviews = this.$store.state.reviewsModule.fourReviewsUser;
+      if (fourArrReviews.length >= 4) {
+        var sum = 0;
+        var idx = fourArrReviews.findIndex((arr) => arr[0].user.userId === userId)
+        fourArrReviews[idx].forEach(review => {
+          sum += review.rate.countLike.length;
+        })
+        return sum;
+      }
     },
     limitWords(str) {
       return str.substring(0, 45) + '...';

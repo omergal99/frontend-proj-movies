@@ -6,7 +6,9 @@
       </transition>
       <transition name="slide-text">
         <p v-if="isOnMove" class="text-start">
-          Movies<br>&<br>Reviews
+          Movies
+          <br>&
+          <br>Reviews
         </p>
       </transition>
     </div>
@@ -24,12 +26,15 @@ import MainBar from '../src/components/MainBar.vue';
 export default {
   data() {
     return {
-      isStart: true,
+      isStart: false,
       isOnMove: true
     }
   },
   components: {
     MainBar
+  },
+  created() {
+    this.isStart = true;
   },
   methods: {
     moveStage() {
@@ -62,7 +67,7 @@ export default {
   opacity: 0;
 }
 .pages {
-  padding-top: 68px;
+  padding-top: 42px;
 }
 .stage {
   width: 100%;
@@ -80,9 +85,9 @@ export default {
     position: absolute;
     z-index: 30;
     color: gold;
-    left: calc(50% - 225px); // - half of the text width
-    top: calc(40% - 160px);
-    font-size: 64px;
+    left: calc(50% - 160px); // - half of the text width
+    top: calc(40% - 150px);
+    font-size: 44px;
     margin: 0;
     padding: 30px 20px;
     font-family: neogrey, cursive, Arial, Helvetica, sans-serif;
@@ -104,6 +109,29 @@ export default {
     left: 100%;
     width: 0;
     opacity: 0;
+  }
+}
+@media (min-width: 600px) {
+  .stage {
+    .text-start {
+      position: absolute;
+      z-index: 30;
+      color: gold;
+      left: calc(50% - 225px); // - half of the text width
+      top: calc(40% - 160px);
+      font-size: 64px;
+      margin: 0;
+      padding: 30px 20px;
+      font-family: neogrey, cursive, Arial, Helvetica, sans-serif;
+      text-shadow: 4px 4px 0 #000, -4px 4px 0 #000, 4px -4px 0 #000,
+        -4px -4px 0 #000, 0px 4px 0 #000, 0px -4px 0 #000, -4px 0px 0 #000,
+        4px 0px 0 #000;
+    }
+  }
+}
+@media (min-width: 720px) {
+  .pages {
+    padding-top: 68px;
   }
 }
 </style>
