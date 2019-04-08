@@ -80,7 +80,7 @@ const reviewsModule = {
         loadReviews(context, { directAndId }) {
             return ReviewService.query(directAndId)
                 .then(serverReviews => {
-                    console.log('serverReviews',serverReviews)
+                    // console.log('serverReviews',serverReviews)
                     context.commit({ type: 'setReviews', serverReviews })
                 })
         },

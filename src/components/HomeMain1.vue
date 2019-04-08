@@ -9,7 +9,7 @@
           <div class="poster">
             <img v-if="!movie.details.movieImg" src="../assets/img/omer/loaders/loadermovie.gif">
             <router-link :to="'/movies/details/' + movie._id">
-              <img :src="movie.details.movieImg">
+              <img :src="movie.details.movieImg" :title="movie.details.name">
             </router-link>
           </div>
 
@@ -38,6 +38,7 @@
                   :class="[calcLiks(review) > 150 ? 'gold' : 'blue']"
                   @click="userLink(review.user.userId)"
                   :src="review.user.userImg"
+                  :title="review.user.userName"
                 >
                 <div v-if="calcLiks(review) > 150" class="premium">
                   <img class="icon" src="../assets/img/icons/premium.png">
@@ -220,12 +221,12 @@ main {
             }
           }
           .premium {
-            position: absolute;
+            // position: absolute;
             .icon {
               position: relative;
               width: 20px;
               height: auto;
-              left: -4px;
+              left: 0px;
               top: -22px;
             }
           }

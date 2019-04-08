@@ -13,7 +13,7 @@
               src="../assets/img/omer/loaders/loadermovie.gif"
             >
             <router-link :to="'/user/details/' + user._id">
-              <img class="content" :src="user.userImg">
+              <img class="content" :src="user.userImg" :title="user.name">
             </router-link>
             <div class="premium">
               <img class="icon" src="../assets/img/icons/premium.png">
@@ -30,7 +30,9 @@
               <div v-if="idx < 2" class="flex space-between align-center">
                 <div class="movie-img-wrap">
                   <img v-if="!review.movie.movieId" src="../assets/img/omer/loaders/loader1.gif">
-                  <img @click="movieLink(review.movie.movieId)" :src="review.movie.movieImg">
+                  <img @click="movieLink(review.movie.movieId)" 
+                  :src="review.movie.movieImg"
+                  :title="review.movie.movieName">
                 </div>
                 <p class="text">
                   {{limitWords(review.content.txt)}}
@@ -164,6 +166,7 @@ main {
         }
       }
       .premium {
+        height: 0;
         position: absolute;
         .icon {
           position: relative;
