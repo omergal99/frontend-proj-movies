@@ -8,7 +8,7 @@
       <div v-if="isLogin">Please login to follow the user...</div>
     </div>
 
-    <div v-if="isAlreadyFollowed">You follow {{viewUser.name}}</div>
+    <!-- <div v-if="isAlreadyFollowed">You follow {{viewUser.name}}</div> -->
 
   </section>
 </template>
@@ -41,6 +41,7 @@ export default {
         return false
       } else if (this.checkIfAlreadyFollow(this.currUser, this.viewUser)){
         console.log('dd')
+        this.$emit('already-follow', true)
       } else {
         return true
       }
@@ -69,7 +70,7 @@ export default {
       var already = this.checkIfAlreadyFollow(loggedInUser, followedUser)
       if (already) return
 
-      // send to backend
+      // send to store and backend
       var users = { "loggedInUser": {"_id": loggedInUser._id, "name": loggedInUser.name}, 
                     "followedUser": {"_id": followedUser._id, "name": followedUser.name}}
       this.$store.dispatch({ type: "usersModule/addFollower", users })
@@ -110,7 +111,7 @@ section{
   outline: none;
   background-color: #1a181800;
   transition: 0.3s;
-  margin-right: 3px;
+  margin: 20px;
   &:hover {
     color: #3481b4;
     background-color: #1a1818;

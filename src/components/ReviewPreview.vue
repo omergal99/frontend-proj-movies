@@ -11,8 +11,8 @@
     <div class="likes flex" v-if="direct === 'user'">
       <div class="rank" title="Rated by this user" v-if=review.curmovie>{{review.curmovie.rank}}<i class="fas fa-star"></i></div>
       <i class="fas fa-thumbs-up" title="Like"></i><span class="numOfLikes">{{review.rate.countLike.length}} &nbsp;</span>
-      <i class="fas fa-thumbs-down" title="Dislike"></i><span   class="numOfDislikes">{{review.rate.countDislike.length}}</span>
-    <a title="Share" href="https://www.facebook.com/sharer/sharer.php?u=">
+      <i class="fas fa-thumbs-down" title="Dislike"></i><span class="numOfDislikes">{{review.rate.countDislike.length}}</span>
+      <a title="Share" href="https://www.facebook.com/sharer/sharer.php?u=">
         &nbsp;&nbsp;<i class="fab fa-facebook-square"></i>
       </a>
     </div>
@@ -167,6 +167,12 @@ a{
 }
 .likes-btn > *:hover {
   background-color: #3481b4;
+}
+.likes i{
+  cursor: auto;
+}
+.fa-facebook-square{
+  cursor: pointer;
 }
 .btn {
   padding: 5px 8px;
