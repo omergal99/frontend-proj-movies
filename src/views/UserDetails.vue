@@ -3,8 +3,8 @@
     <!-- USER DETAILS -->
 
     <div class="user-container flex" v-if="viewUser">
-      <div class="user-header flex">
-        <div class="user">
+
+      <div class="user">
         <h2>{{viewUser.name}}</h2>
 
         <div class="user-img">
@@ -17,9 +17,9 @@
         </div>
       </div>
 
-      <div class="details-container flex flex-col">
+      <div class="details flex flex-col">
         <!-- number of reviews/likes/dislikes/following/followers -->
-        <div class="user-data flex wrap space-between">
+        <div class="user-data flex space-between wrap">
           <div class="reviews flex flex-col align-center">
             <span>{{numOfReviews}}</span>
             <span>Reviews</span>
@@ -43,17 +43,17 @@
             <span>Following</span>
           </div>
         </div>
-      </div>
       
-
-        <!-- chat and follow button -->
         <div class="flex space-between">
           <user-chat/>
+          <follow-user @already-follow="alreadyFollow"></follow-user>
+          <span v-if="already && viewUser" class="you-follow">You follow {{viewUser.name}}</span>
           <!-- <follow-user @viewUserFollowedBy="viewUserFollowedBy" @viewUserFollowAfter="viewUserFollowAfter"></follow-user> -->
-          <follow-user></follow-user>
         </div>
+
       </div>
     </div>
+
 
     <!--  user reviews -->
     <div class="user-reviews full">
@@ -77,7 +77,8 @@ export default {
       // followers: null,    
       // following: null,
       isUserChatOpen: false,
-      selectedFile: null
+      selectedFile: null,
+      already: false
     };
   },
   created() {
@@ -109,7 +110,11 @@ export default {
     // viewUserFollowAfter(list) {
     //   if( !list ) return
     //   this.following = list;   //following
-    // }
+    // },
+    alreadyFollow(already){
+      // console.log('already', already)
+      this.already = true 
+    }
   },
   watch: {
     userId: function () {
@@ -136,7 +141,7 @@ export default {
     },
     followers(){
       if(this.$store.state.usersModule.viewUser){
-        console.log('followedBy:', this.$store.state.usersModule.viewUser.follow.followedBy)
+        // console.log('followedBy:', this.$store.state.usersModule.viewUser.follow.followedBy)
         return this.$store.state.usersModule.viewUser.follow.followedBy;
       }
     },
@@ -170,27 +175,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.details-container {
-  width: 100%;
-  // margin: auto 0;
-  padding: 0 0 0 20px;
-  .user-data {
-    padding-bottom: 25px;
-  }
-}
-h2 {
-  margin: 4px 0 4px 0;
-}
 
-.user {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-.user-reviews {
-  margin-top: 10px;
-}
 .user-profile {
   color: white;
   text-align: left;
@@ -198,14 +183,27 @@ h2 {
 
 .user-container {
   flex: 0 0 270px;
-  margin-top: 18px;
+  margin-top: 20px;
 }
+
+.details{
+  width: 100%;
+}
+
+
+.user {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 .user-img {
   width: 150px;
   display: inline-block;
   position: relative;
   margin: 0 auto;
 }
+
 .user-img img {
   border-radius: 3px;
   // width: 150px;
@@ -232,10 +230,23 @@ h2 {
   opacity: 1;
 }
 
+.user-data {
+  width: 100%;
+  padding: 20px;
+}
+
+.you-follow{
+  margin: 27px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.user-reviews {
+  margin-top: 10px;
+}
+
 @media (max-width: 720px) {
   .user-profile {
     flex-direction: column;
-    background-color: red;
     .add-img {
       color: white;
       padding: 7px;
@@ -243,7 +254,6 @@ h2 {
       border: none;
       border-radius: 3px;
       outline: none;
-      // font-family: cursive, arial, serif, sans-serif;
       background-color: #1a1818;
       transition: 0.3s;
       margin-right: 3px;

@@ -106,7 +106,7 @@ export default {
   outline: none;
   background-color: #1a181800;
   transition: 0.3s;
-  margin-right: 3px;
+  margin: 20px;
   &:hover {
     color: #3481b4;
     background-color: #1a1818;
