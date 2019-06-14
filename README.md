@@ -1,8 +1,8 @@
-# movie-move
+## movies Aplication
+# The Aplication in Heroku:
+https://moviky.herokuapp.com/#/
 
-## Explanation
 ### USE Node version v10.15.3
-
 install node modules:
 ### `npm i`
 
@@ -11,6 +11,3 @@ install node modules:
 
 ### The back-end is here:
 https://github.com/omergal99/backend-proj-movies
-
-# The Aplication in Heroku:
-https://moviky.herokuapp.com/#/
