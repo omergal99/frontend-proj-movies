@@ -283,7 +283,7 @@ main {
     padding: 20px;
     margin: 0 auto;
     transition: background-color 0.3s;
-    cursor: pointer;
+    // cursor: pointer;
     &:hover {
       background-color: rgb(9, 11, 14);
     }

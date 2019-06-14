@@ -234,30 +234,4 @@ main {
   }
 }
 
-.feature-list-grid {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  margin: 0 0 2vh 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  grid-gap: 20px;
-  li {
-    border-radius: 6px;
-    background-color: rgb(18, 22, 26);
-    width: 100%;
-    padding: 20px;
-    margin: 0 auto;
-    transition: background-color 0.3s;
-    cursor: pointer;
-    &:hover {
-      background-color: rgb(9, 11, 14);
-    }
-    & p {
-      color: rgb(223, 223, 223);
-      font-size: 0.8em;
-      text-align: left;
-    }
-  }
-}
 </style>
