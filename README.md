@@ -1,29 +1,13 @@
-# movie-move
+## movies Aplication
+## The Aplication in Heroku:
+https://moviky.herokuapp.com/#/
 
-## Project setup
-```
-npm install
-```
+### USE Node version v10.15.3
+install node modules:
+### `npm i`
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## This is the front-end part - to run it:
+### `npm run serve`
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### The back-end is here:
+https://github.com/omergal99/backend-proj-movies
